@@ -81,11 +81,36 @@ nav button:hover,nav button.active{
   background:#080604 url('assets/aaradhya-pooja-banner.png') center/cover no-repeat;
   box-shadow:0 20px 60px rgba(0,0,0,.5), inset 0 0 70px rgba(0,0,0,.7);
 }
-.page-banner:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.28),rgba(0,0,0,.72))}
-.page-banner-inner{position:relative;z-index:1;padding:34px 24px}
-.page-banner .eyebrow{font-family:Arial,sans-serif;letter-spacing:4px;font-size:12px;color:#d9b55c;text-transform:uppercase;margin-bottom:10px}
-.page-banner h2{margin:0;font-size:clamp(34px,5vw,58px);text-shadow:0 4px 20px #000}
-.page-banner p{max-width:720px;margin:10px auto 0;color:#eadbb3;font-family:Arial,sans-serif}
+.page-banner:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.28),rgba(0,0,0,.72))
+}
+.page-banner-inner{
+  position:relative;
+  z-index:1;
+  padding:34px 24px
+}
+.page-banner .eyebrow{
+  font-family:Arial,sans-serif;
+  letter-spacing:4px;
+  font-size:12px;
+  color:#d9b55c;
+  text-transform:uppercase;
+  margin-bottom:10px
+}
+.page-banner h2{
+  margin:0;
+  font-size:clamp(34px,5vw,58px);
+  text-shadow:0 4px 20px #000
+}
+.page-banner p{
+  max-width:720px;
+  margin:10px auto 0;
+  color:#eadbb3;
+  font-family:Arial,sans-serif
+}
 .hero{
   min-height:calc(100vh - 60px);
   display:flex;
@@ -95,42 +120,59 @@ nav button:hover,nav button.active{
   position:relative;
   overflow:hidden;
 }
-.hero:before{content:"";position:absolute;inset:20px 0 40px;border:1px solid rgba(201,150,45,.5);border-radius:26px;background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.72)),url('assets/aaradhya-pooja-banner.png') center/cover no-repeat;box-shadow:0 25px 70px rgba(0,0,0,.55)}
-.hero-content{position:relative;z-index:1;padding:55px 25px}
+.hero:before{
+  content:"";
+  position:absolute;
+  inset:20px 0 40px;
+  border:1px solid rgba(201,150,45,.5);
+  border-radius:26px;
+  background:
+    linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.72)),
+    url('assets/aaradhya-pooja-banner.png') center/cover no-repeat;
+  box-shadow:0 25px 70px rgba(0,0,0,.55)
+}
+.hero-content{
+  position:relative;
+  z-index:1;
+  padding:55px 25px
+}
 .logo{
   width:min(330px,70vw);
   border-radius:50%;
-  box-shadow:0 0 45px rgba(221,169,44,.2);
+  box-shadow:0 0 45px rgba(221,169,44,.2)
 }
 h1{
   font-size:clamp(44px,8vw,82px);
   letter-spacing:4px;
-  margin:18px 0 5px;
+  margin:18px 0 5px
 }
 h2{
   font-size:clamp(30px,5vw,52px);
   text-align:center;
-  margin-bottom:35px;
+  margin-bottom:35px
 }
-h3{font-size:25px;margin-bottom:10px}
+h3{
+  font-size:25px;
+  margin-bottom:10px
+}
 .gold{color:#ffd86a}
 .tagline{
   font-size:20px;
   letter-spacing:3px;
-  color:#d8b45b;
+  color:#d8b45b
 }
 .sub{
   max-width:760px;
   margin:20px auto;
   color:#d8cba8;
-  font-family:Arial,sans-serif;
+  font-family:Arial,sans-serif
 }
 .buttons{
   display:flex;
   justify-content:center;
   gap:12px;
   flex-wrap:wrap;
-  margin-top:28px;
+  margin-top:28px
 }
 .btn{
   border:1px solid #d5a73a;
@@ -140,15 +182,18 @@ h3{font-size:25px;margin-bottom:10px}
   border-radius:6px;
   font-weight:bold;
   cursor:pointer;
-  font-family:inherit;
+  font-family:inherit
 }
-.btn.alt{background:transparent;color:#f5d77a}
+.btn.alt{
+  background:transparent;
+  color:#f5d77a
+}
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   gap:22px;
   max-width:1120px;
-  margin:auto;
+  margin:auto
 }
 .card{
   background:linear-gradient(145deg,#14120e,#050505);
@@ -157,16 +202,29 @@ h3{font-size:25px;margin-bottom:10px}
   padding:25px;
   text-align:center;
   box-shadow:0 12px 35px rgba(0,0,0,.4);
-  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease
 }
-.card:hover{transform:translateY(-5px);border-color:#c9962d;box-shadow:0 18px 45px rgba(0,0,0,.58),0 0 24px rgba(201,150,45,.08)}
-.card .icon{font-size:48px;margin-bottom:10px}
+.card:hover{
+  transform:translateY(-5px);
+  border-color:#c9962d;
+  box-shadow:0 18px 45px rgba(0,0,0,.58),0 0 24px rgba(201,150,45,.08)
+}
+.card .icon{
+  font-size:48px;
+  margin-bottom:10px
+}
 .card p,.content p{
   font-family:Arial,sans-serif;
-  color:#d6cba9;
+  color:#d6cba9
 }
 .card p{margin-top:8px}
-.price{margin-top:12px;color:#ffd86a;font-size:25px;font-weight:bold;letter-spacing:1px}
+.price{
+  margin-top:12px;
+  color:#ffd86a;
+  font-size:25px;
+  font-weight:bold;
+  letter-spacing:1px
+}
 .add-cart{
   width:100%;
   margin-top:16px;
@@ -178,24 +236,75 @@ h3{font-size:25px;margin-bottom:10px}
   font-weight:bold;
   cursor:pointer;
   font-family:Arial,sans-serif;
-  transition:.2s ease;
+  transition:.2s ease
 }
-.add-cart:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.add-cart:hover{
+  transform:translateY(-1px);
+  filter:brightness(1.08)
+}
 .cart-button{
-  position:fixed;right:20px;bottom:20px;z-index:40;
-  border:1px solid #d5a73a;background:#050505;color:#ffd86a;
-  padding:12px 16px;border-radius:28px;cursor:pointer;box-shadow:0 8px 25px #000;
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:40;
+  border:1px solid #d5a73a;
+  background:#050505;
+  color:#ffd86a;
+  padding:12px 16px;
+  border-radius:28px;
+  cursor:pointer;
+  box-shadow:0 8px 25px #000
 }
 .cart-panel{
-  display:none;position:fixed;right:20px;bottom:80px;z-index:50;width:min(380px,calc(100vw - 30px));
-  background:#0b0b0b;border:1px solid #c9962d;border-radius:14px;padding:20px;box-shadow:0 18px 50px #000;
+  display:none;
+  position:fixed;
+  right:20px;
+  bottom:80px;
+  z-index:50;
+  width:min(380px,calc(100vw - 30px));
+  max-height:80vh;
+  overflow:auto;
+  background:#0b0b0b;
+  border:1px solid #c9962d;
+  border-radius:14px;
+  padding:20px;
+  box-shadow:0 18px 50px #000
 }
 .cart-panel.open{display:block}
-.cart-panel h3{color:#ffd86a;text-align:center}
-.cart-item{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #3c2b0d;font-family:Arial,sans-serif;color:#ddd}
-.cart-total{display:flex;justify-content:space-between;margin-top:16px;color:#ffd86a;font-weight:bold}
-.cart-close{float:right;color:#ffd86a;background:none;border:0;font-size:22px;cursor:pointer}
-.cart-empty{font-family:Arial,sans-serif;color:#aaa;text-align:center;padding:15px 0}
+.cart-panel h3{
+  color:#ffd86a;
+  text-align:center
+}
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid #3c2b0d;
+  font-family:Arial,sans-serif;
+  color:#ddd
+}
+.cart-total{
+  display:flex;
+  justify-content:space-between;
+  margin-top:16px;
+  color:#ffd86a;
+  font-weight:bold
+}
+.cart-close{
+  float:right;
+  color:#ffd86a;
+  background:none;
+  border:0;
+  font-size:22px;
+  cursor:pointer
+}
+.cart-empty{
+  font-family:Arial,sans-serif;
+  color:#aaa;
+  text-align:center;
+  padding:15px 0
+}
 .badge{
   display:inline-block;
   margin-top:16px;
@@ -203,7 +312,7 @@ h3{font-size:25px;margin-bottom:10px}
   padding:5px 12px;
   border-radius:20px;
   font-size:13px;
-  color:#f5d77a;
+  color:#f5d77a
 }
 .product-image{
   width:100%;
@@ -216,7 +325,7 @@ h3{font-size:25px;margin-bottom:10px}
   border-radius:12px;
   margin:0 auto 18px;
   display:block;
-  padding:10px;
+  padding:10px
 }
 .coming-image{
   max-width:100%;
@@ -224,43 +333,107 @@ h3{font-size:25px;margin-bottom:10px}
   aspect-ratio:16/7;
   object-fit:cover;
   padding:0;
-  background:#080706;
+  background:#080706
 }
-.section-kicker{font-family:Arial,sans-serif;color:#bda96e;text-transform:uppercase;letter-spacing:3px;font-size:12px;text-align:center;margin:-15px auto 28px}
-.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1120px;margin:34px auto 0}
-.feature{padding:25px;border:1px solid #644811;border-radius:14px;background:linear-gradient(145deg,#12100c,#070707);text-align:center}
-.feature .feature-icon{font-size:32px;margin-bottom:10px}
-.feature h3{color:#f1d071;font-size:20px}
-.feature p{font-family:Arial,sans-serif;color:#cfc29e;font-size:14px;margin-top:8px}
-.timeline{display:flex;gap:18px;align-items:stretch;max-width:980px;margin:35px auto 0}
-.timeline .year{flex:0 0 120px;border:1px solid #c9962d;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#ffd86a;font-size:30px;font-weight:bold;background:#0c0a07}
-.timeline .story{flex:1;text-align:left;border:1px solid #5f4515;border-radius:14px;padding:20px;background:#0b0b0b}
-.timeline .story strong{display:block;color:#f3d477;margin-bottom:5px}
-.timeline .story p{margin:0!important;font-size:15px!important}
-@media(max-width:820px){.feature-grid{grid-template-columns:1fr}.timeline{flex-direction:column}.timeline .year{min-height:80px}}
-.product-card{
-  overflow:hidden;
+.section-kicker{
+  font-family:Arial,sans-serif;
+  color:#bda96e;
+  text-transform:uppercase;
+  letter-spacing:3px;
+  font-size:12px;
+  text-align:center;
+  margin:-15px auto 28px
 }
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  max-width:1120px;
+  margin:34px auto 0
+}
+.feature{
+  padding:25px;
+  border:1px solid #644811;
+  border-radius:14px;
+  background:linear-gradient(145deg,#12100c,#070707);
+  text-align:center
+}
+.feature .feature-icon{
+  font-size:32px;
+  margin-bottom:10px
+}
+.feature h3{
+  color:#f1d071;
+  font-size:20px
+}
+.feature p{
+  font-family:Arial,sans-serif;
+  color:#cfc29e;
+  font-size:14px;
+  margin-top:8px
+}
+.timeline{
+  display:flex;
+  gap:18px;
+  align-items:stretch;
+  max-width:980px;
+  margin:35px auto 0
+}
+.timeline .year{
+  flex:0 0 120px;
+  border:1px solid #c9962d;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#ffd86a;
+  font-size:30px;
+  font-weight:bold;
+  background:#0c0a07
+}
+.timeline .story{
+  flex:1;
+  text-align:left;
+  border:1px solid #5f4515;
+  border-radius:14px;
+  padding:20px;
+  background:#0b0b0b
+}
+.timeline .story strong{
+  display:block;
+  color:#f3d477;
+  margin-bottom:5px
+}
+.timeline .story p{
+  margin:0!important;
+  font-size:15px!important
+}
+@media(max-width:820px){
+  .feature-grid{grid-template-columns:1fr}
+  .timeline{flex-direction:column}
+  .timeline .year{min-height:80px}
+}
+.product-card{overflow:hidden}
 .product-note{
   max-width:850px;
   margin:0 auto 30px;
   text-align:center;
   font-family:Arial,sans-serif;
-  color:#cfc29e;
+  color:#cfc29e
 }
 .gallery{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
   gap:22px;
   max-width:1150px;
-  margin:auto;
+  margin:auto
 }
 .gallery-item{
   background:linear-gradient(145deg,#111,#050505);
   border:1px solid #785515;
   border-radius:14px;
   overflow:hidden;
-  box-shadow:0 12px 35px rgba(0,0,0,.38);
+  box-shadow:0 12px 35px rgba(0,0,0,.38)
 }
 .gallery-item img{
   width:100%;
@@ -270,23 +443,23 @@ h3{font-size:25px;margin-bottom:10px}
   object-position:center;
   display:block;
   cursor:zoom-in;
-  background:#090806;
+  background:#090806
 }
 .caption{
   padding:17px 18px 19px;
-  text-align:left;
+  text-align:left
 }
 .caption strong{
   display:block;
   color:#ffd86a;
   font-size:19px;
-  margin-bottom:7px;
+  margin-bottom:7px
 }
 .caption span{
   display:block;
   font-family:Arial,sans-serif;
   color:#d6cba9;
-  font-size:14px;
+  font-size:14px
 }
 .purpose{
   max-width:1000px;
@@ -295,25 +468,25 @@ h3{font-size:25px;margin-bottom:10px}
   border:1px solid #785515;
   border-radius:16px;
   background:linear-gradient(145deg,#151109,#060606);
-  text-align:center;
+  text-align:center
 }
 .purpose h3{color:#ffd86a}
 .content{
   max-width:900px;
   margin:auto;
-  text-align:center;
+  text-align:center
 }
 .content p{margin:15px 0}
 .content .lead{
   font-size:20px;
-  color:#eadbb3;
+  color:#eadbb3
 }
 footer{
   border-top:1px solid #6c4c12;
   text-align:center;
   padding:22px;
   color:#bda96e;
-  font-family:Arial,sans-serif;
+  font-family:Arial,sans-serif
 }
 .modal{
   display:none;
@@ -323,7 +496,7 @@ footer{
   background:rgba(0,0,0,.94);
   align-items:center;
   justify-content:center;
-  padding:30px;
+  padding:30px
 }
 .modal.open{display:flex}
 .modal img{
@@ -331,7 +504,7 @@ footer{
   max-height:88vh;
   object-fit:contain;
   border:1px solid #c9962d;
-  border-radius:8px;
+  border-radius:8px
 }
 .close{
   position:absolute;
@@ -340,8 +513,158 @@ footer{
   color:#ffd86a;
   font-size:38px;
   cursor:pointer;
-  line-height:1;
+  line-height:1
 }
+
+/* Checkout */
+.checkout-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:90;
+  background:rgba(0,0,0,.88);
+  padding:20px;
+  overflow:auto;
+  align-items:center;
+  justify-content:center
+}
+.checkout-overlay.open{display:flex}
+.checkout-box{
+  width:min(720px,100%);
+  max-height:92vh;
+  overflow:auto;
+  background:#0b0b0b;
+  border:1px solid #c9962d;
+  border-radius:18px;
+  padding:28px;
+  box-shadow:0 25px 70px #000;
+  position:relative
+}
+.checkout-box h3{
+  color:#ffd86a;
+  text-align:center;
+  margin-bottom:5px
+}
+.checkout-sub{
+  text-align:center;
+  font-family:Arial,sans-serif;
+  color:#cfc29e;
+  margin-bottom:20px
+}
+.checkout-close{
+  position:absolute;
+  right:18px;
+  top:12px;
+  border:0;
+  background:none;
+  color:#ffd86a;
+  font-size:30px;
+  cursor:pointer
+}
+.checkout-summary{
+  border:1px solid #4d3811;
+  border-radius:10px;
+  padding:14px;
+  margin-bottom:20px;
+  font-family:Arial,sans-serif
+}
+.checkout-summary-row,
+.checkout-summary-total{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:7px 0;
+  color:#ddd
+}
+.checkout-summary-total{
+  border-top:1px solid #4d3811;
+  margin-top:6px;
+  padding-top:12px;
+  color:#ffd86a;
+  font-weight:bold
+}
+.checkout-form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px
+}
+.checkout-form label{
+  font-family:Arial,sans-serif;
+  color:#d6cba9;
+  font-size:14px
+}
+.checkout-form label.full{grid-column:1/-1}
+.checkout-form input{
+  width:100%;
+  margin-top:6px;
+  padding:12px;
+  border-radius:7px;
+  border:1px solid #604613;
+  background:#050505;
+  color:#fff;
+  outline:none;
+  font-family:Arial,sans-serif
+}
+.checkout-form input:focus{
+  border-color:#c9962d;
+  box-shadow:0 0 0 2px rgba(201,150,45,.12)
+}
+.checkout-submit{
+  grid-column:1/-1;
+  width:100%;
+  margin-top:5px
+}
+.checkout-message{
+  display:none;
+  margin-top:15px;
+  padding:12px;
+  border-radius:8px;
+  font-family:Arial,sans-serif;
+  text-align:center
+}
+.checkout-message.show{display:block}
+.checkout-message.success{
+  border:1px solid #80621e;
+  background:#151108;
+  color:#f5d77a
+}
+.checkout-message.error{
+  border:1px solid #7d3028;
+  background:#180908;
+  color:#ffb0a7
+}
+
+.support-actions,
+.social-links{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:15px
+}
+.support-email,
+.social-links a,
+.footer-social a{
+  color:#ffd86a;
+  text-decoration:none;
+  border:1px solid #604613;
+  padding:7px 11px;
+  border-radius:6px
+}
+.support-email:hover,
+.social-links a:hover,
+.footer-social a:hover{
+  background:#c9962d;
+  color:#000
+}
+.footer-social{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px
+}
+
 @media(max-width:700px){
   nav{gap:5px}
   nav button{padding:7px 9px;font-size:12px}
@@ -353,98 +676,22 @@ footer{
   .hero:before{inset:10px 0 25px}
   .hero-content{padding:45px 18px}
   .purpose{padding:24px 18px}
+  .checkout-form{grid-template-columns:1fr}
+  .checkout-form label.full{grid-column:auto}
+  .checkout-submit{grid-column:auto}
+  .checkout-box{padding:22px}
 }
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *{transition:none!important}
 }
-
-/* Premium visual enhancement */
-.page{position:relative;isolation:isolate;overflow:hidden}
-.page:before{content:"";position:absolute;inset:0;z-index:-2;background-image:radial-gradient(circle at 12% 18%,rgba(201,150,45,.10),transparent 26%),radial-gradient(circle at 88% 82%,rgba(201,150,45,.07),transparent 24%)}
-.page:after{content:"";position:absolute;inset:0;z-index:-3;opacity:.18;background:url('assets/aaradhya-pooja-banner.png') center/cover fixed no-repeat;filter:saturate(.75) brightness(.32);mask-image:linear-gradient(to bottom,transparent 0%,#000 14%,#000 86%,transparent 100%)}
-.page-shell{position:relative}
-.page-banner{min-height:270px}
-.page-banner:before{content:"✦  ॐ  ✦";position:absolute;top:16px;left:50%;transform:translateX(-50%);color:rgba(245,215,122,.62);letter-spacing:18px;font-size:18px;z-index:2}
-.page-banner-inner{padding-top:52px}
-.decor-line{width:min(420px,80%);height:1px;margin:20px auto;background:linear-gradient(90deg,transparent,#c9962d,transparent);position:relative}
-.decor-line:after{content:"◆";position:absolute;left:50%;top:-10px;transform:translateX(-50%);padding:0 10px;background:#080604;color:#d8b45b;font-size:12px}
-.ritual-strip{max-width:1120px;margin:52px auto 0;padding:28px 26px;border:1px solid rgba(201,150,45,.5);border-radius:18px;background:linear-gradient(90deg,rgba(8,6,4,.94),rgba(30,20,7,.78),rgba(8,6,4,.94));position:relative;overflow:hidden;text-align:center;box-shadow:0 18px 45px rgba(0,0,0,.4)}
-.ritual-strip:before,.ritual-strip:after{content:"";position:absolute;top:50%;width:22%;height:1px;background:linear-gradient(90deg,transparent,#c9962d);opacity:.7}.ritual-strip:before{left:0}.ritual-strip:after{right:0;transform:scaleX(-1)}
-.ritual-strip .mark{font-size:24px;color:#ffd86a;margin-bottom:7px}.ritual-strip h3{color:#f5d77a;margin:0 0 5px;font-size:22px}.ritual-strip p{font-family:Arial,sans-serif;color:#cfc29e;margin:0;font-size:14px}
-.about-highlight{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;max-width:1120px;margin:34px auto 0}
-.highlight-panel{border:1px solid #644811;border-radius:18px;min-height:250px;padding:30px;background:linear-gradient(145deg,rgba(25,18,8,.92),rgba(5,5,5,.95));position:relative;overflow:hidden}
-.highlight-panel:after{content:"";position:absolute;inset:auto -50px -80px auto;width:240px;height:240px;border-radius:50%;border:1px solid rgba(201,150,45,.2);box-shadow:0 0 0 25px rgba(201,150,45,.03),0 0 0 50px rgba(201,150,45,.02)}
-.highlight-panel h3{color:#ffd86a}.highlight-panel p{font-family:Arial,sans-serif;color:#d6cba9;margin-top:10px}.mini-list{margin-top:18px;display:grid;gap:9px;text-align:left}.mini-list span{font-family:Arial,sans-serif;color:#ded2b0;padding:9px 12px;border-left:2px solid #c9962d;background:rgba(255,255,255,.025)}
-.mission-orbit{max-width:1120px;margin:42px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.orbit-card{min-height:190px;padding:28px 22px;border:1px solid #5d4313;border-radius:18px;text-align:center;background:radial-gradient(circle at 50% 0%,rgba(201,150,45,.13),transparent 52%),#090806;position:relative}.orbit-card .ring{width:58px;height:58px;border:1px solid #c9962d;border-radius:50%;display:grid;place-items:center;margin:0 auto 14px;color:#ffd86a;font-size:24px;box-shadow:0 0 25px rgba(201,150,45,.12)}.orbit-card h3{font-size:20px;color:#f1d071}.orbit-card p{font-family:Arial,sans-serif;color:#cfc29e;font-size:14px;margin-top:8px}
-.support-email{display:inline-flex;align-items:center;gap:10px;margin-top:18px;padding:12px 18px;border:1px solid #c9962d;border-radius:30px;color:#ffd86a;text-decoration:none;background:rgba(0,0,0,.35);font-family:Arial,sans-serif}.support-email:hover{background:#c9962d;color:#050505}
-@media(max-width:820px){.about-highlight,.mission-orbit{grid-template-columns:1fr}.ritual-strip:before,.ritual-strip:after{width:10%}}
-
-
-/* Premium Shop layout inspired by the provided Shop reference */
-.shop-shell{max-width:1180px!important;padding-bottom:20px}
-.shop-hero{min-height:315px;margin:-48px -6% 18px;position:relative;overflow:hidden;border-bottom:1px solid #9d7120;background:linear-gradient(90deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.70) 45%,rgba(0,0,0,.32) 100%),url('assets/aaradhya-pooja-banner.png') center/cover no-repeat;display:flex;align-items:center}
-.shop-hero:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 78% 45%,rgba(211,154,47,.18),transparent 35%);pointer-events:none}
-.shop-hero-content{position:relative;z-index:1;width:min(560px,90%);margin-left:9%;padding-top:8px}
-.shop-hero .eyebrow{font-size:11px;letter-spacing:4px;color:#d9ad4c;font-family:Arial,sans-serif;margin-bottom:12px}
-.shop-hero h2{font-size:58px;line-height:1.05;margin-bottom:12px;color:#f1ca6a;font-weight:500}
-.shop-hero p{max-width:500px;color:#eadfc5;font-size:17px;line-height:1.6}
-.shop-hero .decor-line{width:155px;height:1px;margin-top:22px;background:#c9962d;position:relative}
-.shop-hero .decor-line:after{content:"✦";position:absolute;left:50%;top:-11px;transform:translateX(-50%);background:#080604;padding:0 8px;color:#d7aa49}
-.shop-tabs{display:flex;justify-content:center;gap:14px;margin:0 auto 30px;padding:0 12px;position:relative;z-index:2}
-.shop-tab{min-width:175px;border:1px solid #c9962d;border-radius:999px;background:#080706;color:#ecd79d;padding:12px 24px;font:16px Georgia,"Times New Roman",serif;cursor:pointer;transition:.2s ease}
-.shop-tab.active{background:linear-gradient(135deg,#f2c65c,#c99027);color:#080604;box-shadow:0 8px 24px rgba(201,150,45,.18)}
-.shop-tab:disabled{cursor:default;opacity:.9}
-.shop-tab small{font-size:10px;color:#bba66f;margin-left:5px}
-.shop-heading{text-align:center;margin:8px auto 26px}
-.shop-heading .heading-ornament{color:#d5a744;font-size:18px;margin-bottom:3px}
-.shop-heading h3{font-size:34px;color:#edca70;font-weight:500;margin-bottom:4px}
-.shop-heading p{font-family:Arial,sans-serif;color:#bfae82;font-size:13px;letter-spacing:1px}
-.shop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:stretch}
-.shop-product-card{position:relative;border:1px solid #a67821;border-radius:14px;overflow:hidden;background:linear-gradient(180deg,#120e09 0%,#090705 58%,#050505 100%);box-shadow:0 14px 32px rgba(0,0,0,.42),inset 0 0 0 1px rgba(245,200,91,.035);display:flex;flex-direction:column;min-width:0;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
-.shop-product-card:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 24%,rgba(222,165,62,.13),transparent 32%),linear-gradient(135deg,rgba(255,214,119,.035),transparent 34%,rgba(0,0,0,.18) 75%);z-index:0}
-.shop-product-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.56),0 0 22px rgba(197,143,42,.08);border-color:#d3a53e}
-.shop-product-image{position:relative;width:100%;aspect-ratio:2/3;height:auto;min-height:0;background:radial-gradient(circle at 50% 45%,rgba(224,164,57,.18),transparent 52%),linear-gradient(145deg,#241508 0%,#120b06 48%,#070504 100%);display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid #6b4b16;z-index:1}
-.shop-product-image:before{content:"";position:absolute;inset:10px;border:1px solid rgba(222,174,73,.30);border-radius:10px;pointer-events:none;z-index:2}
-.shop-product-image:after{content:"✦";position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:11px;color:rgba(240,197,99,.65);text-shadow:0 0 12px rgba(231,187,80,.35);z-index:3}
-.shop-product-image img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block;filter:saturate(1.02) contrast(1.03);position:relative;z-index:1}
-
-.shop-product-card .shop-product-image img[src*='aaradhya-dhoops-golden-temple']{border-radius:0;}
-.shop-product-body{position:relative;z-index:2;text-align:center;padding:13px 12px 14px;display:flex;flex-direction:column;align-items:center;flex:1;background:linear-gradient(180deg,rgba(5,5,5,.12),rgba(5,5,5,.72))}
-.shop-product-body{text-align:center;padding:13px 12px 14px;display:flex;flex-direction:column;align-items:center;flex:1}
-.shop-product-body h4{font-size:18px;line-height:1.25;color:#f0d58e;font-weight:500;min-height:46px;display:flex;align-items:center;justify-content:center}
-.weight-pill{display:inline-flex;border:1px solid #9d7120;border-radius:999px;color:#d8bf7b;font:12px Arial,sans-serif;padding:4px 12px;margin:4px 0 6px}
-.shop-price{font-size:21px;color:#efc85f;font-weight:600;margin-bottom:8px}
-.qty-row{display:flex;align-items:center;justify-content:center;border:1px solid #725417;border-radius:7px;overflow:hidden;margin-bottom:10px}
-.qty-row button{width:34px;height:27px;background:#090806;color:#e5c873;border:0;cursor:pointer;font-size:17px}
-.qty-row span{width:38px;text-align:center;color:#eee1bf;font:13px Arial,sans-serif;border-left:1px solid #3e2e12;border-right:1px solid #3e2e12;line-height:27px}
-.shop-add{width:100%;border:0;border-radius:7px;background:linear-gradient(135deg,#f0c65e,#c88f25);color:#090806;font:15px Georgia,"Times New Roman",serif;padding:10px 12px;cursor:pointer;margin-top:auto}
-.shop-add:hover{filter:brightness(1.08)}
-.coming-heading{display:flex;align-items:center;justify-content:center;gap:18px;margin:34px 0 18px}
-.coming-heading span{width:110px;height:1px;background:linear-gradient(90deg,transparent,#c9962d)}
-.coming-heading span:last-child{background:linear-gradient(90deg,#c9962d,transparent)}
-.coming-heading h3{color:#e7c36a;font-size:26px;font-weight:500}
-.coming-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.coming-feature{min-height:180px;border:1px solid #a67821;border-radius:12px;overflow:hidden;background:radial-gradient(circle at 28% 50%,rgba(201,150,45,.16),transparent 42%),linear-gradient(135deg,#140e08,#050505);display:grid;grid-template-columns:55% 45%;align-items:stretch}
-.coming-feature img{width:100%;height:100%;min-height:180px;object-fit:contain;object-position:center;background:linear-gradient(135deg,#1a1008,#070605);padding:7px;box-sizing:border-box;display:block}
-.coming-feature>div{padding:18px 20px;text-align:left;display:flex;flex-direction:column;justify-content:center}
-.coming-feature h3{color:#edcf83;font-size:23px;font-weight:500;margin-bottom:3px}
-.coming-feature p{color:#b9a97e;font:13px Arial,sans-serif;margin-bottom:12px}
-.coming-pill{display:inline-block;border:1px solid #9d7120;border-radius:999px;padding:7px 13px;color:#e2c474;font:11px Arial,sans-serif;letter-spacing:1px}
-.shop-footer-note{border-top:1px solid #5d4314;margin-top:32px;padding:20px 10px 0;text-align:center;color:#e4c574;display:flex;align-items:center;justify-content:center;gap:16px;font-size:16px}
-.shop-footer-note span{color:#d5a744}
-.support-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px}.support-actions .support-email{margin-top:0}.social-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;justify-content:center}.social-links a,.footer-social a{display:inline-flex;align-items:center;padding:8px 13px;border:1px solid #795718;border-radius:999px;color:#e8c968;text-decoration:none;font:12px Arial,sans-serif;background:rgba(0,0,0,.28);transition:.2s ease}.social-links a:hover,.footer-social a:hover{background:#c9962d;color:#090806}.mix-section{margin-top:6px}.mix-heading{margin-top:34px}.mix-intro{text-align:center;max-width:700px;margin:-7px auto 18px;color:#bfae82;font:13px Arial,sans-serif}.mix-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:900px;margin:0 auto}.mix-product-card{min-width:0}.footer-social{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:10px}
-
-@media(max-width:1000px){.shop-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:760px){.mix-grid{grid-template-columns:1fr}.shop-hero{margin:-48px -6% 16px;min-height:270px}.shop-hero-content{margin-left:7%}.shop-hero h2{font-size:46px}.shop-tabs{flex-wrap:wrap}.shop-tab{min-width:150px}.shop-grid{grid-template-columns:repeat(2,1fr);gap:13px}.coming-grid{grid-template-columns:1fr}.coming-feature{grid-template-columns:52% 48%}}
-@media(max-width:480px){.shop-hero{min-height:250px}.shop-hero p{font-size:14px}.shop-hero .eyebrow{letter-spacing:2px}.shop-grid{grid-template-columns:1fr 1fr}.shop-product-body{padding:11px 8px}.shop-product-body h4{font-size:16px;min-height:42px}.shop-price{font-size:19px}.shop-tab{width:100%}.coming-feature{grid-template-columns:1fr}.coming-feature img{max-height:180px;min-height:180px}.coming-feature>div{text-align:center}.shop-footer-note{font-size:14px}}
 </style>
 </head>
 
 <body>
 
-<nav aria-label="Main navigation">
-  <button onclick="showPage('home')" class="active">Home</button>
+<nav>
+  <button class="active" onclick="showPage('home')">Home</button>
   <button onclick="showPage('products')">Shop</button>
   <button onclick="showPage('gallery')">Gallery</button>
   <button onclick="showPage('mission')">Our Mission</button>
@@ -455,364 +702,1190 @@ footer{
 <section id="home" class="page active">
   <div class="hero">
     <div class="hero-content">
-      <img src="assets/logo/aradhya-logo.png" class="logo" alt="Aradhya logo" onerror="this.style.opacity=\'0.35\'; this.alt=\'Aradhya image\';">
+      <img class="logo" src="assets/logo/aradhya-logo.png" alt="Aradhya logo">
       <h1>Aradhya</h1>
-      <div class="tagline">TRADITION • FRAGRANCE • PURPOSE</div>
+      <div class="tagline">FRAGRANCE • TRADITION • PURPOSE</div>
       <p class="sub">
         Fragranced Dhupbatti and traditional fragrance products from Lucknow,
-        presented with an elegant Indian identity and a purpose that goes beyond the product.
+        created with care and rooted in the warmth of Indian tradition.
       </p>
-      <div class="section-kicker">Established 2018 • Lucknow, India</div>
       <div class="buttons">
         <button class="btn" onclick="showPage('products')">Explore Products</button>
-        <button class="btn alt" onclick="showPage('about')">Discover Aradhya</button>
-        <button class="btn alt" onclick="showPage('support')">Contact Us</button>
+        <button class="btn alt" onclick="showPage('mission')">Our Mission</button>
       </div>
     </div>
   </div>
 </section>
 
 <section id="products" class="page">
-  <div class="page-shell shop-shell">
-    <div class="shop-hero">
-      <div class="shop-hero-content">
-        <div class="eyebrow">PREMIUM FRAGRANCES &nbsp;•&nbsp; TRADITIONAL CRAFTSMANSHIP</div>
-        <h2>Our <span class="gold">Shop</span></h2>
-        <p>Explore Aradhya's fragranced Dhupbatti collection, created for everyday moments of fragrance and tradition.</p>
-        <div class="decor-line"></div>
+  <div class="page-shell">
+
+    <div class="page-banner">
+      <div class="page-banner-inner">
+        <div class="eyebrow">Aradhya • Fragrance Collection</div>
+        <h2>Our <span class="gold">Products</span></h2>
+        <p>
+          Explore Aradhya's fragranced Dhupbatti collection, created for
+          homes, rituals and everyday moments.
+        </p>
       </div>
     </div>
 
-    <div class="shop-tabs" aria-label="Shop categories">
-      <button class="shop-tab active" type="button">✦&nbsp; Dhupbatti</button>
-      <button class="shop-tab" type="button" disabled>Attars <small>Coming Soon</small></button>
-      <button class="shop-tab" type="button" disabled>Pooja Kit <small>Coming Soon</small></button>
-    </div>
+    <div class="section-kicker">Dhupbatti Collection</div>
 
-    <div class="shop-heading">
-      <div class="heading-ornament">✦</div>
-      <h3>Fragranced Dhupbatti</h3>
-      <p>Traditional fragrances • 650 g pack</p>
-    </div>
+    <div class="grid">
 
-    <div class="shop-grid">
-      <article class="shop-product-card">
-        <div class="shop-product-image"><img src="assets/products/aaradhya-dhoops-golden-temple.png" alt="Aradhya White Lily Dhupbatti"></div>
-        <div class="shop-product-body"><h4>White Lily</h4><span class="weight-pill">650 g</span><div class="shop-price">₹245</div><div class="qty-row"><button type="button" onclick="adjustShopQty(this,-1)">−</button><span>1</span><button type="button" onclick="adjustShopQty(this,1)">+</button></div><button class="shop-add" onclick="addToCart('White Lily',245)">🛒 &nbsp; Add to Cart</button></div>
-      </article>
-      <article class="shop-product-card">
-        <div class="shop-product-image"><img src="assets/products/aaradhya-dhoops-golden-temple.png" alt="Aradhya White Oudh Dhupbatti"></div>
-        <div class="shop-product-body"><h4>White Oudh</h4><span class="weight-pill">650 g</span><div class="shop-price">₹259</div><div class="qty-row"><button type="button" onclick="adjustShopQty(this,-1)">−</button><span>1</span><button type="button" onclick="adjustShopQty(this,1)">+</button></div><button class="shop-add" onclick="addToCart('White Oudh',259)">🛒 &nbsp; Add to Cart</button></div>
-      </article>
-      <article class="shop-product-card">
-        <div class="shop-product-image"><img src="assets/products/aaradhya-dhoops-golden-temple.png" alt="Aradhya Mysore Chandan Dhupbatti"></div>
-        <div class="shop-product-body"><h4>Mysore Chandan</h4><span class="weight-pill">650 g</span><div class="shop-price">₹245</div><div class="qty-row"><button type="button" onclick="adjustShopQty(this,-1)">−</button><span>1</span><button type="button" onclick="adjustShopQty(this,1)">+</button></div><button class="shop-add" onclick="addToCart('Mysore Chandan',245)">🛒 &nbsp; Add to Cart</button></div>
-      </article>
-      <article class="shop-product-card">
-        <div class="shop-product-image"><img src="assets/products/aaradhya-dhoops-golden-temple.png" alt="Aradhya Lavender Dhupbatti"></div>
-        <div class="shop-product-body"><h4>Lavender</h4><span class="weight-pill">650 g</span><div class="shop-price">₹259</div><div class="qty-row"><button type="button" onclick="adjustShopQty(this,-1)">−</button><span>1</span><button type="button" onclick="adjustShopQty(this,1)">+</button></div><button class="shop-add" onclick="addToCart('Lavender',259)">🛒 &nbsp; Add to Cart</button></div>
-      </article>
-      <article class="shop-product-card">
-        <div class="shop-product-image"><img src="assets/products/aaradhya-dhoops-golden-temple.png" alt="Aradhya Pineapple Dhupbatti"></div>
-        <div class="shop-product-body"><h4>Pineapple</h4><span class="weight-pill">650 g</span><div class="shop-price">₹259</div><div class="qty-row"><button type="button" onclick="adjustShopQty(this,-1)">−</button><span>1</span><button type="button" onclick="adjustShopQty(this,1)">+</button></div><button class="shop-add" onclick="addToCart('Pineapple',259)">🛒 &nbsp; Add to Cart</button></div>
-      </article>
-      <article class="shop-product-card">
-        <div class="shop-product-image"><img src="assets/products/aaradhya-dhoops-golden-temple.png" alt="Aradhya Mysore Kewda Dhupbatti"></div>
-        <div class="shop-product-body"><h4>Mysore Kewda</h4><span class="weight-pill">650 g</span><div class="shop-price">₹245</div><div class="qty-row"><button type="button" onclick="adjustShopQty(this,-1)">−</button><span>1</span><button type="button" onclick="adjustShopQty(this,1)">+</button></div><button class="shop-add" onclick="addToCart('Mysore Kewda',245)">🛒 &nbsp; Add to Cart</button></div>
-      </article>
-    </div>
-
-
-    <div class="mix-section">
-      <div class="coming-heading mix-heading"><span></span><h3>Mix Fragrances</h3><span></span></div>
-      <p class="mix-intro">Our blended fragrance combinations, presented separately from the classic single-fragrance collection.</p>
-      <div class="mix-grid">
-        <article class="shop-product-card mix-product-card">
-          <div class="shop-product-image"><img src="assets/products/aaradhya-dhoops-golden-temple.png" alt="Aradhya Mix Rose Bela Chandan Kewda Dhupbatti"></div>
-          <div class="shop-product-body"><h4>Mix – Rose, Bela, Chandan &amp; Kewda</h4><span class="weight-pill">650 g</span><div class="shop-price">₹400</div><div class="qty-row"><button type="button" onclick="adjustShopQty(this,-1)">−</button><span>1</span><button type="button" onclick="adjustShopQty(this,1)">+</button></div><button class="shop-add" onclick="addToCart('Mix – Rose, Bela, Chandan & Kewda',400)">🛒 &nbsp; Add to Cart</button></div>
-        </article>
-        <article class="shop-product-card mix-product-card">
-          <div class="shop-product-image"><img src="assets/products/aaradhya-dhoops-golden-temple.png" alt="Aradhya Mix White Lily Chandan White Oudh Dhupbatti"></div>
-          <div class="shop-product-body"><h4>Mix – White Lily, Chandan &amp; White Oudh</h4><span class="weight-pill">650 g</span><div class="shop-price">₹400</div><div class="qty-row"><button type="button" onclick="adjustShopQty(this,-1)">−</button><span>1</span><button type="button" onclick="adjustShopQty(this,1)">+</button></div><button class="shop-add" onclick="addToCart('Mix – White Lily, Chandan & White Oudh',400)">🛒 &nbsp; Add to Cart</button></div>
-        </article>
+      <div class="card product-card">
+        <img class="product-image"
+             src="assets/products/aaradhya-dhoops-golden-temple.png"
+             alt="Aradhya White Lily Dhupbatti">
+        <h3>White Lily</h3>
+        <p>Elegant floral fragrance with a soft and soothing character.</p>
+        <div class="price">₹245</div>
+        <div class="badge">650 g</div>
+        <button class="add-cart" onclick="addToCart(1,'White Lily',245)">Add to Cart</button>
       </div>
+
+      <div class="card product-card">
+        <img class="product-image"
+             src="assets/products/aaradhya-dhoops-golden-temple.png"
+             alt="Aradhya White Oudh Dhupbatti">
+        <h3>White Oudh</h3>
+        <p>A rich traditional fragrance with a warm and refined presence.</p>
+        <div class="price">₹259</div>
+        <div class="badge">650 g</div>
+        <button class="add-cart" onclick="addToCart(2,'White Oudh',259)">Add to Cart</button>
+      </div>
+
+      <div class="card product-card">
+        <img class="product-image"
+             src="assets/products/aaradhya-dhoops-golden-temple.png"
+             alt="Aradhya Mysore Chandan Dhupbatti">
+        <h3>Mysore Chandan</h3>
+        <p>A classic sandalwood-inspired fragrance with a calm character.</p>
+        <div class="price">₹245</div>
+        <div class="badge">650 g</div>
+        <button class="add-cart" onclick="addToCart(3,'Mysore Chandan',245)">Add to Cart</button>
+      </div>
+
+      <div class="card product-card">
+        <img class="product-image"
+             src="assets/products/aaradhya-dhoops-golden-temple.png"
+             alt="Aradhya Lavender Dhupbatti">
+        <h3>Lavender</h3>
+        <p>A gentle floral fragrance suited to peaceful everyday spaces.</p>
+        <div class="price">₹259</div>
+        <div class="badge">650 g</div>
+        <button class="add-cart" onclick="addToCart(4,'Lavender',259)">Add to Cart</button>
+      </div>
+
+      <div class="card product-card">
+        <img class="product-image"
+             src="assets/products/aaradhya-dhoops-golden-temple.png"
+             alt="Aradhya Pineapple Dhupbatti">
+        <h3>Pineapple</h3>
+        <p>A distinctive fruity fragrance for a fresh and pleasant atmosphere.</p>
+        <div class="price">₹259</div>
+        <div class="badge">650 g</div>
+        <button class="add-cart" onclick="addToCart(5,'Pineapple',259)">Add to Cart</button>
+      </div>
+
+      <div class="card product-card">
+        <img class="product-image"
+             src="assets/products/aaradhya-dhoops-golden-temple.png"
+             alt="Aradhya Mysore Kewda Dhupbatti">
+        <h3>Mysore Kewda</h3>
+        <p>A traditional floral fragrance with a distinctive character.</p>
+        <div class="price">₹245</div>
+        <div class="badge">650 g</div>
+        <button class="add-cart" onclick="addToCart(6,'Mysore Kewda',245)">Add to Cart</button>
+      </div>
+
     </div>
 
-    <div class="coming-heading"><span></span><h3>More from Aradhya</h3><span></span></div>
-    <div class="coming-grid">
-      <article class="coming-feature">
-        <img src="assets/products/aaradhya-attar-coming-soon.png" alt="Aradhya Attar coming soon">
-        <div><h3>Attar / Ittar</h3><p>Coming Soon</p><span class="coming-pill">COMING SOON</span></div>
-      </article>
-      <article class="coming-feature">
-        <img src="assets/products/aaradhya-pooja-kit-coming-soon.png" alt="Aradhya Pooja Kit coming soon">
-        <div><h3>Pooja Kit</h3><p>Coming Soon</p><span class="coming-pill">COMING SOON</span></div>
-      </article>
+    <div class="section-kicker" style="margin-top:55px">Mix Fragrances</div>
+
+    <div class="product-note">
+      Carefully combined fragrance selections bringing together some of
+      Aradhya's traditional fragrance profiles.
     </div>
 
-    <div class="shop-footer-note"><span>✦</span><em>Fragrance is not just a scent — it is part of the moment.</em><span>✦</span></div>
+    <div class="grid">
+
+      <div class="card product-card">
+        <img class="product-image"
+             src="assets/products/aaradhya-dhoops-golden-temple.png"
+             alt="Aradhya Mix Rose Bela Chandan Kewda Dhupbatti">
+        <h3>Mix – Rose, Bela, Chandan &amp; Kewda</h3>
+        <p>A blended fragrance collection bringing together four traditional profiles.</p>
+        <div class="price">₹400</div>
+        <div class="badge">650 g</div>
+        <button class="add-cart"
+                onclick="addToCart(7,'Mix – Rose, Bela, Chandan & Kewda',400)">
+          Add to Cart
+        </button>
+      </div>
+
+      <div class="card product-card">
+        <img class="product-image"
+             src="assets/products/aaradhya-dhoops-golden-temple.png"
+             alt="Aradhya Mix White Lily Chandan White Oudh Dhupbatti">
+        <h3>Mix – White Lily, Chandan &amp; White Oudh</h3>
+        <p>A balanced combination of floral, sandalwood and warm fragrance notes.</p>
+        <div class="price">₹400</div>
+        <div class="badge">650 g</div>
+        <button class="add-cart"
+                onclick="addToCart(8,'Mix – White Lily, Chandan & White Oudh',400)">
+          Add to Cart
+        </button>
+      </div>
+
+    </div>
+
+    <div class="section-kicker" style="margin-top:55px">Coming Soon</div>
+
+    <div class="grid">
+
+      <div class="card product-card">
+        <img class="product-image coming-image"
+             src="assets/products/aaradhya-attar-coming-soon.png"
+             alt="Aradhya Attar Coming Soon">
+        <h3>Attar / Ittar</h3>
+        <p>Aradhya's traditional fragrance collection is expanding.</p>
+        <div class="badge">Coming Soon</div>
+      </div>
+
+      <div class="card product-card">
+        <img class="product-image coming-image"
+             src="assets/products/aaradhya-pooja-kit-coming-soon.png"
+             alt="Aradhya Pooja Kit Coming Soon">
+        <h3>Pooja Kit</h3>
+        <p>A future addition to the Aradhya collection.</p>
+        <div class="badge">Coming Soon</div>
+      </div>
+
+    </div>
+
   </div>
 </section>
 
 <section id="gallery" class="page">
   <div class="page-shell">
-  <div class="page-banner"><div class="page-banner-inner"><div class="eyebrow">Aradhya • Moments &amp; People</div><h2>Our <span class="gold">Gallery</span></h2><p>A visual glimpse of products, community interactions and the people behind Aradhya.</p></div></div>
-  <p class="product-note">
-    Moments from Aradhya's community exhibitions and product displays, showing the people,
-    products and public interactions behind the brand.
-  </p>
 
-  <div class="gallery">
-
-    <article class="gallery-item">
-      <img src="assets/gallery/gallery-1.webp" alt="Aradhya product stall visited by guests and officials" onclick="openModal(this.src)" onerror="this.style.opacity=\'0.35\'; this.alt=\'Aradhya image\';">
-      <div class="caption">
-        <strong>Community Exhibition</strong>
-        <span>Aradhya's stall welcomes visitors and officials at a community exhibition.</span>
-        <span>The display brings the products and the people behind them into the public space.</span>
+    <div class="page-banner">
+      <div class="page-banner-inner">
+        <div class="eyebrow">Aradhya • Behind The Fragrance</div>
+        <h2>Our <span class="gold">Gallery</span></h2>
+        <p>
+          A glimpse into the people, care and work connected with the
+          Aradhya fragrance journey.
+        </p>
       </div>
-    </article>
+    </div>
 
-    <article class="gallery-item">
-      <img src="assets/gallery/gallery-2.webp" alt="Visitors and officials viewing Aradhya products" onclick="openModal(this.src)" onerror="this.style.opacity=\'0.35\'; this.alt=\'Aradhya image\';">
-      <div class="caption">
-        <strong>Visitors Discover Aradhya</strong>
-        <span>Guests gather around the Aradhya display to explore the products on offer.</span>
-        <span>The photographs capture the growing connection between the group and its community.</span>
+    <div class="gallery">
+
+      <div class="gallery-item">
+        <img src="assets/gallery/gallery-1.webp"
+             alt="Aradhya gallery image 1"
+             onclick="openModal(this.src)">
+        <div class="caption">
+          <strong>Hands Behind The Work</strong>
+          <span>Careful hands and patient work form an important part of the fragrance-making journey.</span>
+        </div>
       </div>
-    </article>
 
-    <article class="gallery-item">
-      <img src="assets/gallery/gallery-3.webp" alt="Aradhya product being presented to a visitor" onclick="openModal(this.src)" onerror="this.style.opacity=\'0.35\'; this.alt=\'Aradhya image\';">
-      <div class="caption">
-        <strong>Product Presentation</strong>
-        <span>An Aradhya product is presented directly to a visitor during the event.</span>
-        <span>These interactions help introduce the group's work to a wider audience.</span>
+      <div class="gallery-item">
+        <img src="assets/gallery/gallery-2.webp"
+             alt="Aradhya gallery image 2"
+             onclick="openModal(this.src)">
+        <div class="caption">
+          <strong>Traditional Craft</strong>
+          <span>The process reflects the care and attention that goes into preparing traditional fragrance products.</span>
+        </div>
       </div>
-    </article>
 
-    <article class="gallery-item">
-      <img src="assets/gallery/gallery-4.webp" alt="Aradhya stall with visitors and products" onclick="openModal(this.src)" onerror="this.style.opacity=\'0.35\'; this.alt=\'Aradhya image\';">
-      <div class="caption">
-        <strong>Connecting Through Fragrance</strong>
-        <span>Visitors gather around the stall as Aradhya products are shared and discussed.</span>
-        <span>The moment reflects the community-focused spirit behind the initiative.</span>
+      <div class="gallery-item">
+        <img src="assets/gallery/gallery-3.webp"
+             alt="Aradhya gallery image 3"
+             onclick="openModal(this.src)">
+        <div class="caption">
+          <strong>Work With Purpose</strong>
+          <span>Aradhya's work is connected with creating meaningful employment opportunities through its initiative.</span>
+        </div>
       </div>
-    </article>
 
-    <article class="gallery-item">
-      <img src="assets/gallery/gallery-5.webp" alt="Aradhya products displayed during a community event" onclick="openModal(this.src)" onerror="this.style.opacity=\'0.35\'; this.alt=\'Aradhya image\';">
-      <div class="caption">
-        <strong>A Moment of Sharing</strong>
-        <span>Aradhya products are being introduced to guests at a public gathering.</span>
-        <span>The stall creates an opportunity for people to discover the work first-hand.</span>
+      <div class="gallery-item">
+        <img src="assets/gallery/gallery-4.webp"
+             alt="Aradhya gallery image 4"
+             onclick="openModal(this.src)">
+        <div class="caption">
+          <strong>Experience &amp; Care</strong>
+          <span>Experience, patience and attention to detail come together in the work behind every product.</span>
+        </div>
       </div>
-    </article>
 
-    <article class="gallery-item">
-      <img src="assets/gallery/gallery-6.webp" alt="Wide view of Aradhya product stall" onclick="openModal(this.src)" onerror="this.style.opacity=\'0.35\'; this.alt=\'Aradhya image\';">
-      <div class="caption">
-        <strong>The Aradhya Stall</strong>
-        <span>A wide view shows Dhupbatti and other handcrafted products arranged for visitors.</span>
-        <span>The display highlights the care and variety present in the group's work.</span>
+      <div class="gallery-item">
+        <img src="assets/gallery/gallery-5.webp"
+             alt="Aradhya gallery image 5"
+             onclick="openModal(this.src)">
+        <div class="caption">
+          <strong>A Shared Effort</strong>
+          <span>Each stage is part of a wider effort to connect traditional work with opportunities for people.</span>
+        </div>
       </div>
-    </article>
 
-    <article class="gallery-item">
-      <img src="assets/gallery/gallery-7.webp" alt="Aradhya stall at a winter community gathering" onclick="openModal(this.src)" onerror="this.style.opacity=\'0.35\'; this.alt=\'Aradhya image\';">
-      <div class="caption">
-        <strong>Winter Community Gathering</strong>
-        <span>Aradhya's products are displayed at a winter event alongside members and guests.</span>
-        <span>The initiative continues to bring the group's work into community gatherings.</span>
+      <div class="gallery-item">
+        <img src="assets/gallery/gallery-6.webp"
+             alt="Aradhya gallery image 6"
+             onclick="openModal(this.src)">
+        <div class="caption">
+          <strong>Care In Every Stage</strong>
+          <span>From preparation to finishing, care remains an important part of the process.</span>
+        </div>
       </div>
-    </article>
 
-    <article class="gallery-item">
-      <img src="assets/gallery/gallery-8.webp" alt="Officials and visitors viewing Aradhya products" onclick="openModal(this.src)" onerror="this.style.opacity=\'0.35\'; this.alt=\'Aradhya image\';">
-      <div class="caption">
-        <strong>Community Support</strong>
-        <span>Visitors and officials take a closer look at the Aradhya collection.</span>
-        <span>The event reflects the group's effort to create meaningful work opportunities for older women.</span>
+      <div class="gallery-item">
+        <img src="assets/gallery/gallery-7.webp"
+             alt="Aradhya gallery image 7"
+             onclick="openModal(this.src)">
+        <div class="caption">
+          <strong>People &amp; Purpose</strong>
+          <span>Aradhya aims to combine fragrance with a purpose that supports work and income opportunities.</span>
+        </div>
       </div>
-    </article>
 
-    <article class="gallery-item">
-      <img src="assets/gallery/gallery-9.webp" alt="Aradhya products displayed at a community stall" onclick="openModal(this.src)" onerror="this.style.opacity=\'0.35\'; this.alt=\'Aradhya image\';">
-      <div class="caption">
-        <strong>Tradition on Display</strong>
-        <span>Aradhya products are arranged at the stall as guests visit and interact with the makers.</span>
-        <span>The gallery celebrates both the products and the people who make them possible.</span>
+      <div class="gallery-item">
+        <img src="assets/gallery/gallery-8.webp"
+             alt="Aradhya gallery image 8"
+             onclick="openModal(this.src)">
+        <div class="caption">
+          <strong>Keeping Tradition Alive</strong>
+          <span>Traditional fragrance work continues through the dedication of the people connected with it.</span>
+        </div>
       </div>
-    </article>
 
-  </div>
-  <div class="ritual-strip"><div class="mark">✦ 📸 ✦</div><h3>Moments Behind the Brand</h3><p>Every display is a chance to connect people with the products and the hands behind the work.</p></div>
+      <div class="gallery-item">
+        <img src="assets/gallery/gallery-9.webp"
+             alt="Aradhya gallery image 9"
+             onclick="openModal(this.src)">
+        <div class="caption">
+          <strong>Made With Care</strong>
+          <span>Every finished product represents time, effort and care behind the fragrance.</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="purpose">
+      <h3>Fragrance With Purpose</h3>
+      <p class="sub">
+        Aradhya is connected with older women through a self-help-group
+        initiative, helping create employment and income opportunities while
+        keeping traditional fragrance work connected to everyday life.
+      </p>
+    </div>
+
   </div>
 </section>
 
 <section id="mission" class="page">
   <div class="page-shell">
-  <div class="page-banner"><div class="page-banner-inner"><div class="eyebrow">Aradhya • Purpose With Fragrance</div><h2>Our <span class="gold">Mission</span></h2><p>Traditional fragrance, meaningful work and a brand built around dignity.</p><div class="decor-line"></div></div></div>
-  <div class="content">
-    <p class="lead">
-      Aradhya is about fragrance with a purpose — preserving traditional product-making
-      while creating meaningful work opportunities for older women.
-    </p>
-    <p>
-      The Dhupbatti products shown on this website are connected with the work of older members
-      of the Aradhya self-help group. The initiative helps provide opportunities for them to work,
-      earn and remain actively involved in the community.
-    </p>
-    <p>
-      Our aim is to bring their work to more customers across India and, in time, to international markets while presenting the products with the dignity and care they deserve.
-    </p>
-    <div class="feature-grid">
-      <div class="feature"><div class="feature-icon">✨</div><h3>Tradition</h3><p>Keeping the spirit of Indian fragrance and devotional traditions at the heart of the brand.</p></div>
-      <div class="feature"><div class="feature-icon">🤝</div><h3>Opportunity</h3><p>Supporting meaningful participation and work opportunities for older women connected with the initiative.</p></div>
-      <div class="feature"><div class="feature-icon">🌏</div><h3>Growth</h3><p>Building a stronger product collection for customers in India and future international markets.</p></div>
+
+    <div class="page-banner">
+      <div class="page-banner-inner">
+        <div class="eyebrow">Aradhya • Purpose</div>
+        <h2>Our <span class="gold">Mission</span></h2>
+        <p>Fragrance with a purpose beyond the product.</p>
+      </div>
     </div>
-  </div>
 
-  <div class="mission-orbit">
-    <div class="orbit-card"><div class="ring">🪔</div><h3>Fragrance</h3><p>A sensory expression of traditional Indian fragrance, presented with a premium Aradhya identity.</p></div>
-    <div class="orbit-card"><div class="ring">🤲</div><h3>People</h3><p>The brand story keeps the people behind the work visible, valued and connected with the community.</p></div>
-    <div class="orbit-card"><div class="ring">✦</div><h3>Purpose</h3><p>Aradhya brings product, tradition and opportunity together in one meaningful brand experience.</p></div>
-  </div>
+    <div class="content">
+      <p class="lead">
+        Aradhya aims to bring traditional fragrance into everyday spaces
+        while creating meaningful opportunities for people connected with
+        its work.
+      </p>
 
-  <div class="purpose">
-    <h3>Made by People. Made with Purpose.</h3>
-    <p class="sub">
-      Behind every Aradhya display is a story of participation, experience and opportunity.
-      The brand aims to turn traditional work into a source of livelihood and pride for its makers.
-    </p>
-  </div>
-  <div class="ritual-strip"><div class="mark">✦ 🤲 ✦</div><h3>Purpose Is Part of the Product Story</h3><p>From traditional fragrance to meaningful participation, Aradhya is designed to carry a story beyond the shelf.</p></div>
+      <p>
+        Through a self-help-group initiative, Aradhya is connected with
+        older women and aims to help create employment and income
+        opportunities for them.
+      </p>
+
+      <p>
+        Our purpose is to grow carefully, preserve the warmth of traditional
+        fragrance and build a brand that people can trust.
+      </p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="feature-icon">🌿</div>
+        <h3>Tradition</h3>
+        <p>Keeping traditional fragrance connected with modern everyday life.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🤝</div>
+        <h3>Opportunity</h3>
+        <p>Helping create work and income opportunities through our initiative.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">✨</div>
+        <h3>Growing</h3>
+        <p>Building the Aradhya fragrance collection with care and purpose.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <section id="about" class="page">
   <div class="page-shell">
-  <div class="page-banner"><div class="page-banner-inner"><div class="eyebrow">Aradhya • Since 2018</div><h2>About <span class="gold">Aradhya</span></h2><p>A Lucknow-rooted fragrance initiative growing with tradition, care and purpose.</p><div class="decor-line"></div></div></div>
-  <div class="content">
-    <p class="lead">
-      Established in <span class="gold">2018</span>, Aradhya is a Lucknow-based fragrance initiative focused on fragranced Dhupbatti and a growing collection of traditional fragrance and pooja-related products.
-    </p>
-    <p>
-      Aradhya's journey is connected with older women working through a self-help-group initiative. The work creates opportunities to participate, earn and contribute through product-making, while bringing their efforts closer to customers.
-    </p>
-    <p>
-      Today, the Aradhya offering includes fragranced Dhupbatti, with Ittar / Attar and Pooja Kit collections being developed as upcoming additions. The website is designed to support product discovery, enquiries, order assistance and customer support as the online catalogue grows.
-    </p>
-  </div>
 
-  <div class="about-highlight">
-    <div class="highlight-panel"><h3>What Aradhya Provides</h3><p>A growing fragrance-focused collection designed around traditional use and everyday discovery.</p><div class="mini-list"><span>🪔 Fragranced Dhupbatti</span><span>🌿 Ittar / Attar — Coming Soon</span><span>🙏 Pooja Kit — Coming Soon</span></div></div>
-    <div class="highlight-panel"><h3>How We Serve Customers</h3><p>The website is structured to make the Aradhya experience clear, welcoming and easy to navigate.</p><div class="mini-list"><span>✦ Product discovery</span><span>✦ Product enquiries</span><span>✦ Order assistance</span><span>✦ Customer support</span></div></div>
-  </div>
+    <div class="page-banner">
+      <div class="page-banner-inner">
+        <div class="eyebrow">Aradhya • Our Story</div>
+        <h2>About <span class="gold">Aradhya</span></h2>
+        <p>A Lucknow-based fragrance brand rooted in tradition.</p>
+      </div>
+    </div>
 
-  <div class="timeline">
-    <div class="year">2018</div>
-    <div class="story"><strong>The Beginning of Aradhya</strong><p>Aradhya's journey begins, laying the foundation for a fragrance-focused initiative rooted in Lucknow and connected with meaningful work.</p></div>
-  </div>
+    <div class="content">
+      <p class="lead">
+        Established in 2018, Aradhya is based in Lucknow, Uttar Pradesh,
+        and focuses on fragranced Dhupbatti and traditional fragrance products.
+      </p>
 
-  <div class="feature-grid">
-    <div class="feature"><div class="feature-icon">🪔</div><h3>Dhupbatti</h3><p>Fragranced Dhupbatti in the current Aradhya collection, available in multiple fragrance variants.</p></div>
-    <div class="feature"><div class="feature-icon">🌿</div><h3>Ittar / Attar</h3><p>A traditional fragrance collection planned as a future Aradhya offering and currently marked Coming Soon.</p></div>
-    <div class="feature"><div class="feature-icon">🙏</div><h3>Pooja Essentials</h3><p>Pooja Kit products are planned as an upcoming addition for traditional devotional needs.</p></div>
-  </div>
+      <p>
+        Aradhya is building a growing collection of fragrances while staying
+        connected to the traditions and everyday rituals that make fragrance
+        meaningful in Indian homes.
+      </p>
 
-  <div class="purpose" style="margin-top:22px">
-    <h3>Services &amp; Customer Support</h3>
-    <p class="sub">Aradhya's website experience is built around product discovery, product enquiries, order assistance and customer support, with online ordering and payment functionality to be connected as the business details are finalised.</p>
-  </div>
-  <div class="ritual-strip"><div class="mark">✦ 2018 ✦</div><h3>A Journey That Keeps Growing</h3><p>Established in 2018, Aradhya continues to build its fragrance collection with tradition, care and purpose.</p></div>
+      <p>
+        The brand is also connected with older women through a self-help-group
+        initiative, helping create employment and income opportunities.
+      </p>
+
+      <p>
+        Aradhya currently serves customers across India and aims to reach
+        international customers as the brand grows.
+      </p>
+    </div>
+
+    <div class="timeline">
+      <div class="year">2018</div>
+      <div class="story">
+        <strong>Aradhya Begins</strong>
+        <p>
+          Established in Lucknow with a focus on fragranced Dhupbatti and
+          traditional fragrance products.
+        </p>
+      </div>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="feature-icon">🪔</div>
+        <h3>Traditional Fragrance</h3>
+        <p>Inspired by the place fragrance holds in Indian homes and rituals.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🤲</div>
+        <h3>People</h3>
+        <p>Connected with older women through a self-help-group initiative.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🌏</div>
+        <h3>Growing</h3>
+        <p>Serving India today with the aim of reaching international customers.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <section id="support" class="page">
   <div class="page-shell">
-  <div class="page-banner"><div class="page-banner-inner"><div class="eyebrow">Aradhya • Assistance</div><h2><span class="gold">Support</span></h2><p>We are building a simple, premium support experience for product enquiries and orders.</p><div class="decor-line"></div></div></div>
-  <div class="grid">
-    <div class="card">
-      <div class="icon">📞</div>
-      <h3>Contact</h3>
-      <p>For product enquiries, support and order assistance.</p>
-      <div class="support-actions"><a class="support-email" href="tel:+917992148373">☎ 7992148373</a><a class="support-email" href="https://wa.me/917992148373" target="_blank" rel="noopener">WhatsApp</a></div>
+
+    <div class="page-banner">
+      <div class="page-banner-inner">
+        <div class="eyebrow">Aradhya • Assistance</div>
+        <h2><span class="gold">Support</span></h2>
+        <p>
+          We are here to help with product enquiries and order assistance.
+        </p>
+      </div>
     </div>
-    <div class="card">
-      <div class="icon">✉️</div>
-      <h3>Email</h3>
-      <p>For product enquiries, support and order assistance.</p><a class="support-email" href="mailto:www.aradhya.co@gmail.com">✉ www.aradhya.co@gmail.com</a><div class="social-links"><a href="https://www.instagram.com/the.aradhya.co?obrf=OWMyaTlrMXQ4b2hv" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/share/1FhKF2o365/" target="_blank" rel="noopener">Facebook</a></div>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="icon">📞</div>
+        <h3>Contact</h3>
+        <p>For product enquiries, support and order assistance.</p>
+
+        <div class="support-actions">
+          <a class="support-email" href="tel:+917992148373">
+            ☎ 7992148373
+          </a>
+
+          <a class="support-email"
+             href="https://wa.me/917992148373"
+             target="_blank"
+             rel="noopener">
+            WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="icon">✉️</div>
+        <h3>Email</h3>
+        <p>For product enquiries, support and order assistance.</p>
+
+        <a class="support-email"
+           href="mailto:www.aradhya.co@gmail.com">
+          ✉ www.aradhya.co@gmail.com
+        </a>
+
+        <div class="social-links">
+          <a href="https://www.instagram.com/the.aradhya.co?obrf=OWMyaTlrMXQ4b2hv"
+             target="_blank"
+             rel="noopener">
+            Instagram
+          </a>
+
+          <a href="https://www.facebook.com/share/1FhKF2o365/"
+             target="_blank"
+             rel="noopener">
+            Facebook
+          </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="icon">📦</div>
+        <h3>Orders</h3>
+        <p>
+          Orders can now be submitted through the Aaradhya website checkout.
+        </p>
+      </div>
+
     </div>
-    <div class="card">
-      <div class="icon">📦</div>
-      <h3>Orders</h3>
-      <p>Product ordering and delivery information will be added when the catalogue is ready.</p>
-    </div>
-  </div>
+
   </div>
 </section>
 
-<button class="cart-button" onclick="toggleCart()" aria-label="Open shopping cart">🛒 Cart (<span id="cartCount">0</span>)</button>
+<button class="cart-button"
+        onclick="toggleCart()"
+        aria-label="Open shopping cart">
+  🛒 Cart (<span id="cartCount">0</span>)
+</button>
+
 <div class="cart-panel" id="cartPanel">
-  <button class="cart-close" onclick="toggleCart()" aria-label="Close cart">×</button>
+
+  <button class="cart-close"
+          onclick="toggleCart()"
+          aria-label="Close cart">
+    ×
+  </button>
+
   <h3>Your Cart</h3>
-  <div id="cartItems"><div class="cart-empty">Your cart is empty.</div></div>
-  <div class="cart-total"><span>Total</span><span>₹<span id="cartTotal">0</span></span></div>
-  <button class="btn" style="width:100%;margin-top:15px" onclick="alert('Checkout will be connected after ordering and payment details are finalized.')">Proceed to Checkout</button>
+
+  <div id="cartItems">
+    <div class="cart-empty">Your cart is empty.</div>
+  </div>
+
+  <div class="cart-total">
+    <span>Total</span>
+    <span>₹<span id="cartTotal">0</span></span>
+  </div>
+
+  <button class="btn"
+          style="width:100%;margin-top:15px"
+          onclick="openCheckout()">
+    Proceed to Checkout
+  </button>
+
 </div>
 
 <footer>
-  <div>© 2026 Aradhya • Lucknow, India • Serving India &amp; International Markets</div>
-  <div class="footer-social"><a href="https://www.instagram.com/the.aradhya.co?obrf=OWMyaTlrMXQ4b2hv" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/share/1FhKF2o365/" target="_blank" rel="noopener">Facebook</a><a href="tel:+917992148373">7992148373</a></div>
+  <div>
+    © 2026 Aradhya • Lucknow, India • Serving India &amp; International Markets
+  </div>
+
+  <div class="footer-social">
+    <a href="https://www.instagram.com/the.aradhya.co?obrf=OWMyaTlrMXQ4b2hv"
+       target="_blank"
+       rel="noopener">
+      Instagram
+    </a>
+
+    <a href="https://www.facebook.com/share/1FhKF2o365/"
+       target="_blank"
+       rel="noopener">
+      Facebook
+    </a>
+
+    <a href="tel:+917992148373">
+      7992148373
+    </a>
+  </div>
 </footer>
 
-<div class="modal" id="imageModal" onclick="closeModal()">
-  <span class="close" aria-label="Close image">&times;</span>
-  <img id="modalImage" src="" alt="Expanded Aradhya gallery image" onclick="event.stopPropagation()">
+<!-- CHECKOUT -->
+
+<div class="checkout-overlay"
+     id="checkoutOverlay"
+     onclick="closeCheckout(event)">
+
+  <div class="checkout-box"
+       onclick="event.stopPropagation()">
+
+    <button class="checkout-close"
+            type="button"
+            onclick="closeCheckout()"
+            aria-label="Close checkout">
+      ×
+    </button>
+
+    <h3>Checkout</h3>
+
+    <p class="checkout-sub">
+      Enter your details to place your Aaradhya order.
+    </p>
+
+    <div class="checkout-summary"
+         id="checkoutSummary">
+    </div>
+
+    <form class="checkout-form"
+          id="checkoutForm"
+          onsubmit="submitOrder(event)">
+
+      <label>
+        Name *
+        <input
+          name="name"
+          required
+          autocomplete="name">
+      </label>
+
+      <label>
+        Phone *
+        <input
+          name="phone"
+          required
+          inputmode="tel"
+          autocomplete="tel">
+      </label>
+
+      <label>
+        Email
+        <input
+          name="email"
+          type="email"
+          autocomplete="email">
+      </label>
+
+      <label>
+        PIN Code *
+        <input
+          name="pincode"
+          required
+          inputmode="numeric"
+          autocomplete="postal-code">
+      </label>
+
+      <label class="full">
+        Address Line 1 *
+        <input
+          name="address_line1"
+          required
+          autocomplete="street-address">
+      </label>
+
+      <label class="full">
+        Address Line 2
+        <input
+          name="address_line2"
+          autocomplete="address-line2">
+      </label>
+
+      <label>
+        City *
+        <input
+          name="city"
+          required
+          autocomplete="address-level2">
+      </label>
+
+      <label>
+        State *
+        <input
+          name="state"
+          required
+          autocomplete="address-level1"
+          value="Uttar Pradesh">
+      </label>
+
+      <label class="full">
+        Order Notes
+        <input
+          name="notes"
+          autocomplete="off"
+          placeholder="Optional">
+      </label>
+
+      <button
+        class="btn checkout-submit"
+        id="checkoutSubmit"
+        type="submit">
+        Place Order
+      </button>
+
+    </form>
+
+    <div class="checkout-message"
+         id="checkoutMessage">
+    </div>
+
+  </div>
+</div>
+
+<!-- IMAGE MODAL -->
+
+<div class="modal"
+     id="imageModal"
+     onclick="closeModal()">
+
+  <span class="close"
+        aria-label="Close image">
+    &times;
+  </span>
+
+  <img id="modalImage"
+       src=""
+       alt="Expanded Aradhya gallery image"
+       onclick="event.stopPropagation()">
+
 </div>
 
 <script>
-let cart=[];
-function adjustShopQty(button,delta){
-  const row=button.parentElement;
-  const value=row.querySelector('span');
-  const next=Math.max(1,parseInt(value.textContent||'1',10)+delta);
-  value.textContent=next;
+
+let cart = [];
+
+/* =========================
+   SHOP QUANTITY
+========================= */
+
+function adjustShopQty(button, delta){
+
+  const row = button.parentElement;
+
+  const value = row.querySelector('span');
+
+  const next = Math.max(
+    1,
+    parseInt(value.textContent || '1', 10) + delta
+  );
+
+  value.textContent = next;
 }
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
 function showPage(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-  const map={home:0,products:1,gallery:2,mission:3,about:4,support:5};
-  document.querySelectorAll('nav button')[map[id]].classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
+
+  document
+    .querySelectorAll('.page')
+    .forEach(p => p.classList.remove('active'));
+
+  document
+    .getElementById(id)
+    .classList.add('active');
+
+  document
+    .querySelectorAll('nav button')
+    .forEach(b => b.classList.remove('active'));
+
+  const map = {
+    home:0,
+    products:1,
+    gallery:2,
+    mission:3,
+    about:4,
+    support:5
+  };
+
+  document
+    .querySelectorAll('nav button')[map[id]]
+    .classList.add('active');
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
 }
-function addToCart(name,price){
-  const existing=cart.find(item=>item.name===name);
-  if(existing) existing.qty++; else cart.push({name,price,qty:1});
+
+/* =========================
+   CART
+========================= */
+
+function addToCart(productId, name, price){
+
+  const existing = cart.find(
+    item => item.productId === productId
+  );
+
+  if(existing){
+
+    existing.qty++;
+
+  }else{
+
+    cart.push({
+      productId,
+      name,
+      price,
+      qty:1
+    });
+
+  }
+
   renderCart();
-  document.getElementById('cartPanel').classList.add('open');
+
+  document
+    .getElementById('cartPanel')
+    .classList.add('open');
 }
-function changeQty(name,delta){
-  const item=cart.find(i=>i.name===name);
-  if(!item)return; item.qty+=delta;
-  if(item.qty<=0) cart=cart.filter(i=>i.name!==name);
+
+function changeQty(productId, delta){
+
+  const item = cart.find(
+    i => i.productId === productId
+  );
+
+  if(!item) return;
+
+  item.qty += delta;
+
+  if(item.qty <= 0){
+
+    cart = cart.filter(
+      i => i.productId !== productId
+    );
+
+  }
+
   renderCart();
 }
+
 function renderCart(){
-  const count=cart.reduce((s,i)=>s+i.qty,0);
-  const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
-  document.getElementById('cartCount').textContent=count;
-  document.getElementById('cartTotal').textContent=total;
-  const box=document.getElementById('cartItems');
-  if(!cart.length){box.innerHTML='<div class="cart-empty">Your cart is empty.</div>';return;}
-  box.innerHTML=cart.map(i=>`<div class="cart-item"><span>${i.name}<br><small>₹${i.price} × ${i.qty}</small></span><span><button class="cart-close" onclick="changeQty('${i.name.replace(/'/g,"\\'")}',-1)">−</button><button class="cart-close" onclick="changeQty('${i.name.replace(/'/g,"\\'")}',1)">+</button></span></div>`).join('');
+
+  const count = cart.reduce(
+    (s,i) => s + i.qty,
+    0
+  );
+
+  const total = cart.reduce(
+    (s,i) => s + i.price * i.qty,
+    0
+  );
+
+  document.getElementById('cartCount').textContent = count;
+
+  document.getElementById('cartTotal').textContent = total;
+
+  const box = document.getElementById('cartItems');
+
+  if(!cart.length){
+
+    box.innerHTML =
+      '<div class="cart-empty">Your cart is empty.</div>';
+
+    return;
+  }
+
+  box.innerHTML = cart.map(i => `
+
+    <div class="cart-item">
+
+      <span>
+        ${i.name}
+        <br>
+        <small>₹${i.price} × ${i.qty}</small>
+      </span>
+
+      <span>
+
+        <button
+          class="cart-close"
+          onclick="changeQty(${i.productId},-1)">
+          −
+        </button>
+
+        <button
+          class="cart-close"
+          onclick="changeQty(${i.productId},1)">
+          +
+        </button>
+
+      </span>
+
+    </div>
+
+  `).join('');
 }
-function toggleCart(){document.getElementById('cartPanel').classList.toggle('open')}
-function openModal(src){document.getElementById('modalImage').src=src;document.getElementById('imageModal').classList.add('open')}
-function closeModal(){document.getElementById('imageModal').classList.remove('open');document.getElementById('modalImage').src=''}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();document.getElementById('cartPanel').classList.remove('open')}});
+
+function toggleCart(){
+
+  document
+    .getElementById('cartPanel')
+    .classList.toggle('open');
+
+}
+
+/* =========================
+   CLOUDFLARE BACKEND
+========================= */
+
+const ARADHYA_API_URL =
+  'https://aradhyabackend.www-aradhya-co.workers.dev';
+
+/* =========================
+   CHECKOUT
+========================= */
+
+function openCheckout(){
+
+  if(!cart.length){
+
+    alert('Your cart is empty.');
+
+    return;
+  }
+
+  renderCheckoutSummary();
+
+  const message =
+    document.getElementById('checkoutMessage');
+
+  message.className = 'checkout-message';
+
+  message.textContent = '';
+
+  document
+    .getElementById('checkoutOverlay')
+    .classList.add('open');
+}
+
+function closeCheckout(event){
+
+  if(
+    event &&
+    event.target !==
+    document.getElementById('checkoutOverlay')
+  ){
+    return;
+  }
+
+  document
+    .getElementById('checkoutOverlay')
+    .classList.remove('open');
+}
+
+function renderCheckoutSummary(){
+
+  const box =
+    document.getElementById('checkoutSummary');
+
+  const subtotal =
+    cart.reduce(
+      (s,i) => s + i.price * i.qty,
+      0
+    );
+
+  box.innerHTML =
+
+    cart.map(i => `
+
+      <div class="checkout-summary-row">
+
+        <span>
+          ${i.name} × ${i.qty}
+        </span>
+
+        <span>
+          ₹${i.price * i.qty}
+        </span>
+
+      </div>
+
+    `).join('') +
+
+    `
+
+      <div class="checkout-summary-total">
+
+        <span>Total</span>
+
+        <span>₹${subtotal}</span>
+
+      </div>
+
+    `;
+}
+
+/* =========================
+   SUBMIT ORDER
+========================= */
+
+async function submitOrder(event){
+
+  event.preventDefault();
+
+  if(!cart.length){
+
+    showCheckoutMessage(
+      'Your cart is empty.',
+      'error'
+    );
+
+    return;
+  }
+
+  const form =
+    document.getElementById('checkoutForm');
+
+  const submit =
+    document.getElementById('checkoutSubmit');
+
+  const data =
+    new FormData(form);
+
+  const customer = {
+
+    name:
+      String(data.get('name') || '').trim(),
+
+    phone:
+      String(data.get('phone') || '').trim(),
+
+    email:
+      String(data.get('email') || '').trim(),
+
+    address_line1:
+      String(data.get('address_line1') || '').trim(),
+
+    address_line2:
+      String(data.get('address_line2') || '').trim(),
+
+    city:
+      String(data.get('city') || '').trim(),
+
+    state:
+      String(data.get('state') || '').trim(),
+
+    pincode:
+      String(data.get('pincode') || '').trim(),
+
+    notes:
+      String(data.get('notes') || '').trim()
+
+  };
+
+  submit.disabled = true;
+
+  submit.textContent =
+    'Placing Order...';
+
+  showCheckoutMessage(
+    'Sending your order securely...',
+    'success'
+  );
+
+  try{
+
+    const response = await fetch(
+      `${ARADHYA_API_URL}/create-order`,
+      {
+        method:'POST',
+
+        headers:{
+          'Content-Type':
+            'application/json'
+        },
+
+        body:JSON.stringify({
+
+          customer,
+
+          items:
+            cart.map(i => ({
+
+              product_id:
+                i.productId,
+
+              quantity:
+                i.qty
+
+            }))
+
+        })
+
+      }
+    );
+
+    const result =
+      await response.json();
+
+    if(
+      !response.ok ||
+      !result.success
+    ){
+
+      throw new Error(
+        result.message ||
+        'Could not place the order.'
+      );
+
+    }
+
+    cart = [];
+
+    renderCart();
+
+    form.reset();
+
+    document
+      .querySelector('[name="state"]')
+      .value =
+      'Uttar Pradesh';
+
+    showCheckoutMessage(
+
+      `Order placed successfully. ` +
+      `Your order number is ${result.order_id}. ` +
+      `Total: ₹${result.total_amount}.`,
+
+      'success'
+
+    );
+
+    submit.textContent =
+      'Order Placed';
+
+    setTimeout(() => {
+
+      document
+        .getElementById('checkoutOverlay')
+        .classList.remove('open');
+
+      document
+        .getElementById('cartPanel')
+        .classList.remove('open');
+
+      submit.disabled = false;
+
+      submit.textContent =
+        'Place Order';
+
+    },3500);
+
+  }catch(error){
+
+    console.error(
+      'Aaradhya order error:',
+      error
+    );
+
+    showCheckoutMessage(
+
+      error.message ||
+      'Could not place the order. Please try again.',
+
+      'error'
+
+    );
+
+    submit.disabled = false;
+
+    submit.textContent =
+      'Place Order';
+  }
+}
+
+function showCheckoutMessage(message,type){
+
+  const box =
+    document.getElementById('checkoutMessage');
+
+  box.textContent = message;
+
+  box.className =
+    `checkout-message show ${type}`;
+}
+
+/* =========================
+   IMAGE MODAL
+========================= */
+
+function openModal(src){
+
+  document
+    .getElementById('modalImage')
+    .src = src;
+
+  document
+    .getElementById('imageModal')
+    .classList.add('open');
+}
+
+function closeModal(){
+
+  document
+    .getElementById('imageModal')
+    .classList.remove('open');
+
+  document
+    .getElementById('modalImage')
+    .src = '';
+}
+
+/* =========================
+   KEYBOARD
+========================= */
+
+document.addEventListener(
+  'keydown',
+  e => {
+
+    if(e.key === 'Escape'){
+
+      closeModal();
+
+      document
+        .getElementById('cartPanel')
+        .classList.remove('open');
+
+      document
+        .getElementById('checkoutOverlay')
+        .classList.remove('open');
+
+    }
+
+  }
+);
+
 </script>
 
 </body>
