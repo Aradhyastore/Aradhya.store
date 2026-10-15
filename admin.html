@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Aradhya Admin</title>
+
+  <style>
+    :root {
+      --black: #080808;
+      --black-soft: #111111;
+      --gold: #c6a15b;
+      --gold-light: #e0c47b;
+      --text: #f5f0e5;
+      --muted: #aaa39a;
+      --border: rgba(198, 161, 91, 0.35);
+      --danger: #d96b6b;
+      --success: #72bd83;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top, rgba(198, 161, 91, 0.08), transparent 35%),
+        var(--black);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      min-height: 100vh;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* LOGIN */
+
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 440px;
+      background: linear-gradient(145deg, #151515, #090909);
+      border: 1px solid var(--border);
+      padding: 42px 34px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+      text-align: center;
+    }
+
+    .login-logo {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      margin-bottom: 18px;
+    }
+
+    .login-box h1 {
+      color: var(--gold-light);
+      margin: 0 0 8px;
+      font-size: 30px;
+      letter-spacing: 1px;
+    }
+
+    .login-box p {
+      color: var(--muted);
+      margin: 0 0 28px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    .input-group {
+      text-align: left;
+      margin-bottom: 18px;
+    }
+
+    .input-group label {
+      display: block;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 13px 14px;
+      background: #050505;
+      color: white;
+      border: 1px solid var(--border);
+      outline: none;
+    }
+
+    .input-group input:focus {
+      border-color: var(--gold);
+    }
+
+    .gold-btn {
+      width: 100%;
+      padding: 13px 18px;
+      background: var(--gold);
+      color: #090909;
+      border: 0;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .gold-btn:hover {
+      background: var(--gold-light);
+    }
+
+    .error-message {
+      color: var(--danger);
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      margin-top: 15px;
+      min-height: 18px;
+    }
+
+    /* DASHBOARD */
+
+    .dashboard {
+      min-height: 100vh;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      background: rgba(5, 5, 5, 0.96);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-area img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+    }
+
+    .brand-area h1 {
+      margin: 0;
+      color: var(--gold-light);
+      font-size: 25px;
+    }
+
+    .brand-area span {
+      display: block;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .small-btn {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--gold-light);
+      padding: 9px 14px;
+      cursor: pointer;
+    }
+
+    .small-btn:hover {
+      background: rgba(198, 161, 91, 0.1);
+    }
+
+    main {
+      max-width: 1400px;
+      margin: auto;
+      padding: 28px 24px 60px;
+    }
+
+    /* STATS */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      border: 1px solid var(--border);
+      background: var(--black-soft);
+      padding: 20px;
+    }
+
+    .stat-card .label {
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .stat-card .value {
+      color: var(--gold-light);
+      font-size: 27px;
+      font-weight: bold;
+    }
+
+    /* TOOLBAR */
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .toolbar input,
+    .toolbar select {
+      background: #0c0c0c;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 11px 13px;
+      outline: none;
+    }
+
+    .toolbar input {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .toolbar select {
+      min-width: 170px;
+    }
+
+    .refresh-btn {
+      background: var(--gold);
+      color: #090909;
+      border: 0;
+      padding: 11px 18px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* ORDERS */
+
+    .orders-container {
+      border: 1px solid var(--border);
+      background: #0c0c0c;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1000px;
+    }
+
+    th {
+      background: #151515;
+      color: var(--gold-light);
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      text-align: left;
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 14px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      vertical-align: middle;
+    }
+
+    tr:hover td {
+      background: rgba(198, 161, 91, 0.035);
+    }
+
+    .order-number {
+      color: var(--gold-light);
+      font-weight: bold;
+    }
+
+    .customer-name {
+      color: white;
+      font-weight: bold;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .amount {
+      color: var(--gold-light);
+      font-weight: bold;
+    }
+
+    .status-select {
+      background: #080808;
+      border: 1px solid var(--border);
+      color: white;
+      padding: 7px 8px;
+      cursor: pointer;
+    }
+
+    .status-select:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .view-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--gold-light);
+      padding: 7px 10px;
+      cursor: pointer;
+    }
+
+    .view-btn:hover {
+      background: rgba(198, 161, 91, 0.1);
+    }
+
+    .empty-state {
+      text-align: center;
+      color: var(--muted);
+      padding: 50px 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    .loading {
+      text-align: center;
+      color: var(--gold-light);
+      padding: 40px;
+      font-family: Arial, sans-serif;
+    }
+
+    /* MODAL */
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.78);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 850px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: #101010;
+      border: 1px solid var(--border);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      color: var(--gold-light);
+      font-size: 22px;
+    }
+
+    .close-btn {
+      background: transparent;
+      color: var(--muted);
+      border: 0;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .detail-box {
+      border: 1px solid rgba(198,161,91,0.2);
+      padding: 13px;
+      background: #0b0b0b;
+    }
+
+    .detail-box .label {
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      margin-bottom: 6px;
+    }
+
+    .detail-box .value {
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      word-break: break-word;
+    }
+
+    .section-title {
+      color: var(--gold-light);
+      font-size: 17px;
+      margin: 20px 0 12px;
+    }
+
+    .items-table {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .items-table th,
+    .items-table td {
+      padding: 10px;
+    }
+
+    .modal-footer {
+      border-top: 1px solid var(--border);
+      padding: 16px 20px;
+      text-align: right;
+    }
+
+    .success-text {
+      color: var(--success);
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .header-inner {
+        align-items: flex-start;
+      }
+
+      .brand-area h1 {
+        font-size: 20px;
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .header-inner {
+        flex-direction: column;
+      }
+
+      .header-actions {
+        width: 100%;
+      }
+
+      .header-actions button {
+        flex: 1;
+      }
+
+      main {
+        padding: 20px 12px 50px;
+      }
+
+      .login-box {
+        padding: 32px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGIN -->
+  <section id="loginScreen" class="login-screen">
+
+    <div class="login-box">
+
+      <img
+        src="assets/logo/aradhya-logo.png"
+        alt="Aradhya"
+        class="login-logo"
+        onerror="this.style.display='none'"
+      >
+
+      <h1>Aradhya Admin</h1>
+
+      <p>
+        Secure order management dashboard
+      </p>
+
+      <div class="input-group">
+        <label for="adminKey">Admin Key</label>
+
+        <input
+          type="password"
+          id="adminKey"
+          placeholder="Enter your Cloudflare ADMIN_KEY"
+          autocomplete="off"
+        >
+      </div>
+
+      <button
+        class="gold-btn"
+        onclick="login()"
+      >
+        Access Dashboard
+      </button>
+
+      <div
+        id="loginError"
+        class="error-message"
+      ></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="dashboard hidden">
+
+    <header>
+
+      <div class="header-inner">
+
+        <div class="brand-area">
+
+          <img
+            src="assets/logo/aradhya-logo.png"
+            alt="Aradhya"
+            onerror="this.style.display='none'"
+          >
+
+          <div>
+            <h1>Aradhya Admin</h1>
+            <span>Order Management</span>
+          </div>
+
+        </div>
+
+        <div class="header-actions">
+
+          <button
+            class="small-btn"
+            onclick="loadOrders()"
+          >
+            Refresh
+          </button>
+
+          <button
+            class="small-btn"
+            onclick="logout()"
+          >
+            Logout
+          </button>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <main>
+
+      <!-- STATS -->
+
+      <div class="stats">
+
+        <div class="stat-card">
+          <div class="label">TOTAL ORDERS</div>
+          <div
+            class="value"
+            id="totalOrders"
+          >
+            0
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="label">PENDING</div>
+          <div
+            class="value"
+            id="pendingOrders"
+          >
+            0
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="label">CONFIRMED / PREPARING</div>
+          <div
+            class="value"
+            id="activeOrders"
+          >
+            0
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="label">DELIVERED</div>
+          <div
+            class="value"
+            id="deliveredOrders"
+          >
+            0
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- TOOLBAR -->
+
+      <div class="toolbar">
+
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Search by order number, customer, phone or city..."
+          oninput="renderOrders()"
+        >
+
+        <select
+          id="statusFilter"
+          onchange="renderOrders()"
+        >
+          <option value="all">All Statuses</option>
+          <option value="pending">Pending</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="preparing">Preparing</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+
+        <button
+          class="refresh-btn"
+          onclick="loadOrders()"
+        >
+          Refresh Orders
+        </button>
+
+      </div>
+
+
+      <!-- ORDERS -->
+
+      <div class="orders-container">
+
+        <div
+          id="loading"
+          class="loading"
+        >
+          Loading orders...
+        </div>
+
+        <table
+          id="ordersTable"
+          class="hidden"
+        >
+
+          <thead>
+            <tr>
+              <th>ORDER</th>
+              <th>CUSTOMER</th>
+              <th>PHONE</th>
+              <th>LOCATION</th>
+              <th>TOTAL</th>
+              <th>PAYMENT</th>
+              <th>STATUS</th>
+              <th>DATE</th>
+              <th>ACTION</th>
+            </tr>
+          </thead>
+
+          <tbody id="ordersBody"></tbody>
+
+        </table>
+
+        <div
+          id="emptyState"
+          class="empty-state hidden"
+        >
+          No orders found.
+        </div>
+
+      </div>
+
+    </main>
+
+  </section>
+
+
+  <!-- ORDER MODAL -->
+
+  <div
+    id="orderModal"
+    class="modal-overlay hidden"
+    onclick="closeModal(event)"
+  >
+
+    <div
+      class="modal"
+      onclick="event.stopPropagation()"
+    >
+
+      <div class="modal-header">
+
+        <h2 id="modalTitle">
+          Order Details
+        </h2>
+
+        <button
+          class="close-btn"
+          onclick="hideModal()"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <div
+        id="modalBody"
+        class="modal-body"
+      ></div>
+
+      <div class="modal-footer">
+
+        <span
+          id="modalMessage"
+          class="success-text"
+        ></span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+    const API_URL =
+      "https://aradhyabackend.www-aradhya-co.workers.dev";
+
+    const SESSION_KEY =
+      "aradhya_admin_key";
+
+    let orders = [];
+    let adminKey = sessionStorage.getItem(SESSION_KEY) || "";
+
+
+    // -----------------------------------------
+    // LOGIN
+    // -----------------------------------------
+
+    async function login() {
+
+      const input =
+        document.getElementById("adminKey");
+
+      const error =
+        document.getElementById("loginError");
+
+      const key =
+        input.value.trim();
+
+      if (!key) {
+        error.textContent =
+          "Please enter the Admin Key.";
+        return;
+      }
+
+      error.textContent =
+        "Checking access...";
+
+      try {
+
+        const response =
+          await fetch(
+            API_URL + "/admin/orders",
+            {
+              method: "GET",
+              headers: {
+                "X-Admin-Key": key
+              }
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (
+          response.ok &&
+          data.success
+        ) {
+
+          adminKey = key;
+
+          sessionStorage.setItem(
+            SESSION_KEY,
+            key
+          );
+
+          showDashboard();
+
+          orders =
+            Array.isArray(data.orders)
+              ? data.orders
+              : [];
+
+          renderDashboard();
+
+        } else {
+
+          error.textContent =
+            "Invalid Admin Key or unauthorized access.";
+
+        }
+
+      } catch (error) {
+
+        console.error(error);
+
+        error.textContent =
+          "Unable to connect to the Aradhya backend.";
+
+      }
+
+    }
+
+
+    // -----------------------------------------
+    // SHOW DASHBOARD
+    // -----------------------------------------
+
+    function showDashboard() {
+
+      document
+        .getElementById("loginScreen")
+        .classList.add("hidden");
+
+      document
+        .getElementById("dashboard")
+        .classList.remove("hidden");
+
+    }
+
+
+    // -----------------------------------------
+    // LOGOUT
+    // -----------------------------------------
+
+    function logout() {
+
+      sessionStorage.removeItem(
+        SESSION_KEY
+      );
+
+      adminKey = "";
+      orders = [];
+
+      document
+        .getElementById("dashboard")
+        .classList.add("hidden");
+
+      document
+        .getElementById("loginScreen")
+        .classList.remove("hidden");
+
+      document
+        .getElementById("adminKey")
+        .value = "";
+
+      document
+        .getElementById("loginError")
+        .textContent = "";
+
+    }
+
+
+    // -----------------------------------------
+    // LOAD ORDERS
+    // -----------------------------------------
+
+    async function loadOrders() {
+
+      if (!adminKey) {
+        logout();
+        return;
+      }
+
+      const loading =
+        document.getElementById("loading");
+
+      const table =
+        document.getElementById("ordersTable");
+
+      const empty =
+        document.getElementById("emptyState");
+
+      loading.classList.remove("hidden");
+      table.classList.add("hidden");
+      empty.classList.add("hidden");
+
+      try {
+
+        const response =
+          await fetch(
+            API_URL + "/admin/orders",
+            {
+              method: "GET",
+              headers: {
+                "X-Admin-Key": adminKey
+              }
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (
+          response.status === 401
+        ) {
+
+          alert(
+            "Admin authorization failed. Please log in again."
+          );
+
+          logout();
+          return;
+
+        }
+
+        if (!data.success) {
+
+          throw new Error(
+            data.message ||
+            "Unable to load orders."
+          );
+
+        }
+
+        orders =
+          Array.isArray(data.orders)
+            ? data.orders
+            : [];
+
+        renderDashboard();
+
+      } catch (error) {
+
+        console.error(error);
+
+        loading.classList.add("hidden");
+
+        empty.classList.remove("hidden");
+
+        empty.textContent =
+          "Unable to load orders: " +
+          error.message;
+
+      }
+
+    }
+
+
+    // -----------------------------------------
+    // DASHBOARD STATS
+    // -----------------------------------------
+
+    function renderDashboard() {
+
+      updateStats();
+
+      renderOrders();
+
+    }
+
+
+    function updateStats() {
+
+      const total =
+        orders.length;
+
+      const pending =
+        orders.filter(
+          order =>
+            order.order_status === "pending"
+        ).length;
+
+      const active =
+        orders.filter(
+          order =>
+            order.order_status === "confirmed" ||
+            order.order_status === "preparing"
+        ).length;
+
+      const delivered =
+        orders.filter(
+          order =>
+            order.order_status === "delivered"
+        ).length;
+
+      document
+        .getElementById("totalOrders")
+        .textContent = total;
+
+      document
+        .getElementById("pendingOrders")
+        .textContent = pending;
+
+      document
+        .getElementById("activeOrders")
+        .textContent = active;
+
+      document
+        .getElementById("deliveredOrders")
+        .textContent = delivered;
+
+    }
+
+
+    // -----------------------------------------
+    // RENDER ORDERS
+    // -----------------------------------------
+
+    function renderOrders() {
+
+      const search =
+        document
+          .getElementById("searchInput")
+          .value
+          .trim()
+          .toLowerCase();
+
+      const status =
+        document
+          .getElementById("statusFilter")
+          .value;
+
+      const filtered =
+        orders.filter(order => {
+
+          const searchable = [
+            order.order_number,
+            order.customer_name,
+            order.phone,
+            order.email,
+            order.city,
+            order.state,
+            order.pincode
+          ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+
+          const matchesSearch =
+            !search ||
+            searchable.includes(search);
+
+          const matchesStatus =
+            status === "all" ||
+            order.order_status === status;
+
+          return (
+            matchesSearch &&
+            matchesStatus
+          );
+
+        });
+
+      const loading =
+        document.getElementById("loading");
+
+      const table =
+        document.getElementById("ordersTable");
+
+      const empty =
+        document.getElementById("emptyState");
+
+      const body =
+        document.getElementById("ordersBody");
+
+      loading.classList.add("hidden");
+
+      body.innerHTML = "";
+
+      if (filtered.length === 0) {
+
+        table.classList.add("hidden");
+
+        empty.classList.remove("hidden");
+
+        empty.textContent =
+          orders.length === 0
+            ? "No orders have been placed yet."
+            : "No orders match your search.";
+
+        return;
+
+      }
+
+      empty.classList.add("hidden");
+
+      table.classList.remove("hidden");
+
+      filtered.forEach(order => {
+
+        const row =
+          document.createElement("tr");
+
+        row.innerHTML = `
+          <td>
+            <div class="order-number">
+              ${escapeHtml(order.order_number || "-")}
+            </div>
+          </td>
+
+          <td>
+            <div class="customer-name">
+              ${escapeHtml(order.customer_name || "-")}
+            </div>
+            <div class="muted">
+              ${escapeHtml(order.email || "")}
+            </div>
+          </td>
+
+          <td>
+            ${escapeHtml(order.phone || "-")}
+          </td>
+
+          <td>
+            ${escapeHtml(order.city || "-")}
+            <br>
+            <span class="muted">
+              ${escapeHtml(order.state || "")}
+            </span>
+          </td>
+
+          <td>
+            <span class="amount">
+              ₹${formatMoney(order.total_amount)}
+            </span>
+          </td>
+
+          <td>
+            ${escapeHtml(order.payment_status || "-")}
+          </td>
+
+          <td>
+            <select
+              class="status-select"
+              onchange="updateStatus(${order.id}, this.value)"
+            >
+              ${statusOptions(order.order_status)}
+            </select>
+          </td>
+
+          <td>
+            ${formatDate(order.created_at)}
+          </td>
+
+          <td>
+            <button
+              class="view-btn"
+              onclick="viewOrder(${order.id})"
+            >
+              View
+            </button>
+          </td>
+        `;
+
+        body.appendChild(row);
+
+      });
+
+    }
+
+
+    // -----------------------------------------
+    // STATUS OPTIONS
+    // -----------------------------------------
+
+    function statusOptions(current) {
+
+      const statuses = [
+        "pending",
+        "confirmed",
+        "preparing",
+        "shipped",
+        "delivered",
+        "cancelled"
+      ];
+
+      return statuses
+        .map(status => `
+          <option
+            value="${status}"
+            ${status === current ? "selected" : ""}
+          >
+            ${capitalize(status)}
+          </option>
+        `)
+        .join("");
+
+    }
+
+
+    // -----------------------------------------
+    // UPDATE STATUS
+    // -----------------------------------------
+
+    async function updateStatus(
+      orderId,
+      newStatus
+    ) {
+
+      const confirmed =
+        confirm(
+          "Change this order status to " +
+          capitalize(newStatus) +
+          "?"
+        );
+
+      if (!confirmed) {
+
+        renderOrders();
+
+        return;
+
+      }
+
+      try {
+
+        const response =
+          await fetch(
+            API_URL + "/admin/update-status",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type":
+                  "application/json",
+                "X-Admin-Key":
+                  adminKey
+              },
+              body: JSON.stringify({
+                order_id: orderId,
+                order_status: newStatus
+              })
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (
+          response.status === 401
+        ) {
+
+          alert(
+            "Authorization failed."
+          );
+
+          logout();
+
+          return;
+
+        }
+
+        if (!data.success) {
+
+          throw new Error(
+            data.message ||
+            "Unable to update status."
+          );
+
+        }
+
+        const order =
+          orders.find(
+            item =>
+              item.id === orderId
+          );
+
+        if (order) {
+          order.order_status =
+            newStatus;
+        }
+
+        updateStats();
+
+        renderOrders();
+
+      } catch (error) {
+
+        console.error(error);
+
+        alert(
+          "Unable to update order status: " +
+          error.message
+        );
+
+        renderOrders();
+
+      }
+
+    }
+
+
+    // -----------------------------------------
+    // VIEW ORDER
+    // -----------------------------------------
+
+    async function viewOrder(orderId) {
+
+      const modal =
+        document.getElementById("orderModal");
+
+      const body =
+        document.getElementById("modalBody");
+
+      const title =
+        document.getElementById("modalTitle");
+
+      title.textContent =
+        "Loading Order...";
+
+      body.innerHTML =
+        '<div class="loading">Loading order details...</div>';
+
+      modal.classList.remove("hidden");
+
+      try {
+
+        const response =
+          await fetch(
+            API_URL +
+            "/admin/order?id=" +
+            encodeURIComponent(orderId),
+            {
+              method: "GET",
+              headers: {
+                "X-Admin-Key":
+                  adminKey
+              }
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (!data.success) {
+          throw new Error(
+            data.message ||
+            "Unable to load order."
+          );
+        }
+
+        const order =
+          data.order;
+
+        const items =
+          Array.isArray(data.items)
+            ? data.items
+            : [];
+
+        title.textContent =
+          "Order " +
+          order.order_number;
+
+        body.innerHTML = `
+
+          <div class="detail-grid">
+
+            <div class="detail-box">
+              <div class="label">CUSTOMER</div>
+              <div class="value">
+                ${escapeHtml(order.customer_name)}
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="label">PHONE</div>
+              <div class="value">
+                ${escapeHtml(order.phone)}
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="label">EMAIL</div>
+              <div class="value">
+                ${escapeHtml(order.email || "-")}
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="label">PAYMENT STATUS</div>
+              <div class="value">
+                ${escapeHtml(order.payment_status || "-")}
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="label">ORDER STATUS</div>
+              <div class="value">
+                ${capitalize(order.order_status)}
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="label">ORDER DATE</div>
+              <div class="value">
+                ${formatDate(order.created_at)}
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="label">ADDRESS</div>
+              <div class="value">
+                ${escapeHtml(order.address_line1 || "")}
+                ${order.address_line2
+                  ? "<br>" +
+                    escapeHtml(order.address_line2)
+                  : ""}
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="label">CITY / STATE / PINCODE</div>
+              <div class="value">
+                ${escapeHtml(order.city || "")},
+                ${escapeHtml(order.state || "")}
+                -
+                ${escapeHtml(order.pincode || "")}
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="label">NOTES</div>
+              <div class="value">
+                ${escapeHtml(order.notes || "-")}
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="label">TOTAL</div>
+              <div class="value">
+                ₹${formatMoney(order.total_amount)}
+              </div>
+            </div>
+
+          </div>
+
+          <div class="section-title">
+            ORDER ITEMS
+          </div>
+
+          <table class="items-table">
+
+            <thead>
+              <tr>
+                <th>PRODUCT</th>
+                <th>QTY</th>
+                <th>PRICE</th>
+                <th>TOTAL</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              ${items.map(item => `
+
+                <tr>
+
+                  <td>
+                    ${escapeHtml(item.product_name)}
+                  </td>
+
+                  <td>
+                    ${item.quantity}
+                  </td>
+
+                  <td>
+                    ₹${formatMoney(item.unit_price)}
+                  </td>
+
+                  <td>
+                    ₹${formatMoney(item.line_total)}
+                  </td>
+
+                </tr>
+
+              `).join("")}
+
+            </tbody>
+
+          </table>
+
+          <div class="section-title">
+            ORDER SUMMARY
+          </div>
+
+          <div class="detail-grid">
+
+            <div class="detail-box">
+              <div class="label">SUBTOTAL</div>
+              <div class="value">
+                ₹${formatMoney(order.subtotal)}
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="label">DELIVERY</div>
+              <div class="value">
+                ₹${formatMoney(order.delivery_charge)}
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="label">TOTAL</div>
+              <div class="value">
+                ₹${formatMoney(order.total_amount)}
+              </div>
+            </div>
+
+          </div>
+
+        `;
+
+      } catch (error) {
+
+        console.error(error);
+
+        body.innerHTML = `
+          <div class="empty-state">
+            Unable to load order details.
+            <br><br>
+            ${escapeHtml(error.message)}
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    // -----------------------------------------
+    // MODAL
+    // -----------------------------------------
+
+    function hideModal() {
+
+      document
+        .getElementById("orderModal")
+        .classList.add("hidden");
+
+    }
+
+    function closeModal(event) {
+
+      if (
+        event.target.id === "orderModal"
+      ) {
+        hideModal();
+      }
+
+    }
+
+
+    // -----------------------------------------
+    // HELPERS
+    // -----------------------------------------
+
+    function formatMoney(value) {
+
+      const number =
+        Number(value || 0);
+
+      return number.toLocaleString(
+        "en-IN"
+      );
+
+    }
+
+
+    function capitalize(value) {
+
+      if (!value) {
+        return "-";
+      }
+
+      return value.charAt(0).toUpperCase() +
+        value.slice(1);
+
+    }
+
+
+    function formatDate(value) {
+
+      if (!value) {
+        return "-";
+      }
+
+      const date =
+        new Date(
+          value.includes("T")
+            ? value
+            : value.replace(" ", "T") + "Z"
+        );
+
+      if (
+        Number.isNaN(date.getTime())
+      ) {
+        return value;
+      }
+
+      return date.toLocaleString(
+        "en-IN",
+        {
+          dateStyle: "medium",
+          timeStyle: "short"
+        }
+      );
+
+    }
+
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    // -----------------------------------------
+    // AUTO LOGIN FROM SESSION
+    // -----------------------------------------
+
+    if (adminKey) {
+
+      showDashboard();
+
+      loadOrders();
+
+    }
+
+  </script>
+
+</body>
+</html>
