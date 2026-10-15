@@ -1,0 +1,12 @@
+name = "aradhyabackend"
+main = "worker.js"
+compatibility_date = "2026-10-15"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "aradhya-orders"
+database_id = "REPLACE_WITH_DATABASE_ID_FROM_WRANGLER"
+
+[vars]
+# Replace with the real storefront origin. Multiple comma-separated origins are supported.
+ALLOWED_ORIGIN = "https://www.aradhya.co"
