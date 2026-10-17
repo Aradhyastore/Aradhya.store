@@ -17,16 +17,16 @@
  * does not process online payments or deduct inventory.
  */
 const PRODUCTS = {
-  1: { name: "White Lily", price: 245, active: true },
-  2: { name: "White Oudh", price: 259, active: true },
-  3: { name: "Mysore Chandan", price: 245, active: true },
-  4: { name: "Lavender", price: 259, active: true },
-  5: { name: "Pineapple", price: 259, active: true },
-  6: { name: "Mysore Kewda", price: 245, active: true },
-  7: { name: "Mix – Rose, Bela, Chandan & Kewda", price: 400, active: true },
-  8: { name: "Mix – White Lily, Chandan & White Oudh", price: 400, active: true }
+  1: { name: "White Lily", price: 299, active: true },
+  2: { name: "White Oudh", price: 299, active: true },
+  3: { name: "Mysore Chandan", price: 299, active: true },
+  4: { name: "Lavender", price: 299, active: true },
+  5: { name: "Pineapple", price: 299, active: true },
+  6: { name: "Mysore Kewda", price: 299, active: true },
+  7: { name: "Mix – Rose, Bela, Chandan & Kewda", price: 499, active: true },
+  8: { name: "Mix – White Lily, Chandan, White Oudh, Mysore Kewda & Pineapple", price: 499, active: true }
 };
-const ORDER_STATUSES = new Set(["new", "confirmed", "processing", "shipped", "delivered", "cancelled"]);
+const ORDER_STATUSES = new Set(["new", "confirmed", "preparing", "processing", "shipped", "delivered", "cancelled"]);
 const PAYMENT_STATUSES = new Set(["pending", "paid", "failed", "refunded", "cod"]);
 
 function corsHeaders(request, env) {
@@ -36,7 +36,7 @@ function corsHeaders(request, env) {
   return {
     "Access-Control-Allow-Origin": allowOrigin,
     "Access-Control-Allow-Methods": "GET,POST,PATCH,OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type,Authorization",
+    "Access-Control-Allow-Headers": "Content-Type,Authorization,X-Admin-Key",
     "Access-Control-Max-Age": "86400",
     "Vary": "Origin"
   };
@@ -52,7 +52,9 @@ function clean(value, max = 500) {
 }
 function isAdmin(request, env) {
   const auth = request.headers.get("Authorization") || "";
-  const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
+  const bearer = auth.startsWith("Bearer ") ? auth.slice(7) : "";
+  const adminHeader = request.headers.get("X-Admin-Key") || "";
+  const token = bearer || adminHeader;
   return Boolean(env.ADMIN_KEY && token && token === env.ADMIN_KEY);
 }
 function makeOrderId() {
@@ -136,17 +138,36 @@ async function updateOrder(request, env, orderId) {
   if (!env.DB) return json(request, env, {success:false,error:"Database is not configured."},503);
   let body;
   try { body = await request.json(); } catch { return json(request, env, {success:false,error:"Request body must be valid JSON."},400); }
-  const orderStatus = body.order_status == null ? null : clean(body.order_status,30);
-  const paymentStatus = body.payment_status == null ? null : clean(body.payment_status,30);
+
+  let orderStatus = body.order_status == null ? null : clean(body.order_status,30);
+  let paymentStatus = body.payment_status == null ? null : clean(body.payment_status,30);
+  if (body.status != null && !orderStatus) orderStatus = clean(body.status,30);
+  if (orderStatus === "preparing") orderStatus = "preparing";
   if (orderStatus && !ORDER_STATUSES.has(orderStatus)) return json(request, env, {success:false,error:"Invalid order status."},400);
   if (paymentStatus && !PAYMENT_STATUSES.has(paymentStatus)) return json(request, env, {success:false,error:"Invalid payment status."},400);
   if (!orderStatus && !paymentStatus) return json(request, env, {success:false,error:"No valid fields to update."},400);
+
   try {
-    const result = await env.DB.prepare(`UPDATE orders SET
-      order_status=COALESCE(?,order_status),
-      payment_status=COALESCE(?,payment_status),
-      updated_at=?
-      WHERE order_id=?`).bind(orderStatus,paymentStatus,new Date().toISOString(),orderId).run();
+    let result;
+    try {
+      result = await env.DB.prepare(`UPDATE orders SET
+        order_status=COALESCE(?,order_status),
+        payment_status=COALESCE(?,payment_status),
+        updated_at=?
+        WHERE order_id=?`).bind(orderStatus,paymentStatus,new Date().toISOString(),orderId).run();
+    } catch (firstError) {
+      // Some earlier D1 schemas used "processing" instead of "preparing".
+      if (orderStatus === "preparing") {
+        result = await env.DB.prepare(`UPDATE orders SET
+          order_status=COALESCE(?,order_status),
+          payment_status=COALESCE(?,payment_status),
+          updated_at=?
+          WHERE order_id=?`).bind("processing",paymentStatus,new Date().toISOString(),orderId).run();
+        orderStatus = "preparing";
+      } else {
+        throw firstError;
+      }
+    }
     if (!result.meta?.changes) return json(request, env, {success:false,error:"Order not found."},404);
     return json(request, env, {success:true,order_id:orderId,order_status:orderStatus,payment_status:paymentStatus});
   } catch (error) {
