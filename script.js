@@ -9,18 +9,27 @@ function adjustShopQty(button, delta) {
   value.textContent = next;
 }
 
+let productDetailReturnScrollY = 0;
+
 function showPage(id) {
+  const wasProductDetail = document.getElementById('product-detail')?.classList.contains('active');
+
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const page = document.getElementById(id);
   if (page) page.classList.add('active');
+
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-  const map = {home:0,products:1,gallery:2,mission:3,about:4,support:5};
+  const map = {home:0,products:1,'product-detail':1,gallery:2,mission:3,about:4,support:5};
   const navButton = document.querySelectorAll('nav button')[map[id]];
   if (navButton) navButton.classList.add('active');
-  if (id === 'product-detail') {
-    const shopButton = document.querySelectorAll('nav button')[1];
-    if (shopButton) shopButton.classList.add('active');
+
+  // Product details preserve the exact shop position. Other normal navigation
+  // opens the selected page from its beginning.
+  if (id === 'product-detail' || (id === 'products' && wasProductDetail)) {
+    requestAnimationFrame(() => window.scrollTo({top: productDetailReturnScrollY, behavior:'auto'}));
+    return;
   }
+  window.scrollTo({top:0, behavior:'auto'});
 }
 
 function addToCart(name, price, productId, button) {
@@ -116,7 +125,7 @@ function openCheckout() {
         <label>Email address (optional) <input name="email" id="checkoutEmail" type="email" autocomplete="email" maxlength="150" placeholder="you@example.com"></label>
         <label>Full delivery address <textarea name="address" id="checkoutAddress" autocomplete="street-address" maxlength="600" required placeholder="House / street / area / city / state / PIN code"></textarea></label>
         <div class="checkout-summary" id="checkoutSummary"></div>
-        <div class="checkout-payment-note">Payment: <strong>Cash on Delivery / WhatsApp confirmation</strong><br>Online payments are intentionally disabled for now. After the order is saved, you will be given a WhatsApp confirmation button. Delivery charges will be confirmed according to your delivery location and included in the WhatsApp order message.</div>
+        <div class="checkout-payment-note">Payment: <strong>Cash on Delivery / confirm manually</strong><br>Online payments are intentionally disabled for now. Please wait for the order confirmation screen after submitting.</div>
         <button class="btn checkout-submit" id="placeOrderBtn" type="submit">PLACE ORDER →</button>
         <p style="color:#9e8e67;font:11px/1.5 Arial,sans-serif;text-align:center">Your order total is verified by Aradhya's order server before the order is saved.</p>
       </form>
@@ -131,7 +140,7 @@ function openCheckout() {
 
 function buildCartSummaryHTML() {
   const lines = cart.map(item => `<div class="checkout-summary-line"><span>${escapeHTML(item.name)} × ${item.qty}</span><span>₹${(item.price * item.qty).toLocaleString('en-IN')}</span></div>`).join('');
-  return `<div style="font:12px Arial,sans-serif;letter-spacing:1.2px;color:#c7a85f;margin-bottom:6px">YOUR ORDER</div>${lines}<div class="checkout-summary-total"><span>Product subtotal</span><strong>₹${getCartTotal().toLocaleString('en-IN')}</strong></div><div style="margin-top:10px;padding:10px 12px;border:1px solid #6d5426;border-radius:10px;color:#d8c99f;font:12px/1.5 Arial,sans-serif"><strong style="color:#f0d37a">Delivery charges:</strong> Will be confirmed according to your delivery location and included in your WhatsApp confirmation message.</div>`;
+  return `<div style="font:12px Arial,sans-serif;letter-spacing:1.2px;color:#c7a85f;margin-bottom:6px">YOUR ORDER</div>${lines}<div class="checkout-summary-total"><span>Estimated total</span><strong>₹${getCartTotal().toLocaleString('en-IN')}</strong></div>`;
 }
 
 function closeCheckout() {
@@ -175,7 +184,6 @@ async function submitOrder(event) {
         customer_address: address,
         payment_method: 'cod',
         currency: 'INR',
-        notes: 'Delivery charges to be confirmed according to delivery location and communicated through WhatsApp before dispatch.',
         items: submittedCart.map(item => ({product_id:item.id, id:item.id, quantity:item.qty}))
       })
     });
@@ -196,7 +204,7 @@ async function submitOrder(event) {
     const layer = document.getElementById('checkoutLayer');
     if (layer) layer.remove();
     checkoutSubmitting = false;
-    showOrderConfirmation({orderId, name, phone, address, items:submittedCart, subtotal:finalTotal, total:finalTotal});
+    showOrderConfirmation({orderId, name, phone, address, items:submittedCart, total:finalTotal});
   } catch (error) {
     console.error('Aradhya order submission error:', error);
     const message = error && error.name === 'AbortError'
@@ -234,16 +242,11 @@ function showOrderConfirmation(order) {
       <h2 id="orderSuccessTitle">Thank you, ${escapeHTML(order.name)}.</h2>
       <p class="checkout-intro">Your order request has been saved. Keep your order reference for any follow-up with Aradhya.</p>
       <div class="order-reference">${reference}</div>
-      <div class="order-success-items">${lines}<div class="checkout-summary-total"><span>Product subtotal</span><strong>₹${Number(order.subtotal ?? order.total ?? 0).toLocaleString('en-IN')}</strong></div><div style="margin-top:10px;padding:10px 12px;border:1px solid #6d5426;border-radius:10px;color:#d8c99f;font:12px/1.5 Arial,sans-serif"><strong style="color:#f0d37a">Delivery charges:</strong> Will be confirmed according to your delivery location and included in the WhatsApp confirmation.</div></div>
-      <p class="checkout-payment-note" style="text-align:left">Payment method: Cash on Delivery / WhatsApp confirmation.<br>Your order has been saved. Please confirm it on WhatsApp so Aradhya can verify the delivery location and tell you the applicable delivery charge before dispatch.</p>
-      <a class="btn" id="whatsappConfirmBtn" href="#" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none;width:100%;margin-top:18px">CONFIRM ORDER ON WHATSAPP</a>
-      <button class="btn" type="button" id="confirmationDone" style="width:100%;margin-top:10px">CONTINUE SHOPPING</button>
+      <div class="order-success-items">${lines}<div class="checkout-summary-total"><span>Order total</span><strong>₹${Number(order.total).toLocaleString('en-IN')}</strong></div></div>
+      <p class="checkout-payment-note" style="text-align:left">Payment method: Cash on Delivery / manual confirmation.<br>We may contact you on ${escapeHTML(order.phone)} to confirm delivery details. Online payment has not been taken.</p>
+      <button class="btn" type="button" id="confirmationDone" style="width:100%;margin-top:18px">CONTINUE SHOPPING</button>
     </section>`;
   document.body.appendChild(layer);
-  const whatsappNumber = '917992148373';
-  const whatsappLines = order.items.map(item => `• ${item.name} × ${item.qty} — ₹${(item.price * item.qty).toLocaleString('en-IN')}`).join('\n');
-  const whatsappMessage = `Hello Aradhya, I want to confirm my order.\n\nOrder ID: ${order.orderId || 'N/A'}\nCustomer: ${order.name}\nMobile: ${order.phone}\nAddress: ${order.address}\n\nProducts:\n${whatsappLines}\n\nProduct Subtotal: ₹${Number(order.subtotal ?? order.total ?? 0).toLocaleString('en-IN')}\nDelivery Charges: Please calculate/confirm according to my delivery location and add it to the final order total.\nFinal Total: To be confirmed on WhatsApp.\n\nPayment: Cash on Delivery / manual confirmation.\n\nPlease confirm my order and delivery charges. Thank you.";
-  layer.querySelector('#whatsappConfirmBtn').href = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(whatsappMessage);
   layer.querySelector('#confirmationDone').addEventListener('click', () => layer.remove());
   layer.addEventListener('click', e => { if (e.target === layer) layer.remove(); });
 }
@@ -339,6 +342,7 @@ function productSlugFromCard(card) {
 function openProductDetail(slug) {
   const product = ARADHYA_PRODUCTS[slug];
   if (!product) return;
+  productDetailReturnScrollY = window.scrollY;
   activeProductKey = slug;
   activeProductImages = getProductImages(product);
   activeProductSlide = 0;
@@ -348,7 +352,7 @@ function openProductDetail(slug) {
 
   content.innerHTML = `
     <div class="product-detail-shell">
-      <button class="btn product-detail-back" type="button" onclick="showPage('products')">← Back to Shop</button>
+      <button class="btn product-detail-back" type="button" onclick="closeProductDetail()">← Back to Shop</button>
       <div class="product-detail-top">
         <div class="product-detail-gallery">
           <div class="product-detail-main-wrap">
@@ -363,6 +367,7 @@ function openProductDetail(slug) {
           <div class="eyebrow">ARADHYA • PREMIUM DHOOP CONES</div>
           <h2>${escapeHTML(product.name)}</h2>
           <div class="product-detail-price">₹${product.price.toLocaleString('en-IN')}</div>
+          <div class="product-detail-meta"><span>650 g</span><span>Traditional Fragrance</span><span>${escapeHTML(product.fragrance)}</span></div>
           <div class="detail-fragrance"><strong>Fragrance:</strong> ${escapeHTML(product.fragrance)}</div>
           <p>${escapeHTML(COMMON_PRODUCT_DESCRIPTION)}</p>
           <h3>Ingredients</h3>
@@ -380,8 +385,10 @@ function openProductDetail(slug) {
 
   renderProductThumbnails();
   showPage('product-detail');
-  const detailPage = document.getElementById('product-detail');
-  if (detailPage) detailPage.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function closeProductDetail() {
+  showPage('products');
 }
 
 function renderProductThumbnails() {
@@ -421,8 +428,17 @@ function initProductCards() {
     if (card.dataset.productInterfaceBound === '1') return;
     card.dataset.productInterfaceBound = '1';
     card.style.cursor = 'pointer';
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
     card.addEventListener('click', event => {
       if (event.target.closest('button, a, input, select, textarea')) return;
+      const slug = productSlugFromCard(card);
+      if (slug) openProductDetail(slug);
+    });
+    card.addEventListener('keydown', event => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      if (event.target.closest('button, a, input, select, textarea')) return;
+      event.preventDefault();
       const slug = productSlugFromCard(card);
       if (slug) openProductDetail(slug);
     });
