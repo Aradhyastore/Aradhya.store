@@ -1,0 +1,949 @@
+const ARADHYA_API_BASE = "https://aradhyabackend.www-aradhya-co.workers.dev";
+
+let cart = [];
+let checkoutSubmitting = false;
+
+function adjustShopQty(button, delta) {
+  const row = button.parentElement;
+  const value = row.querySelector('span');
+  const next = Math.max(
+    1,
+    Math.min(
+      99,
+      parseInt(value.textContent || '1', 10) + delta
+    )
+  );
+  value.textContent = next;
+}
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+  });
+
+  const page = document.getElementById(id);
+  if (page) {
+    page.classList.add('active');
+  }
+
+  document.querySelectorAll('nav button').forEach(b => {
+    b.classList.remove('active');
+  });
+
+  const map = {
+    home: 0,
+    products: 1,
+    gallery: 2,
+    mission: 3,
+    about: 4,
+    support: 5
+  };
+
+  const navButton = document.querySelectorAll('nav button')[map[id]];
+
+  if (navButton) {
+    navButton.classList.add('active');
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+function addToCart(name, price, productId, button) {
+  const id = Number(productId);
+
+  if (!Number.isInteger(id) || id < 1 || id > 8) {
+    showToast('This product is not available for ordering yet.');
+    return;
+  }
+
+  let selectedQty = 1;
+
+  const card = button && button.closest('.shop-product-card');
+
+  const qtyNode = card && card.querySelector('.qty-row span');
+
+  if (qtyNode) {
+    selectedQty = Math.max(
+      1,
+      Math.min(
+        99,
+        parseInt(qtyNode.textContent || '1', 10)
+      )
+    );
+  }
+
+  const existing = cart.find(item => item.id === id);
+
+  if (existing) {
+    existing.qty = Math.min(
+      99,
+      existing.qty + selectedQty
+    );
+  } else {
+    cart.push({
+      id,
+      name,
+      price: Number(price),
+      qty: selectedQty
+    });
+  }
+
+  if (qtyNode) {
+    qtyNode.textContent = '1';
+  }
+
+  renderCart();
+
+  const cartPanel = document.getElementById('cartPanel');
+
+  if (cartPanel) {
+    cartPanel.classList.add('open');
+  }
+
+  showToast(name + ' added to your cart.');
+}
+
+function changeQty(productId, delta) {
+  const item = cart.find(
+    i => i.id === Number(productId)
+  );
+
+  if (!item) return;
+
+  item.qty += delta;
+
+  if (item.qty <= 0) {
+    cart = cart.filter(
+      i => i.id !== Number(productId)
+    );
+  } else {
+    item.qty = Math.min(99, item.qty);
+  }
+
+  renderCart();
+}
+
+function escapeHTML(value) {
+  return String(
+    value == null ? '' : value
+  ).replace(
+    /[&<>"']/g,
+    ch => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[ch])
+  );
+}
+
+function getCartTotal() {
+  return cart.reduce(
+    (sum, item) =>
+      sum + item.price * item.qty,
+    0
+  );
+}
+
+function renderCart() {
+  const count = cart.reduce(
+    (sum, item) => sum + item.qty,
+    0
+  );
+
+  const cartCount =
+    document.getElementById('cartCount');
+
+  const cartTotal =
+    document.getElementById('cartTotal');
+
+  const box =
+    document.getElementById('cartItems');
+
+  if (cartCount) {
+    cartCount.textContent = count;
+  }
+
+  if (cartTotal) {
+    cartTotal.textContent =
+      getCartTotal().toLocaleString('en-IN');
+  }
+
+  if (!box) return;
+
+  if (!cart.length) {
+    box.innerHTML =
+      '<div class="cart-empty">Your cart is empty.</div>';
+    return;
+  }
+
+  box.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <span>
+        ${escapeHTML(item.name)}
+        <br>
+        <small>
+          ₹${item.price.toLocaleString('en-IN')} × ${item.qty}
+        </small>
+      </span>
+
+      <span style="display:flex;align-items:center;gap:5px;flex-shrink:0">
+        <button
+          class="cart-close"
+          type="button"
+          aria-label="Remove one ${escapeHTML(item.name)}"
+          onclick="changeQty(${item.id},-1)"
+        >−</button>
+
+        <span>${item.qty}</span>
+
+        <button
+          class="cart-close"
+          type="button"
+          aria-label="Add one ${escapeHTML(item.name)}"
+          onclick="changeQty(${item.id},1)"
+        >+</button>
+      </span>
+    </div>
+  `).join('');
+}
+
+function toggleCart() {
+  const panel =
+    document.getElementById('cartPanel');
+
+  if (panel) {
+    panel.classList.toggle('open');
+  }
+}
+
+function openModal(src) {
+  const image =
+    document.getElementById('modalImage');
+
+  const modal =
+    document.getElementById('imageModal');
+
+  if (image) {
+    image.src = src;
+  }
+
+  if (modal) {
+    modal.classList.add('open');
+  }
+}
+
+function closeModal() {
+  const modal =
+    document.getElementById('imageModal');
+
+  const image =
+    document.getElementById('modalImage');
+
+  if (modal) {
+    modal.classList.remove('open');
+  }
+
+  if (image) {
+    image.src = '';
+  }
+}
+
+function showToast(message) {
+  let toast =
+    document.getElementById('aradhyaToast');
+
+  if (!toast) {
+    toast = document.createElement('div');
+
+    toast.id = 'aradhyaToast';
+
+    toast.style.cssText =
+      'position:fixed;left:50%;bottom:22px;' +
+      'transform:translateX(-50%);z-index:1200;' +
+      'max-width:calc(100% - 28px);padding:12px 18px;' +
+      'border:1px solid #b88b35;border-radius:12px;' +
+      'background:#100d08;color:#f5d77a;' +
+      'font:14px Arial,sans-serif;' +
+      'box-shadow:0 8px 28px #0009;' +
+      'text-align:center';
+
+    document.body.appendChild(toast);
+  }
+
+  toast.textContent = message;
+  toast.style.display = 'block';
+
+  clearTimeout(toast._hideTimer);
+
+  toast._hideTimer = setTimeout(() => {
+    toast.style.display = 'none';
+  }, 2600);
+}
+
+function openCheckout() {
+  if (!cart.length) {
+    showToast(
+      'Your cart is empty. Add a product first.'
+    );
+    return;
+  }
+
+  if (document.getElementById('checkoutLayer')) {
+    return;
+  }
+
+  const cartPanel =
+    document.getElementById('cartPanel');
+
+  if (cartPanel) {
+    cartPanel.classList.remove('open');
+  }
+
+  const layer =
+    document.createElement('div');
+
+  layer.className = 'checkout-layer';
+  layer.id = 'checkoutLayer';
+
+  layer.innerHTML = `
+    <section
+      class="checkout-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="checkoutTitle"
+    >
+
+      <button
+        class="checkout-close-btn"
+        type="button"
+        aria-label="Close checkout"
+        id="checkoutClose"
+      >×</button>
+
+      <div class="eyebrow">
+        ARADHYA • SECURE ORDER REQUEST
+      </div>
+
+      <h2 id="checkoutTitle">
+        Delivery Details
+      </h2>
+
+      <p class="checkout-intro">
+        Enter your details to place your Aradhya order.
+        Online payment is not enabled yet.
+      </p>
+
+      <form
+        id="checkoutForm"
+        class="checkout-form"
+      >
+
+        <label>
+          Full name
+          <input
+            name="name"
+            id="checkoutName"
+            autocomplete="name"
+            maxlength="100"
+            required
+            placeholder="Your full name"
+          >
+        </label>
+
+        <label>
+          Mobile number
+          <input
+            name="phone"
+            id="checkoutPhone"
+            type="tel"
+            inputmode="numeric"
+            autocomplete="tel"
+            maxlength="10"
+            pattern="[6-9][0-9]{9}"
+            required
+            placeholder="10-digit Indian mobile number"
+          >
+        </label>
+
+        <label>
+          Email address (optional)
+          <input
+            name="email"
+            id="checkoutEmail"
+            type="email"
+            autocomplete="email"
+            maxlength="150"
+            placeholder="you@example.com"
+          >
+        </label>
+
+        <label>
+          Full delivery address
+          <textarea
+            name="address"
+            id="checkoutAddress"
+            autocomplete="street-address"
+            maxlength="600"
+            required
+            placeholder="House / street / area / city / state / PIN code"
+          ></textarea>
+        </label>
+
+        <div
+          class="checkout-summary"
+          id="checkoutSummary"
+        ></div>
+
+        <div class="checkout-payment-note">
+          Payment:
+          <strong>
+            Cash on Delivery / confirm manually
+          </strong>
+          <br>
+          Online payments are intentionally disabled
+          for now. Please wait for the order
+          confirmation screen after submitting.
+        </div>
+
+        <button
+          class="btn checkout-submit"
+          id="placeOrderBtn"
+          type="submit"
+        >
+          PLACE ORDER →
+        </button>
+
+        <p
+          style="
+            color:#9e8e67;
+            font:11px/1.5 Arial,sans-serif;
+            text-align:center
+          "
+        >
+          Your order total is verified by
+          Aradhya's order server before the
+          order is saved.
+        </p>
+
+      </form>
+    </section>
+  `;
+
+  document.body.appendChild(layer);
+
+  const summary =
+    layer.querySelector('#checkoutSummary');
+
+  if (summary) {
+    summary.innerHTML =
+      buildCartSummaryHTML();
+  }
+
+  const closeButton =
+    layer.querySelector('#checkoutClose');
+
+  if (closeButton) {
+    closeButton.addEventListener(
+      'click',
+      closeCheckout
+    );
+  }
+
+  layer.addEventListener('click', e => {
+    if (e.target === layer) {
+      closeCheckout();
+    }
+  });
+
+  const form =
+    layer.querySelector('#checkoutForm');
+
+  if (form) {
+    form.addEventListener(
+      'submit',
+      submitOrder
+    );
+  }
+
+  const nameInput =
+    document.getElementById('checkoutName');
+
+  if (nameInput) {
+    nameInput.focus();
+  }
+}
+
+function buildCartSummaryHTML() {
+  const lines = cart.map(item => `
+    <div class="checkout-summary-line">
+      <span>
+        ${escapeHTML(item.name)} × ${item.qty}
+      </span>
+
+      <span>
+        ₹${(
+          item.price * item.qty
+        ).toLocaleString('en-IN')}
+      </span>
+    </div>
+  `).join('');
+
+  return `
+    <div
+      style="
+        font:12px Arial,sans-serif;
+        letter-spacing:1.2px;
+        color:#c7a85f;
+        margin-bottom:6px
+      "
+    >
+      YOUR ORDER
+    </div>
+
+    ${lines}
+
+    <div class="checkout-summary-total">
+      <span>Estimated total</span>
+      <strong>
+        ₹${getCartTotal().toLocaleString('en-IN')}
+      </strong>
+    </div>
+  `;
+}
+
+function closeCheckout() {
+  const layer =
+    document.getElementById('checkoutLayer');
+
+  if (layer && !checkoutSubmitting) {
+    layer.remove();
+  }
+}
+
+async function submitOrder(event) {
+  event.preventDefault();
+
+  if (checkoutSubmitting || !cart.length) {
+    return;
+  }
+
+  const form = event.currentTarget;
+
+  if (!form.reportValidity()) {
+    return;
+  }
+
+  const name =
+    document.getElementById('checkoutName')
+      .value.trim();
+
+  const phone =
+    document.getElementById('checkoutPhone')
+      .value.trim();
+
+  const email =
+    document.getElementById('checkoutEmail')
+      .value.trim();
+
+  const address =
+    document.getElementById('checkoutAddress')
+      .value.trim();
+
+  if (!/^[6-9][0-9]{9}$/.test(phone)) {
+
+    const phoneInput =
+      document.getElementById('checkoutPhone');
+
+    phoneInput.setCustomValidity(
+      'Enter a valid 10-digit Indian mobile number.'
+    );
+
+    phoneInput.reportValidity();
+
+    phoneInput.setCustomValidity('');
+
+    return;
+  }
+
+  const submittedCart =
+    cart.map(item => ({ ...item }));
+
+  const estimatedTotal =
+    submittedCart.reduce(
+      (sum, item) =>
+        sum + item.price * item.qty,
+      0
+    );
+
+  const button =
+    document.getElementById('placeOrderBtn');
+
+  checkoutSubmitting = true;
+
+  if (button) {
+    button.disabled = true;
+    button.textContent =
+      'SUBMITTING ORDER…';
+  }
+
+  const requestController =
+    new AbortController();
+
+  const requestTimeout =
+    setTimeout(() => {
+      requestController.abort();
+    }, 20000);
+
+  try {
+
+    const response = await fetch(
+      ARADHYA_API_BASE + '/create-order',
+      {
+        method: 'POST',
+
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+
+        signal: requestController.signal,
+
+        body: JSON.stringify({
+          customer: {
+            name,
+            phone,
+            email,
+            address
+          },
+
+          customer_name: name,
+          customer_phone: phone,
+          customer_email: email,
+          customer_address: address,
+
+          payment_method: 'cod',
+          currency: 'INR',
+
+          items: submittedCart.map(item => ({
+            product_id: item.id,
+            id: item.id,
+            quantity: item.qty
+          }))
+        })
+      }
+    );
+
+    let data = {};
+
+    try {
+      data = await response.json();
+    } catch (_) {
+      data = {};
+    }
+
+    if (
+      !response.ok ||
+      data.success === false ||
+      data.error
+    ) {
+      throw new Error(
+        data.message ||
+        data.error ||
+        'We could not save your order. Please check your details and try again.'
+      );
+    }
+
+    const order =
+      data.order ||
+      data.data ||
+      {};
+
+    const orderId =
+      data.order_id ||
+      data.orderId ||
+      order.order_id ||
+      order.id ||
+      data.id ||
+      '';
+
+    if (
+      data.success !== true &&
+      !orderId
+    ) {
+      throw new Error(
+        data.message ||
+        'The server did not confirm that the order was saved. Please try again.'
+      );
+    }
+
+    const confirmedTotal =
+      Number(
+        data.total ??
+        data.total_amount ??
+        order.total ??
+        order.total_amount
+      );
+
+    const finalTotal =
+      Number.isFinite(confirmedTotal) &&
+      confirmedTotal >= 0
+        ? confirmedTotal
+        : estimatedTotal;
+
+    cart = [];
+
+    renderCart();
+
+    const layer =
+      document.getElementById('checkoutLayer');
+
+    if (layer) {
+      layer.remove();
+    }
+
+    checkoutSubmitting = false;
+
+    showOrderConfirmation({
+      orderId,
+      name,
+      phone,
+      address,
+      items: submittedCart,
+      total: finalTotal
+    });
+
+  } catch (error) {
+
+    console.error(
+      'Aradhya order submission error:',
+      error
+    );
+
+    const message =
+      error &&
+      error.name === 'AbortError'
+
+        ? 'The order server took too long to respond. Please check your order status before submitting again.'
+
+        : (
+            error &&
+            error.message
+              ? error.message
+              : 'Unable to connect to the order server. Please try again.'
+          );
+
+    const errorBox =
+      document.getElementById('checkoutError');
+
+    if (errorBox) {
+
+      errorBox.textContent =
+        message;
+
+    } else {
+
+      const box =
+        document.createElement('p');
+
+      box.id =
+        'checkoutError';
+
+      box.setAttribute(
+        'role',
+        'alert'
+      );
+
+      box.style.cssText =
+        'color:#ffb8a8;' +
+        'font:13px/1.5 Arial,sans-serif;' +
+        'margin-top:8px';
+
+      box.textContent =
+        message;
+
+      const formEl =
+        document.getElementById('checkoutForm');
+
+      if (formEl) {
+        formEl.insertBefore(
+          box,
+          formEl.querySelector(
+            '.checkout-submit'
+          )
+        );
+      }
+    }
+
+  } finally {
+
+    clearTimeout(requestTimeout);
+
+    checkoutSubmitting = false;
+
+    const currentButton =
+      document.getElementById('placeOrderBtn');
+
+    if (currentButton) {
+      currentButton.disabled = false;
+      currentButton.textContent =
+        'PLACE ORDER →';
+    }
+  }
+}
+
+function showOrderConfirmation(order) {
+
+  const layer =
+    document.createElement('div');
+
+  layer.className =
+    'checkout-layer';
+
+  layer.id =
+    'orderConfirmationLayer';
+
+  const reference =
+    order.orderId
+      ? escapeHTML(order.orderId)
+      : 'Order received';
+
+  const lines =
+    order.items.map(item => `
+      <div class="checkout-summary-line">
+        <span>
+          ${escapeHTML(item.name)} × ${item.qty}
+        </span>
+
+        <span>
+          ₹${(
+            item.price * item.qty
+          ).toLocaleString('en-IN')}
+        </span>
+      </div>
+    `).join('');
+
+  layer.innerHTML = `
+    <section
+      class="checkout-dialog order-success"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="orderSuccessTitle"
+    >
+
+      <div class="order-success-mark">
+        ✓
+      </div>
+
+      <div class="eyebrow">
+        ARADHYA • ORDER REQUEST RECEIVED
+      </div>
+
+      <h2 id="orderSuccessTitle">
+        Thank you, ${escapeHTML(order.name)}.
+      </h2>
+
+      <p class="checkout-intro">
+        Your order request has been saved.
+        Keep your order reference for any
+        follow-up with Aradhya.
+      </p>
+
+      <div class="order-reference">
+        ${reference}
+      </div>
+
+      <div class="order-success-items">
+
+        ${lines}
+
+        <div class="checkout-summary-total">
+          <span>Order total</span>
+
+          <strong>
+            ₹${Number(order.total)
+              .toLocaleString('en-IN')}
+          </strong>
+        </div>
+
+      </div>
+
+      <p
+        class="checkout-payment-note"
+        style="text-align:left"
+      >
+        Payment method:
+        Cash on Delivery / manual confirmation.
+        <br>
+        We may contact you on
+        ${escapeHTML(order.phone)}
+        to confirm delivery details.
+        Online payment has not been taken.
+      </p>
+
+      <button
+        class="btn"
+        type="button"
+        id="confirmationDone"
+        style="width:100%;margin-top:18px"
+      >
+        CONTINUE SHOPPING
+      </button>
+
+    </section>
+  `;
+
+  document.body.appendChild(layer);
+
+  const doneButton =
+    layer.querySelector(
+      '#confirmationDone'
+    );
+
+  if (doneButton) {
+    doneButton.addEventListener(
+      'click',
+      () => layer.remove()
+    );
+  }
+
+  layer.addEventListener('click', e => {
+    if (e.target === layer) {
+      layer.remove();
+    }
+  });
+}
+
+document.addEventListener(
+  'keydown',
+  e => {
+
+    if (e.key === 'Escape') {
+
+      closeModal();
+
+      const cartPanel =
+        document.getElementById('cartPanel');
+
+      if (cartPanel) {
+        cartPanel.classList.remove('open');
+      }
+
+      closeCheckout();
+
+      const confirmation =
+        document.getElementById(
+          'orderConfirmationLayer'
+        );
+
+      if (confirmation) {
+        confirmation.remove();
+      }
+    }
+
+  }
+);
