@@ -320,9 +320,12 @@ function getProductImages(product) {
 }
 
 function productSlugFromCard(card) {
-  const button = card.querySelector('.shop-add');
+  const explicitSlug = card?.dataset?.productSlug;
+  if (explicitSlug && ARADHYA_PRODUCTS[explicitSlug]) return explicitSlug;
+  const button = card?.querySelector('.shop-add');
   if (!button) return null;
-  const match = button.getAttribute('onclick')?.match(/addToCart\([^,]+,[^,]+,(\d+)/);
+  const onclick = button.getAttribute('onclick') || '';
+  const match = onclick.match(/,\s*(\d+)\s*,?\s*this\s*\)?/);
   const id = match ? Number(match[1]) : 0;
   return Object.keys(ARADHYA_PRODUCTS).find(key => ARADHYA_PRODUCTS[key].id === id) || null;
 }
@@ -344,7 +347,7 @@ function openProductDetail(slug) {
         <div class="product-detail-gallery">
           <div class="product-detail-main-wrap">
             <button class="product-gallery-arrow product-gallery-prev" type="button" aria-label="Previous image" onclick="changeProductImage(-1)">‹</button>
-            <img id="productDetailMainImage" class="product-detail-main-image" src="${activeProductImages[0]}" alt="${escapeHTML(product.name)}" onerror="this.style.opacity='.25'">
+            <img id="productDetailMainImage" class="product-detail-main-image" src="${activeProductImages[0]}" alt="${escapeHTML(product.name)}" onerror="this.onerror=null; if(this.src.includes('/product/')){this.style.opacity='.25';} else {this.src=this.src.replace('/assets/','/assets/site-images/');}">
             <button class="product-gallery-arrow product-gallery-next" type="button" aria-label="Next image" onclick="changeProductImage(1)">›</button>
           </div>
           <div id="productDetailThumbs" class="product-detail-thumbs" aria-label="Product images"></div>
@@ -381,7 +384,7 @@ function renderProductThumbnails() {
   if (!box || !main) return;
   box.innerHTML = activeProductImages.map((src, index) => `
     <button type="button" class="product-detail-thumb-button ${index === activeProductSlide ? 'active' : ''}" onclick="selectProductImage(${index})" aria-label="View image ${index + 1}">
-      <img class="product-detail-thumb" src="${src}" alt="Product image ${index + 1}" onerror="this.style.opacity='.25'">
+      <img class="product-detail-thumb" src="${src}" alt="Product image ${index + 1}" onerror="this.onerror=null; if(this.src.includes('/product/')){this.style.opacity='.25';} else {this.src=this.src.replace('/assets/','/assets/site-images/');}">
     </button>`).join('');
   main.src = activeProductImages[activeProductSlide];
 }

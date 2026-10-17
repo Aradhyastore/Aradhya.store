@@ -1,21 +1,15 @@
-ARADHYA PRODUCT INTERFACE UPDATE
+ARADHYA FINAL WEBSITE PACKAGE
 
-Replace these repository-root files:
+Replace the files in your GitHub repository root with:
 - index.html
 - script.js
 - style.css
 
-Keep your existing assets folder.
+Also upload/replace the included assets/ folder so all product and gallery images are present.
 
-The product interface expects these exact files:
-assets/product/common-boxes.jpg
-assets/product/common-puja.jpg
-assets/product/mix-4-cones.jpg
-assets/product/mix-5-cones.jpg
-
-Do not delete existing assets/image-1.png through image-14.webp.
-
-Product image rules:
-- Individual products: common-boxes + common-puja + assets/image-3.png
-- Rose/Bela/Chandan/Kewda mix: common images + mix-4-cones.jpg
-- White Lily/Chandan/White Oudh/Mysore Kewda/Pineapple mix: common images + mix-5-cones.jpg
+Important fixes:
+- Product images have reliable asset paths and fallbacks.
+- Mix Fragrances cards now open their dedicated product pages when clicked anywhere on the card.
+- Mix 4 and Mix 5 use the correct cone photos.
+- Product detail image arrows, thumbnails and mobile swipe remain enabled.
+- Current prices remain ₹299 for single fragrances and ₹499 for both mixes.
