@@ -183,6 +183,13 @@ export default {
     if (request.method === "GET" && path === "/health") return json(request,env,{success:true,service:"aaradhya-orders-api",timestamp:new Date().toISOString()});
     if (request.method === "POST" && path === "/create-order") return createOrder(request,env);
     if (request.method === "GET" && path === "/admin/orders") return listOrders(request,env);
+    if (request.method === "POST" && path === "/admin/update-status") {
+      let body;
+      try { body = await request.json(); } catch { return json(request,env,{success:false,error:"Request body must be valid JSON."},400); }
+      const orderId = clean(body.order_id || body.orderId,100);
+      if (!orderId) return json(request,env,{success:false,error:"Order ID is required."},400);
+      return updateOrder(new Request(request.url.replace(/\/admin\/update-status$/, "/admin/orders/" + encodeURIComponent(orderId)), {method:"POST",headers:request.headers,body:JSON.stringify({status:body.status,order_status:body.order_status,payment_status:body.payment_status})}), env, orderId);
+    }
     const match = path.match(/^\/admin\/orders\/([A-Za-z0-9_-]+)$/);
     if (request.method === "PATCH" && match) return updateOrder(request,env,decodeURIComponent(match[1]));
     return json(request,env,{success:false,error:"Not found."},404);

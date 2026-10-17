@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Krunchiez Admin Dashboard</title>
+  <title>Aradhya Admin Dashboard</title>
 
   <style>
     * {
@@ -366,7 +366,7 @@
 <body>
 
 <header>
-  <h1>🍿 Krunchiez Admin</h1>
+  <h1>✨ Aradhya Admin</h1>
   <p>Orders Dashboard</p>
 </header>
 
@@ -756,7 +756,7 @@ async function loadOrders(
       document.getElementById(
         "loginError"
       ).textContent =
-        "Could not connect to the Krunchiez server.";
+        "Could not connect to the Aradhya order server.";
 
     } else {
 
@@ -984,7 +984,7 @@ function displayOrders(orders) {
     container.innerHTML =
       `
       <div class="empty">
-        <h3>No orders found 🍿</h3>
+        <h3>No orders found</h3>
         <p>
           Try changing your search or filters.
         </p>
@@ -1152,10 +1152,9 @@ function buildOrderDetails(order) {
 
   try {
 
-    const items =
-      JSON.parse(
-        order.items || "[]"
-      );
+    const items = Array.isArray(order.items)
+      ? order.items
+      : JSON.parse(order.items || "[]");
 
 
     if (

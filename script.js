@@ -116,7 +116,7 @@ function openCheckout() {
         <label>Email address (optional) <input name="email" id="checkoutEmail" type="email" autocomplete="email" maxlength="150" placeholder="you@example.com"></label>
         <label>Full delivery address <textarea name="address" id="checkoutAddress" autocomplete="street-address" maxlength="600" required placeholder="House / street / area / city / state / PIN code"></textarea></label>
         <div class="checkout-summary" id="checkoutSummary"></div>
-        <div class="checkout-payment-note">Payment: <strong>Cash on Delivery / confirm manually</strong><br>Online payments are intentionally disabled for now. Please wait for the order confirmation screen after submitting.</div>
+        <div class="checkout-payment-note">Payment: <strong>Cash on Delivery / WhatsApp confirmation</strong><br>Online payments are intentionally disabled for now. After the order is saved, you will be given a WhatsApp confirmation button. Delivery charges will be confirmed according to your delivery location and included in the WhatsApp order message.</div>
         <button class="btn checkout-submit" id="placeOrderBtn" type="submit">PLACE ORDER →</button>
         <p style="color:#9e8e67;font:11px/1.5 Arial,sans-serif;text-align:center">Your order total is verified by Aradhya's order server before the order is saved.</p>
       </form>
@@ -131,7 +131,7 @@ function openCheckout() {
 
 function buildCartSummaryHTML() {
   const lines = cart.map(item => `<div class="checkout-summary-line"><span>${escapeHTML(item.name)} × ${item.qty}</span><span>₹${(item.price * item.qty).toLocaleString('en-IN')}</span></div>`).join('');
-  return `<div style="font:12px Arial,sans-serif;letter-spacing:1.2px;color:#c7a85f;margin-bottom:6px">YOUR ORDER</div>${lines}<div class="checkout-summary-total"><span>Estimated total</span><strong>₹${getCartTotal().toLocaleString('en-IN')}</strong></div>`;
+  return `<div style="font:12px Arial,sans-serif;letter-spacing:1.2px;color:#c7a85f;margin-bottom:6px">YOUR ORDER</div>${lines}<div class="checkout-summary-total"><span>Product subtotal</span><strong>₹${getCartTotal().toLocaleString('en-IN')}</strong></div><div style="margin-top:10px;padding:10px 12px;border:1px solid #6d5426;border-radius:10px;color:#d8c99f;font:12px/1.5 Arial,sans-serif"><strong style="color:#f0d37a">Delivery charges:</strong> Will be confirmed according to your delivery location and included in your WhatsApp confirmation message.</div>`;
 }
 
 function closeCheckout() {
@@ -175,6 +175,7 @@ async function submitOrder(event) {
         customer_address: address,
         payment_method: 'cod',
         currency: 'INR',
+        notes: 'Delivery charges to be confirmed according to delivery location and communicated through WhatsApp before dispatch.',
         items: submittedCart.map(item => ({product_id:item.id, id:item.id, quantity:item.qty}))
       })
     });
@@ -195,7 +196,7 @@ async function submitOrder(event) {
     const layer = document.getElementById('checkoutLayer');
     if (layer) layer.remove();
     checkoutSubmitting = false;
-    showOrderConfirmation({orderId, name, phone, address, items:submittedCart, total:finalTotal});
+    showOrderConfirmation({orderId, name, phone, address, items:submittedCart, subtotal:finalTotal, total:finalTotal});
   } catch (error) {
     console.error('Aradhya order submission error:', error);
     const message = error && error.name === 'AbortError'
@@ -233,11 +234,16 @@ function showOrderConfirmation(order) {
       <h2 id="orderSuccessTitle">Thank you, ${escapeHTML(order.name)}.</h2>
       <p class="checkout-intro">Your order request has been saved. Keep your order reference for any follow-up with Aradhya.</p>
       <div class="order-reference">${reference}</div>
-      <div class="order-success-items">${lines}<div class="checkout-summary-total"><span>Order total</span><strong>₹${Number(order.total).toLocaleString('en-IN')}</strong></div></div>
-      <p class="checkout-payment-note" style="text-align:left">Payment method: Cash on Delivery / manual confirmation.<br>We may contact you on ${escapeHTML(order.phone)} to confirm delivery details. Online payment has not been taken.</p>
-      <button class="btn" type="button" id="confirmationDone" style="width:100%;margin-top:18px">CONTINUE SHOPPING</button>
+      <div class="order-success-items">${lines}<div class="checkout-summary-total"><span>Product subtotal</span><strong>₹${Number(order.subtotal ?? order.total ?? 0).toLocaleString('en-IN')}</strong></div><div style="margin-top:10px;padding:10px 12px;border:1px solid #6d5426;border-radius:10px;color:#d8c99f;font:12px/1.5 Arial,sans-serif"><strong style="color:#f0d37a">Delivery charges:</strong> Will be confirmed according to your delivery location and included in the WhatsApp confirmation.</div></div>
+      <p class="checkout-payment-note" style="text-align:left">Payment method: Cash on Delivery / WhatsApp confirmation.<br>Your order has been saved. Please confirm it on WhatsApp so Aradhya can verify the delivery location and tell you the applicable delivery charge before dispatch.</p>
+      <a class="btn" id="whatsappConfirmBtn" href="#" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none;width:100%;margin-top:18px">CONFIRM ORDER ON WHATSAPP</a>
+      <button class="btn" type="button" id="confirmationDone" style="width:100%;margin-top:10px">CONTINUE SHOPPING</button>
     </section>`;
   document.body.appendChild(layer);
+  const whatsappNumber = '917992148373';
+  const whatsappLines = order.items.map(item => `• ${item.name} × ${item.qty} — ₹${(item.price * item.qty).toLocaleString('en-IN')}`).join('\n');
+  const whatsappMessage = `Hello Aradhya, I want to confirm my order.\n\nOrder ID: ${order.orderId || 'N/A'}\nCustomer: ${order.name}\nMobile: ${order.phone}\nAddress: ${order.address}\n\nProducts:\n${whatsappLines}\n\nProduct Subtotal: ₹${Number(order.subtotal ?? order.total ?? 0).toLocaleString('en-IN')}\nDelivery Charges: Please calculate/confirm according to my delivery location and add it to the final order total.\nFinal Total: To be confirmed on WhatsApp.\n\nPayment: Cash on Delivery / manual confirmation.\n\nPlease confirm my order and delivery charges. Thank you.";
+  layer.querySelector('#whatsappConfirmBtn').href = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(whatsappMessage);
   layer.querySelector('#confirmationDone').addEventListener('click', () => layer.remove());
   layer.addEventListener('click', e => { if (e.target === layer) layer.remove(); });
 }
