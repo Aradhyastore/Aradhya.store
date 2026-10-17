@@ -1,16 +1,21 @@
-ARADHYA FINAL FILES
+ARADHYA PRODUCT INTERFACE UPDATE
 
-Replace these files in the GitHub repository root:
-1. index.html
-2. script.js
-3. style.css (replace the existing one too)
+Replace these repository-root files:
+- index.html
+- script.js
+- style.css
 
-Keep your existing assets/ folder exactly as it is.
+Keep your existing assets folder.
 
-IMPORTANT:
-- Do not rename script.js.
-- Do not put script.js inside assets/.
-- Keep index.html, script.js and style.css in the repository root.
-- The HTML now loads script.js?v=20261017 to prevent an old GitHub Pages cache from keeping the previous JavaScript.
-- Product prices are ₹299 for single fragrances and ₹499 for both mix products.
-- Online payment/Razorpay is not enabled.
+The product interface expects these exact files:
+assets/product/common-boxes.jpg
+assets/product/common-puja.jpg
+assets/product/mix-4-cones.jpg
+assets/product/mix-5-cones.jpg
+
+Do not delete existing assets/image-1.png through image-14.webp.
+
+Product image rules:
+- Individual products: common-boxes + common-puja + assets/image-3.png
+- Rose/Bela/Chandan/Kewda mix: common images + mix-4-cones.jpg
+- White Lily/Chandan/White Oudh/Mysore Kewda/Pineapple mix: common images + mix-5-cones.jpg
