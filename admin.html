@@ -13,350 +13,487 @@
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0b0b0b;
+      color: #f5f0e6;
     }
 
-    header {
-      background: #ffd21c;
-      color: #111;
-      padding: 20px;
-      text-align: center;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 28px;
-    }
-
-    header p {
-      margin: 6px 0 0;
-      font-weight: bold;
-    }
-
-    .container {
-      width: 94%;
-      max-width: 1300px;
-      margin: auto;
-      padding: 25px 0 50px;
-    }
-
-    /* LOGIN */
-
-    .login-box {
-      max-width: 450px;
-      margin: 70px auto;
-      background: #222;
-      padding: 30px;
-      border-radius: 18px;
-      text-align: center;
-    }
-
-    .login-box h2 {
-      margin-top: 0;
-    }
-
+    button,
     input,
     select {
-      width: 100%;
-      padding: 13px;
-      margin: 8px 0;
-      border-radius: 9px;
-      border: 1px solid #555;
-      background: #111;
-      color: #fff;
-      outline: none;
-    }
-
-    button {
-      border: none;
-      background: #ffd21c;
-      color: #111;
-      padding: 11px 17px;
-      border-radius: 9px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover {
-      opacity: 0.85;
-    }
-
-    .error {
-      color: #ff7777;
-      margin-top: 12px;
+      font: inherit;
     }
 
     .hidden {
       display: none !important;
     }
 
-    /* TOP BAR */
+    /* =========================
+       LOGIN
+    ========================= */
 
-    .dashboard-top {
+    .login-wrapper {
+      min-height: 100vh;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 15px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .dashboard-top h2 {
-      margin: 0;
-    }
-
-    .top-buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .logout-btn {
-      background: #333;
-      color: #fff;
-    }
-
-    /* STATS */
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .stat {
-      background: #222;
+      justify-content: center;
       padding: 20px;
-      border-radius: 15px;
-      border-left: 5px solid #ffd21c;
+      background:
+        radial-gradient(circle at top, rgba(170, 130, 45, 0.15), transparent 45%),
+        #0b0b0b;
     }
 
-    .stat-title {
+    .login-box {
+      width: 100%;
+      max-width: 430px;
+      padding: 35px;
+      background: #111;
+      border: 1px solid #8c6b28;
+      border-radius: 14px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      color: #c9a646;
+      font-family: Georgia, serif;
+      font-size: 34px;
+      letter-spacing: 2px;
+    }
+
+    .brand p {
+      margin: 8px 0 0;
       color: #aaa;
       font-size: 14px;
     }
 
-    .stat-value {
-      font-size: 28px;
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      color: #d6b85a;
+      font-size: 14px;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #4d3b18;
+      border-radius: 8px;
+      outline: none;
+      background: #090909;
+      color: #fff;
+    }
+
+    .field input:focus {
+      border-color: #c9a646;
+    }
+
+    .primary-btn {
+      width: 100%;
+      padding: 13px;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #b9973e;
+      color: #080808;
       font-weight: bold;
-      margin-top: 8px;
     }
 
-    /* FILTERS */
-
-    .filters {
-      background: #222;
-      padding: 18px;
-      border-radius: 15px;
-      margin-bottom: 20px;
+    .primary-btn:hover {
+      background: #d0af54;
     }
 
-    .filters-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 12px;
+    .error {
+      margin-top: 14px;
+      min-height: 20px;
+      color: #ff7777;
+      text-align: center;
+      font-size: 14px;
     }
 
-    .refresh-info {
-      color: #aaa;
-      font-size: 13px;
-      margin-top: 10px;
+    .login-help {
+      margin-top: 20px;
+      color: #777;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.6;
     }
 
-    /* ORDERS */
+    /* =========================
+       DASHBOARD
+    ========================= */
 
-    .orders {
-      display: grid;
+    .dashboard {
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 15px;
+      padding: 15px 24px;
+      background: rgba(12, 12, 12, 0.96);
+      border-bottom: 1px solid #3e3017;
+      backdrop-filter: blur(10px);
     }
 
-    .order {
-      background: #222;
-      border-radius: 15px;
-      border-left: 5px solid #ffd21c;
-      overflow: hidden;
+    .topbar-title h1 {
+      margin: 0;
+      color: #c9a646;
+      font-family: Georgia, serif;
+      font-size: 25px;
     }
 
-    .order-summary {
-      padding: 18px;
+    .topbar-title p {
+      margin: 4px 0 0;
+      color: #888;
+      font-size: 12px;
+    }
+
+    .top-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .top-buttons button {
+      padding: 9px 13px;
+      border: 1px solid #6e5420;
+      border-radius: 7px;
+      background: #151515;
+      color: #d8bd69;
       cursor: pointer;
     }
 
-    .order-summary:hover {
-      background: #292929;
+    .top-buttons button:hover {
+      background: #241d0d;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1450px;
+      margin: auto;
+      padding: 24px;
+    }
+
+    /* =========================
+       STATS
+    ========================= */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      padding: 18px;
+      background: #111;
+      border: 1px solid #352914;
+      border-radius: 12px;
+    }
+
+    .stat-card span {
+      display: block;
+      color: #888;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .stat-card strong {
+      color: #d1b35b;
+      font-size: 27px;
+    }
+
+    /* =========================
+       FILTERS
+    ========================= */
+
+    .filters {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .filters input,
+    .filters select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #443516;
+      border-radius: 8px;
+      background: #111;
+      color: #eee;
+      outline: none;
+    }
+
+    .filters input:focus,
+    .filters select:focus {
+      border-color: #b9973e;
+    }
+
+    .refresh-info {
+      color: #777;
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    /* =========================
+       ORDERS
+    ========================= */
+
+    .orders {
+      display: grid;
+      gap: 18px;
+    }
+
+    .order-card {
+      background: #111;
+      border: 1px solid #392c15;
+      border-radius: 14px;
+      overflow: hidden;
     }
 
     .order-header {
       display: flex;
       justify-content: space-between;
+      align-items: flex-start;
       gap: 15px;
-      align-items: center;
-      flex-wrap: wrap;
+      padding: 18px;
+      border-bottom: 1px solid #29200f;
+      background: #15130e;
     }
 
     .order-id {
-      color: #ffd21c;
-      font-size: 19px;
+      color: #d5b75c;
+      font-weight: bold;
+      font-size: 17px;
+    }
+
+    .order-date {
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 7px 11px;
+      border-radius: 20px;
+      background: #241d0c;
+      border: 1px solid #705720;
+      color: #d9bb61;
+      font-size: 12px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .order-body {
+      padding: 18px;
+    }
+
+    .customer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px 20px;
+      margin-bottom: 20px;
+    }
+
+    .customer-item {
+      color: #bbb;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .customer-item strong {
+      color: #ddd;
+    }
+
+    .address {
+      grid-column: 1 / -1;
+    }
+
+    .items-title {
+      margin-bottom: 10px;
+      color: #d2b45c;
       font-weight: bold;
     }
 
-    .order-time {
-      color: #aaa;
+    .items-table-wrapper {
+      overflow-x: auto;
+    }
+
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+
+    .items-table th,
+    .items-table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #28200f;
       font-size: 13px;
     }
 
-    .badges {
-      display: flex;
-      gap: 7px;
-      flex-wrap: wrap;
-      margin-top: 10px;
+    .items-table th {
+      color: #9e8443;
+      font-weight: normal;
     }
 
-    .badge {
-      display: inline-block;
-      padding: 6px 9px;
-      border-radius: 7px;
-      background: #333;
-      font-size: 12px;
-      font-weight: bold;
+    .items-table td {
+      color: #ccc;
     }
 
-    .details {
-      display: none;
-      padding: 0 18px 20px;
-      border-top: 1px solid #333;
-    }
-
-    .details.open {
-      display: block;
-    }
-
-    .detail-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .detail-box {
-      background: #171717;
-      padding: 13px;
-      border-radius: 9px;
-    }
-
-    .detail-label {
-      color: #999;
-      font-size: 12px;
-      margin-bottom: 5px;
-    }
-
-    .detail-value {
-      word-break: break-word;
-    }
-
-    .items-box {
-      margin-top: 15px;
-      background: #171717;
-      padding: 15px;
-      border-radius: 10px;
-    }
-
-    .item-row {
+    .order-footer {
       display: flex;
       justify-content: space-between;
-      gap: 15px;
-      padding: 9px 0;
-      border-bottom: 1px solid #333;
-    }
-
-    .item-row:last-child {
-      border-bottom: none;
-    }
-
-    .total {
-      font-size: 20px;
-      font-weight: bold;
-      color: #ffd21c;
-      margin-top: 15px;
-    }
-
-    .management {
-      margin-top: 18px;
-      padding: 15px;
-      background: #171717;
-      border-radius: 10px;
-    }
-
-    .management-row {
-      display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid #29200f;
+    }
+
+    .total-box {
+      color: #aaa;
+    }
+
+    .total-box strong {
+      color: #e0c36b;
+      font-size: 22px;
+    }
+
+    .delivery-note {
+      margin-top: 7px;
+      color: #999;
+      font-size: 12px;
+    }
+
+    .order-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
       flex-wrap: wrap;
     }
 
-    .management select {
-      width: auto;
-      min-width: 190px;
-      margin: 0;
+    .order-actions select {
+      padding: 10px;
+      border: 1px solid #514019;
+      border-radius: 7px;
+      background: #0b0b0b;
+      color: #ddd;
     }
 
-    .save-status {
-      color: #8cff8c;
-      font-size: 13px;
+    .save-status-btn {
+      padding: 10px 14px;
+      border: 1px solid #8c6b28;
+      border-radius: 7px;
+      background: #b9973e;
+      color: #090909;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .save-status-btn:hover {
+      background: #d2b158;
     }
 
     .empty {
+      padding: 55px 20px;
       text-align: center;
-      padding: 50px 20px;
-      background: #222;
-      border-radius: 15px;
+      background: #111;
+      border: 1px dashed #443516;
+      border-radius: 12px;
+      color: #888;
+    }
+
+    .loading {
+      padding: 35px;
+      text-align: center;
       color: #aaa;
     }
 
-    .last-updated {
-      color: #aaa;
-      font-size: 13px;
+    .success-message {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 100;
+      padding: 13px 18px;
+      border: 1px solid #66501e;
+      border-radius: 8px;
+      background: #15120a;
+      color: #d8bd67;
+      box-shadow: 0 10px 35px rgba(0,0,0,.4);
     }
 
-    /* MOBILE */
+    /* =========================
+       MOBILE
+    ========================= */
 
-    @media (max-width: 800px) {
-
+    @media (max-width: 900px) {
       .stats {
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .filters-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .detail-grid {
+      .filters {
         grid-template-columns: 1fr;
       }
     }
 
-    @media (max-width: 500px) {
-
-      header h1 {
-        font-size: 23px;
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
+    @media (max-width: 650px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
       }
 
       .container {
-        width: 92%;
+        padding: 15px;
       }
 
-      .management select {
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .customer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .address {
+        grid-column: auto;
+      }
+
+      .order-header {
+        flex-direction: column;
+      }
+
+      .order-footer {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .order-actions {
         width: 100%;
       }
 
-      .management button {
+      .order-actions select,
+      .save-status-btn {
         width: 100%;
       }
     }
@@ -365,153 +502,122 @@
 
 <body>
 
-<header>
-  <h1>✨ Aradhya Admin</h1>
-  <p>Orders Dashboard</p>
-</header>
+  <!-- =========================
+       LOGIN
+  ========================= -->
 
-<div class="container">
+  <div id="loginBox" class="login-wrapper">
 
-  <!-- ========================= -->
-  <!-- LOGIN -->
-  <!-- ========================= -->
+    <div class="login-box">
 
-  <div id="loginBox" class="login-box">
+      <div class="brand">
+        <h1>ARADHYA</h1>
+        <p>Admin Order Management</p>
+      </div>
 
-    <h2>Admin Login 🔐</h2>
+      <div class="field">
+        <label for="adminKey">Admin Key</label>
 
-    <p>Enter your Admin Key to manage orders.</p>
+        <input
+          type="password"
+          id="adminKey"
+          placeholder="Enter your Cloudflare Admin Key"
+          autocomplete="off"
+        >
+      </div>
 
-    <input
-      type="password"
-      id="adminKey"
-      placeholder="Enter Admin Key"
-      autocomplete="off"
-    >
+      <button
+        class="primary-btn"
+        onclick="login()"
+      >
+        Login to Dashboard
+      </button>
 
-    <button onclick="login()">
-      Login
-    </button>
+      <div
+        id="loginError"
+        class="error"
+      ></div>
 
-    <div id="loginError" class="error"></div>
+      <div class="login-help">
+        Use the same <strong>ADMIN_KEY</strong> secret configured
+        inside your Aradhya Cloudflare Worker.
+      </div>
+
+    </div>
 
   </div>
 
 
-  <!-- ========================= -->
-  <!-- DASHBOARD -->
-  <!-- ========================= -->
+  <!-- =========================
+       DASHBOARD
+  ========================= -->
 
-  <div id="dashboard" class="hidden">
+  <div
+    id="dashboard"
+    class="dashboard hidden"
+  >
 
-    <div class="dashboard-top">
+    <header class="topbar">
 
-      <div>
-        <h2>Orders</h2>
-
-        <div class="last-updated">
-          Last updated:
-          <span id="lastUpdated">-</span>
-        </div>
+      <div class="topbar-title">
+        <h1>Aradhya Admin</h1>
+        <p>Orders &amp; Order Management</p>
       </div>
 
       <div class="top-buttons">
 
         <button onclick="loadOrders(true)">
-          🔄 Refresh
+          ↻ Refresh
         </button>
 
-        <button
-          class="logout-btn"
-          onclick="logout()"
-        >
+        <button onclick="logout()">
           Logout
         </button>
 
       </div>
 
-    </div>
+    </header>
 
 
-    <!-- ========================= -->
-    <!-- STATS -->
-    <!-- ========================= -->
+    <main class="container">
 
-    <div class="stats">
+      <!-- STATS -->
 
-      <div class="stat">
-        <div class="stat-title">
-          Total Orders
+      <section class="stats">
+
+        <div class="stat-card">
+          <span>Total Orders</span>
+          <strong id="totalOrders">0</strong>
         </div>
 
-        <div
-          class="stat-value"
-          id="totalOrders"
-        >
-          0
-        </div>
-      </div>
-
-
-      <div class="stat">
-        <div class="stat-title">
-          New Orders
+        <div class="stat-card">
+          <span>New Orders</span>
+          <strong id="newOrders">0</strong>
         </div>
 
-        <div
-          class="stat-value"
-          id="newOrders"
-        >
-          0
-        </div>
-      </div>
-
-
-      <div class="stat">
-        <div class="stat-title">
-          Active Orders
+        <div class="stat-card">
+          <span>Delivered</span>
+          <strong id="deliveredOrders">0</strong>
         </div>
 
-        <div
-          class="stat-value"
-          id="activeOrders"
-        >
-          0
-        </div>
-      </div>
-
-
-      <div class="stat">
-        <div class="stat-title">
-          Order Value
+        <div class="stat-card">
+          <span>Total Product Value</span>
+          <strong id="totalSales">₹0</strong>
         </div>
 
-        <div
-          class="stat-value"
-          id="totalSales"
-        >
-          ₹0
-        </div>
-      </div>
-
-    </div>
+      </section>
 
 
-    <!-- ========================= -->
-    <!-- FILTERS -->
-    <!-- ========================= -->
+      <!-- FILTERS -->
 
-    <div class="filters">
-
-      <div class="filters-grid">
+      <section class="filters">
 
         <input
-          type="text"
           id="searchInput"
-          placeholder="🔎 Search order ID, name, phone or address..."
+          type="text"
+          placeholder="Search by order ID, name, phone or email..."
           oninput="applyFilters()"
         >
-
 
         <select
           id="statusFilter"
@@ -544,7 +650,6 @@
           <option value="cancelled">
             Cancelled
           </option>
-
         </select>
 
 
@@ -552,7 +657,6 @@
           id="paymentFilter"
           onchange="applyFilters()"
         >
-
           <option value="all">
             All Payment Status
           </option>
@@ -572,1008 +676,1148 @@
           <option value="refunded">
             Refunded
           </option>
-
         </select>
 
+      </section>
+
+
+      <div
+        id="lastUpdated"
+        class="refresh-info"
+      >
+        Not loaded yet.
       </div>
 
 
-      <div class="refresh-info">
-        Dashboard automatically refreshes every 30 seconds.
-      </div>
+      <!-- ORDERS -->
 
-    </div>
+      <div
+        id="orders"
+        class="orders"
+      ></div>
 
-
-    <!-- ========================= -->
-    <!-- ORDERS -->
-    <!-- ========================= -->
-
-    <div id="orders" class="orders"></div>
+    </main>
 
   </div>
 
-</div>
+
+  <script>
+
+    /* =========================================================
+       ARADHYA CLOUDFLARE WORKER
+       ========================================================= */
+
+    const WORKER_URL =
+      "https://aradhyabackend.www-aradhya-co.workers.dev";
 
 
-<script>
-
-const WORKER_URL =
-  "https://aradhyabackend.www-aradhya-co.workers.dev";
-
-let adminKey = "";
-let allOrders = [];
-let refreshTimer = null;
+    let adminKey = "";
+    let allOrders = [];
+    let refreshTimer = null;
 
 
-/* =========================
-   LOGIN
-========================= */
+    /* =========================================================
+       LOGIN
+       ========================================================= */
 
-async function login() {
+    async function login() {
 
-  const input =
-    document.getElementById("adminKey");
+      const input =
+        document.getElementById("adminKey");
 
-  const error =
-    document.getElementById("loginError");
+      const error =
+        document.getElementById("loginError");
 
-  const key =
-    input.value.trim();
+      const key =
+        input.value.trim();
 
-  if (!key) {
+      if (!key) {
 
-    error.textContent =
-      "Please enter your Admin Key.";
+        error.textContent =
+          "Please enter your Admin Key.";
 
-    return;
-  }
+        return;
+      }
 
-  adminKey = key;
+      adminKey = key;
 
-  error.textContent = "";
+      error.textContent = "";
 
-  await loadOrders(false, true);
-}
-
-
-/* =========================
-   LOAD ORDERS
-========================= */
-
-async function loadOrders(
-  showMessage = false,
-  firstLogin = false
-) {
-
-  if (!adminKey) {
-    return;
-  }
-
-  try {
-
-    const response =
-      await fetch(
-        WORKER_URL + "/admin/orders",
-        {
-          method: "GET",
-
-          headers: {
-            "X-Admin-Key": adminKey
-          }
-        }
-      );
+      await loadOrders(false, true);
+    }
 
 
-    const data =
-      await response.json();
+    /* =========================================================
+       LOAD ORDERS
+       ========================================================= */
 
-
-    if (
-      response.status === 401 ||
-      !data.success
+    async function loadOrders(
+      showMessage = false,
+      firstLogin = false
     ) {
+
+      if (!adminKey) {
+        return;
+      }
+
+      const ordersContainer =
+        document.getElementById("orders");
 
       if (firstLogin) {
 
+        ordersContainer.innerHTML =
+          '<div class="loading">Connecting to Aradhya backend...</div>';
+
+      }
+
+      try {
+
+        const response =
+          await fetch(
+            WORKER_URL + "/admin/orders",
+            {
+              method: "GET",
+
+              headers: {
+                "X-Admin-Key": adminKey
+              }
+            }
+          );
+
+
+        let data = {};
+
+        try {
+          data = await response.json();
+        } catch (e) {
+          data = {};
+        }
+
+
+        /* =========================
+           INVALID KEY
+        ========================= */
+
+        if (
+          response.status === 401 ||
+          data.success === false
+        ) {
+
+          if (firstLogin) {
+
+            document.getElementById(
+              "loginError"
+            ).textContent =
+              "Invalid Admin Key. Please check the ADMIN_KEY in Cloudflare.";
+
+            ordersContainer.innerHTML = "";
+
+          } else {
+
+            alert(
+              "Admin authentication failed. Please login again."
+            );
+
+            logout();
+          }
+
+          return;
+        }
+
+
+        /* =========================
+           OTHER SERVER ERROR
+        ========================= */
+
+        if (!response.ok) {
+
+          const message =
+            data.message ||
+            "Unable to load orders.";
+
+          if (firstLogin) {
+
+            document.getElementById(
+              "loginError"
+            ).textContent =
+              message;
+
+            ordersContainer.innerHTML = "";
+
+          } else {
+
+            alert(message);
+
+          }
+
+          return;
+        }
+
+
+        /* =========================
+           SUCCESS
+        ========================= */
+
+        allOrders =
+          Array.isArray(data.orders)
+            ? data.orders
+            : [];
+
+
+        document
+          .getElementById("loginBox")
+          .classList.add("hidden");
+
+
+        document
+          .getElementById("dashboard")
+          .classList.remove("hidden");
+
+
+        updateStats();
+
+        applyFilters();
+
+
         document.getElementById(
-          "loginError"
+          "lastUpdated"
         ).textContent =
-          "Invalid Admin Key.";
+          "Last updated: " +
+          new Date().toLocaleString();
 
-      } else {
 
-        alert(
-          "Admin authentication failed. Please login again."
-        );
+        if (showMessage) {
 
-        logout();
+          showSuccess(
+            "Orders refreshed successfully."
+          );
+
+        }
+
+
+        startAutoRefresh();
+
+      } catch (error) {
+
+        console.error(error);
+
+        ordersContainer.innerHTML = "";
+
+        if (firstLogin) {
+
+          document.getElementById(
+            "loginError"
+          ).textContent =
+            "Could not connect to the Aradhya backend. Please check the Worker.";
+
+        } else {
+
+          alert(
+            "Could not connect to the Aradhya backend."
+          );
+
+        }
 
       }
 
-      return;
     }
 
 
-    allOrders =
-      Array.isArray(data.orders)
-        ? data.orders
-        : [];
+    /* =========================================================
+       AUTO REFRESH
+       ========================================================= */
 
+    function startAutoRefresh() {
 
-    document.getElementById(
-      "loginBox"
-    ).classList.add("hidden");
+      if (refreshTimer) {
+        clearInterval(refreshTimer);
+      }
 
-
-    document.getElementById(
-      "dashboard"
-    ).classList.remove("hidden");
-
-
-    updateStats();
-
-    applyFilters();
-
-    document.getElementById(
-      "lastUpdated"
-    ).textContent =
-      new Date().toLocaleString();
-
-
-    if (showMessage) {
-
-      // Small visual feedback
-      const button =
-        document.querySelector(
-          ".top-buttons button"
+      refreshTimer =
+        setInterval(
+          () => loadOrders(false, false),
+          30000
         );
 
-      if (button) {
-
-        const original =
-          button.textContent;
-
-        button.textContent =
-          "✅ Updated";
-
-        setTimeout(() => {
-          button.textContent =
-            original;
-        }, 1200);
-      }
     }
 
 
-    startAutoRefresh();
+    /* =========================================================
+       STATS
+       ========================================================= */
 
-  } catch (error) {
+    function updateStats() {
 
-    console.error(error);
+      const total =
+        allOrders.length;
 
-    if (firstLogin) {
+
+      const newCount =
+        allOrders.filter(
+          order =>
+            String(order.order_status || order.status || "")
+              .toLowerCase() === "new"
+        ).length;
+
+
+      const delivered =
+        allOrders.filter(
+          order =>
+            String(order.order_status || order.status || "")
+              .toLowerCase() === "delivered"
+        ).length;
+
+
+      const sales =
+        allOrders.reduce(
+          (sum, order) => {
+
+            const value =
+              Number(
+                order.total ||
+                order.order_total ||
+                0
+              );
+
+            return sum + value;
+
+          },
+          0
+        );
+
 
       document.getElementById(
-        "loginError"
+        "totalOrders"
+      ).textContent = total;
+
+
+      document.getElementById(
+        "newOrders"
+      ).textContent = newCount;
+
+
+      document.getElementById(
+        "deliveredOrders"
+      ).textContent = delivered;
+
+
+      document.getElementById(
+        "totalSales"
       ).textContent =
-        "Could not connect to the Aradhya order server.";
+        formatMoney(sales);
 
-    } else {
-
-      alert(
-        "Could not refresh orders."
-      );
     }
-  }
-}
 
 
-/* =========================
-   AUTO REFRESH
-========================= */
+    /* =========================================================
+       FILTERS
+       ========================================================= */
 
-function startAutoRefresh() {
+    function applyFilters() {
 
-  if (refreshTimer) {
-    return;
-  }
-
-  refreshTimer =
-    setInterval(() => {
-
-      if (adminKey) {
-        loadOrders(false);
-      }
-
-    }, 30000);
-}
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-function logout() {
-
-  adminKey = "";
-  allOrders = [];
-
-  if (refreshTimer) {
-
-    clearInterval(refreshTimer);
-
-    refreshTimer = null;
-  }
-
-
-  document.getElementById(
-    "dashboard"
-  ).classList.add("hidden");
-
-
-  document.getElementById(
-    "loginBox"
-  ).classList.remove("hidden");
-
-
-  document.getElementById(
-    "adminKey"
-  ).value = "";
-
-
-  document.getElementById(
-    "loginError"
-  ).textContent = "";
-
-
-  document.getElementById(
-    "orders"
-  ).innerHTML = "";
-}
-
-
-/* =========================
-   STATS
-========================= */
-
-function updateStats() {
-
-  const total =
-    allOrders.length;
-
-
-  const newCount =
-    allOrders.filter(
-      order =>
-        order.order_status === "new"
-    ).length;
-
-
-  const activeCount =
-    allOrders.filter(
-      order =>
-        ![
-          "delivered",
-          "cancelled"
-        ].includes(order.order_status)
-    ).length;
-
-
-  const sales =
-    allOrders.reduce(
-      (sum, order) =>
-        sum +
-        Number(order.total || 0),
-      0
-    );
-
-
-  document.getElementById(
-    "totalOrders"
-  ).textContent =
-    total;
-
-
-  document.getElementById(
-    "newOrders"
-  ).textContent =
-    newCount;
-
-
-  document.getElementById(
-    "activeOrders"
-  ).textContent =
-    activeCount;
-
-
-  document.getElementById(
-    "totalSales"
-  ).textContent =
-    "₹" + sales;
-}
-
-
-/* =========================
-   FILTERS
-========================= */
-
-function applyFilters() {
-
-  const search =
-    document.getElementById(
-      "searchInput"
-    ).value
-      .trim()
-      .toLowerCase();
-
-
-  const status =
-    document.getElementById(
-      "statusFilter"
-    ).value;
-
-
-  const payment =
-    document.getElementById(
-      "paymentFilter"
-    ).value;
-
-
-  const filtered =
-    allOrders.filter(order => {
-
-      const searchable =
-        [
-          order.order_id,
-          order.customer_name,
-          order.customer_phone,
-          order.customer_address
-        ]
-          .join(" ")
+      const search =
+        document
+          .getElementById("searchInput")
+          .value
+          .trim()
           .toLowerCase();
 
 
-      const searchMatch =
-        !search ||
-        searchable.includes(search);
+      const status =
+        document
+          .getElementById("statusFilter")
+          .value
+          .toLowerCase();
 
 
-      const statusMatch =
-        status === "all" ||
-        order.order_status === status;
+      const payment =
+        document
+          .getElementById("paymentFilter")
+          .value
+          .toLowerCase();
 
 
-      const paymentMatch =
-        payment === "all" ||
-        order.payment_status === payment;
+      const filtered =
+        allOrders.filter(
+          order => {
+
+            const orderId =
+              String(
+                order.order_id ||
+                order.id ||
+                ""
+              ).toLowerCase();
 
 
-      return (
-        searchMatch &&
-        statusMatch &&
-        paymentMatch
-      );
-
-    });
+            const name =
+              String(
+                order.customer_name ||
+                ""
+              ).toLowerCase();
 
 
-  displayOrders(filtered);
-}
+            const phone =
+              String(
+                order.customer_phone ||
+                ""
+              ).toLowerCase();
 
 
-/* =========================
-   DISPLAY ORDERS
-========================= */
-
-function displayOrders(orders) {
-
-  const container =
-    document.getElementById(
-      "orders"
-    );
+            const email =
+              String(
+                order.customer_email ||
+                ""
+              ).toLowerCase();
 
 
-  container.innerHTML = "";
+            const currentStatus =
+              normalizeStatus(
+                order.order_status ||
+                order.status ||
+                "new"
+              );
 
 
-  if (
-    !orders ||
-    orders.length === 0
-  ) {
-
-    container.innerHTML =
-      `
-      <div class="empty">
-        <h3>No orders found</h3>
-        <p>
-          Try changing your search or filters.
-        </p>
-      </div>
-      `;
-
-    return;
-  }
+            const paymentStatus =
+              String(
+                order.payment_status ||
+                "pending"
+              ).toLowerCase();
 
 
-  orders.forEach(order => {
-
-    const card =
-      document.createElement(
-        "div"
-      );
-
-    card.className =
-      "order";
+            const matchesSearch =
+              !search ||
+              orderId.includes(search) ||
+              name.includes(search) ||
+              phone.includes(search) ||
+              email.includes(search);
 
 
-    const summary =
-      document.createElement(
-        "div"
-      );
-
-    summary.className =
-      "order-summary";
+            const matchesStatus =
+              status === "all" ||
+              currentStatus === status;
 
 
-    const header =
-      document.createElement(
-        "div"
-      );
-
-    header.className =
-      "order-header";
+            const matchesPayment =
+              payment === "all" ||
+              paymentStatus === payment;
 
 
-    const idBox =
-      document.createElement(
-        "div"
-      );
+            return (
+              matchesSearch &&
+              matchesStatus &&
+              matchesPayment
+            );
 
-
-    idBox.innerHTML =
-      `
-      <div class="order-id">
-        ${escapeHTML(order.order_id)}
-      </div>
-
-      <div class="order-time">
-        ${escapeHTML(formatDate(order.created_at))}
-      </div>
-      `;
-
-
-    const badgeBox =
-      document.createElement(
-        "div"
-      );
-
-    badgeBox.className =
-      "badges";
-
-
-    const statusBadge =
-      document.createElement(
-        "span"
-      );
-
-    statusBadge.className =
-      "badge";
-
-    statusBadge.textContent =
-      "Order: " +
-      formatStatus(order.order_status);
-
-
-    const paymentBadge =
-      document.createElement(
-        "span"
-      );
-
-    paymentBadge.className =
-      "badge";
-
-    paymentBadge.textContent =
-      "Payment: " +
-      formatStatus(order.payment_status);
-
-
-    badgeBox.appendChild(
-      statusBadge
-    );
-
-    badgeBox.appendChild(
-      paymentBadge
-    );
-
-
-    header.appendChild(
-      idBox
-    );
-
-    header.appendChild(
-      badgeBox
-    );
-
-
-    summary.appendChild(
-      header
-    );
-
-
-    const details =
-      document.createElement(
-        "div"
-      );
-
-    details.className =
-      "details";
-
-
-    details.innerHTML =
-      buildOrderDetails(order);
-
-
-    summary.addEventListener(
-      "click",
-      () => {
-
-        details.classList.toggle(
-          "open"
+          }
         );
 
+
+      renderOrders(filtered);
+
+    }
+
+
+    /* =========================================================
+       NORMALIZE STATUS
+       ========================================================= */
+
+    function normalizeStatus(status) {
+
+      status =
+        String(status || "")
+          .toLowerCase();
+
+
+      if (status === "processing") {
+        return "preparing";
       }
-    );
+
+      return status || "new";
+
+    }
 
 
-    card.appendChild(
-      summary
-    );
+    /* =========================================================
+       DISPLAY STATUS
+       ========================================================= */
 
-    card.appendChild(
-      details
-    );
+    function displayStatus(status) {
 
-
-    container.appendChild(
-      card
-    );
-
-  });
-}
+      const normalized =
+        normalizeStatus(status);
 
 
-/* =========================
-   ORDER DETAILS
-========================= */
-
-function buildOrderDetails(order) {
-
-  let itemsHTML = "";
-
-  try {
-
-    const items = Array.isArray(order.items)
-      ? order.items
-      : JSON.parse(order.items || "[]");
+      const labels = {
+        new: "New",
+        confirmed: "Confirmed",
+        preparing: "Preparing",
+        shipped: "Shipped",
+        delivered: "Delivered",
+        cancelled: "Cancelled"
+      };
 
 
-    if (
-      Array.isArray(items) &&
-      items.length
-    ) {
+      return labels[normalized] ||
+        normalized;
 
-      items.forEach(item => {
-
-        const name =
-          item.name ||
-          "Product";
+    }
 
 
-        const quantity =
-          Number(
-            item.quantity || 1
-          );
+    /* =========================================================
+       RENDER ORDERS
+       ========================================================= */
+
+    function renderOrders(orders) {
+
+      const container =
+        document.getElementById("orders");
 
 
-        const price =
-          Number(
-            (item.unit_price ?? item.price ?? 0)
-          );
+      if (!orders.length) {
 
-
-        const lineTotal =
-          price * quantity;
-
-
-        itemsHTML +=
+        container.innerHTML =
           `
-          <div class="item-row">
-
-            <span>
-              ${escapeHTML(name)}
-              × ${quantity}
-            </span>
-
-            <span>
-              ₹${lineTotal}
-            </span>
-
+          <div class="empty">
+            <h3>No orders found</h3>
+            <p>
+              There are currently no orders matching your filters.
+            </p>
           </div>
           `;
 
-      });
+        return;
+      }
 
-    } else {
 
-      itemsHTML =
-        "<p>No item information.</p>";
+      container.innerHTML =
+        orders
+          .map(
+            order =>
+              createOrderCard(order)
+          )
+          .join("");
+
     }
 
-  } catch {
 
-    itemsHTML =
-      `
-      <p>
-        ${escapeHTML(order.items || "")}
-      </p>
-      `;
-  }
+    /* =========================================================
+       ORDER CARD
+       ========================================================= */
 
+    function createOrderCard(order) {
 
-  return `
-    <div class="detail-grid">
-
-      <div class="detail-box">
-
-        <div class="detail-label">
-          CUSTOMER
-        </div>
-
-        <div class="detail-value">
-          ${escapeHTML(order.customer_name)}
-        </div>
-
-      </div>
+      const orderId =
+        order.order_id ||
+        order.id ||
+        "N/A";
 
 
-      <div class="detail-box">
-
-        <div class="detail-label">
-          PHONE
-        </div>
-
-        <div class="detail-value">
-          ${escapeHTML(order.customer_phone)}
-        </div>
-
-      </div>
+      const status =
+        normalizeStatus(
+          order.order_status ||
+          order.status ||
+          "new"
+        );
 
 
-      <div class="detail-box">
-
-        <div class="detail-label">
-          ADDRESS
-        </div>
-
-        <div class="detail-value">
-          ${escapeHTML(order.customer_address)}
-        </div>
-
-      </div>
+      const paymentStatus =
+        order.payment_status ||
+        "pending";
 
 
-      <div class="detail-box">
-
-        <div class="detail-label">
-          ORDER ID
-        </div>
-
-        <div class="detail-value">
-          ${escapeHTML(order.order_id)}
-        </div>
-
-      </div>
-
-    </div>
+      const customerName =
+        order.customer_name ||
+        "N/A";
 
 
-    <div class="items-box">
-
-      <strong>🍿 Ordered Items</strong>
-
-      ${itemsHTML}
-
-      <div class="total">
-        Total: ₹${Number(order.total || 0)}
-      </div>
-
-    </div>
+      const phone =
+        order.customer_phone ||
+        "N/A";
 
 
-    <div class="management">
-
-      <strong>
-        Manage Order
-      </strong>
-
-      <div class="management-row">
-
-        <select
-          id="status-${escapeHTML(order.order_id)}"
-          onchange="changeStatus(
-            '${escapeJS(order.order_id)}',
-            this.value,
-            this
-          )"
-        >
-
-          ${statusOptions(order.order_status)}
-
-        </select>
-
-        <span
-          class="save-status"
-          id="save-${escapeHTML(order.order_id)}"
-        ></span>
-
-      </div>
-
-    </div>
-  `;
-}
+      const email =
+        order.customer_email ||
+        "N/A";
 
 
-/* =========================
-   STATUS OPTIONS
-========================= */
-
-function statusOptions(current) {
-
-  const statuses = [
-    ["new", "New"],
-    ["confirmed", "Confirmed"],
-    ["preparing", "Preparing"],
-    ["shipped", "Shipped"],
-    ["delivered", "Delivered"],
-    ["cancelled", "Cancelled"]
-  ];
+      const address =
+        order.customer_address ||
+        "N/A";
 
 
-  return statuses
-    .map(status => {
+      const total =
+        Number(
+          order.total ||
+          order.order_total ||
+          0
+        );
+
+
+      const createdAt =
+        order.created_at ||
+        order.createdAt ||
+        "";
+
+
+      const items =
+        Array.isArray(order.items)
+          ? order.items
+          : [];
+
+
+      const notes =
+        order.customer_notes ||
+        order.notes ||
+        "";
+
+
+      const itemsHtml =
+        items.length
+          ? items
+              .map(
+                item => {
+
+                  const name =
+                    item.product_name ||
+                    item.name ||
+                    "Product";
+
+
+                  const quantity =
+                    Number(
+                      item.quantity ||
+                      item.qty ||
+                      1
+                    );
+
+
+                  const price =
+                    Number(
+                      item.unit_price ??
+                      item.price ??
+                      0
+                    );
+
+
+                  const lineTotal =
+                    Number(
+                      item.line_total ??
+                      (price * quantity)
+                    );
+
+
+                  return `
+                    <tr>
+                      <td>${escapeHtml(name)}</td>
+                      <td>${quantity}</td>
+                      <td>${formatMoney(price)}</td>
+                      <td>${formatMoney(lineTotal)}</td>
+                    </tr>
+                  `;
+
+                }
+              )
+              .join("")
+          :
+            `
+              <tr>
+                <td colspan="4">
+                  No item details available.
+                </td>
+              </tr>
+            `;
+
 
       return `
-        <option
-          value="${status[0]}"
-          ${status[0] === (current === "processing" ? "preparing" : current) ? "selected" : ""}
-        >
-          ${status[1]}
-        </option>
+        <article class="order-card">
+
+          <div class="order-header">
+
+            <div>
+              <div class="order-id">
+                Order #${escapeHtml(String(orderId))}
+              </div>
+
+              <div class="order-date">
+                ${escapeHtml(formatDate(createdAt))}
+              </div>
+            </div>
+
+            <div class="status-badge">
+              ${escapeHtml(displayStatus(status))}
+            </div>
+
+          </div>
+
+
+          <div class="order-body">
+
+            <div class="customer-grid">
+
+              <div class="customer-item">
+                <strong>Name:</strong>
+                ${escapeHtml(String(customerName))}
+              </div>
+
+              <div class="customer-item">
+                <strong>Phone:</strong>
+                ${escapeHtml(String(phone))}
+              </div>
+
+              <div class="customer-item">
+                <strong>Email:</strong>
+                ${escapeHtml(String(email))}
+              </div>
+
+              <div class="customer-item">
+                <strong>Payment:</strong>
+                ${escapeHtml(String(paymentStatus))}
+              </div>
+
+              <div class="customer-item address">
+                <strong>Address:</strong>
+                ${escapeHtml(String(address))}
+              </div>
+
+            </div>
+
+
+            <div class="items-title">
+              Products
+            </div>
+
+
+            <div class="items-table-wrapper">
+
+              <table class="items-table">
+
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  ${itemsHtml}
+                </tbody>
+
+              </table>
+
+            </div>
+
+
+            <div class="order-footer">
+
+              <div class="total-box">
+
+                Product Total:
+                <strong>
+                  ${formatMoney(total)}
+                </strong>
+
+                <div class="delivery-note">
+                  Delivery charges will be confirmed according to the
+                  delivery location on WhatsApp.
+                </div>
+
+                ${
+                  notes
+                    ? `
+                      <div class="delivery-note">
+                        ${escapeHtml(String(notes))}
+                      </div>
+                    `
+                    : ""
+                }
+
+              </div>
+
+
+              <div class="order-actions">
+
+                <select
+                  id="status-${escapeHtml(String(orderId))}"
+                >
+
+                  <option
+                    value="new"
+                    ${status === "new" ? "selected" : ""}
+                  >
+                    New
+                  </option>
+
+                  <option
+                    value="confirmed"
+                    ${status === "confirmed" ? "selected" : ""}
+                  >
+                    Confirmed
+                  </option>
+
+                  <option
+                    value="preparing"
+                    ${status === "preparing" ? "selected" : ""}
+                  >
+                    Preparing
+                  </option>
+
+                  <option
+                    value="shipped"
+                    ${status === "shipped" ? "selected" : ""}
+                  >
+                    Shipped
+                  </option>
+
+                  <option
+                    value="delivered"
+                    ${status === "delivered" ? "selected" : ""}
+                  >
+                    Delivered
+                  </option>
+
+                  <option
+                    value="cancelled"
+                    ${status === "cancelled" ? "selected" : ""}
+                  >
+                    Cancelled
+                  </option>
+
+                </select>
+
+
+                <button
+                  class="save-status-btn"
+                  onclick="updateOrderStatus('${escapeJs(String(orderId))}')"
+                >
+                  Update Status
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
       `;
 
-    })
-    .join("");
-}
+    }
 
 
-/* =========================
-   CHANGE STATUS
-========================= */
+    /* =========================================================
+       UPDATE ORDER STATUS
+       ========================================================= */
 
-async function changeStatus(
-  orderId,
-  newStatus,
-  selectElement
-) {
+    async function updateOrderStatus(orderId) {
 
-  if (!adminKey) {
-    return;
-  }
+      const select =
+        document.getElementById(
+          "status-" + orderId
+        );
 
 
-  const saveMessage =
-    document.getElementById(
-      "save-" + orderId
-    );
+      if (!select) {
+        return;
+      }
 
 
-  if (saveMessage) {
-
-    saveMessage.textContent =
-      "Saving...";
-  }
+      const newStatus =
+        select.value;
 
 
-  try {
+      try {
 
-    const response =
-      await fetch(
-        WORKER_URL +
-        "/admin/update-status",
+        const response =
+          await fetch(
+            WORKER_URL +
+            "/admin/orders/" +
+            encodeURIComponent(orderId),
+            {
+              method: "PATCH",
+
+              headers: {
+                "Content-Type":
+                  "application/json",
+
+                "X-Admin-Key":
+                  adminKey
+              },
+
+              body: JSON.stringify({
+                order_status: newStatus
+              })
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          data.success === false
+        ) {
+
+          /* Legacy endpoint fallback */
+
+          const fallback =
+            await fetch(
+              WORKER_URL +
+              "/admin/update-status",
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json",
+
+                  "X-Admin-Key":
+                    adminKey
+                },
+
+                body: JSON.stringify({
+                  order_id: orderId,
+                  status: newStatus
+                })
+              }
+            );
+
+
+          const fallbackData =
+            await fallback.json();
+
+
+          if (
+            !fallback.ok ||
+            fallbackData.success === false
+          ) {
+
+            throw new Error(
+              fallbackData.message ||
+              data.message ||
+              "Unable to update order status."
+            );
+
+          }
+
+        }
+
+
+        showSuccess(
+          "Order status updated."
+        );
+
+
+        await loadOrders(false, false);
+
+      } catch (error) {
+
+        console.error(error);
+
+        alert(
+          error.message ||
+          "Unable to update order status."
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       LOGOUT
+       ========================================================= */
+
+    function logout() {
+
+      adminKey = "";
+
+      allOrders = [];
+
+
+      if (refreshTimer) {
+
+        clearInterval(
+          refreshTimer
+        );
+
+        refreshTimer = null;
+
+      }
+
+
+      document
+        .getElementById("dashboard")
+        .classList.add("hidden");
+
+
+      document
+        .getElementById("loginBox")
+        .classList.remove("hidden");
+
+
+      document
+        .getElementById("adminKey")
+        .value = "";
+
+
+      document
+        .getElementById("loginError")
+        .textContent = "";
+
+    }
+
+
+    /* =========================================================
+       SUCCESS MESSAGE
+       ========================================================= */
+
+    function showSuccess(message) {
+
+      const old =
+        document.querySelector(
+          ".success-message"
+        );
+
+
+      if (old) {
+        old.remove();
+      }
+
+
+      const div =
+        document.createElement("div");
+
+
+      div.className =
+        "success-message";
+
+
+      div.textContent =
+        message;
+
+
+      document.body.appendChild(div);
+
+
+      setTimeout(
+        () => div.remove(),
+        2500
+      );
+
+    }
+
+
+    /* =========================================================
+       FORMAT MONEY
+       ========================================================= */
+
+    function formatMoney(value) {
+
+      const number =
+        Number(value || 0);
+
+
+      return "₹" +
+        number.toLocaleString(
+          "en-IN",
+          {
+            maximumFractionDigits: 2
+          }
+        );
+
+    }
+
+
+    /* =========================================================
+       FORMAT DATE
+       ========================================================= */
+
+    function formatDate(value) {
+
+      if (!value) {
+        return "Date unavailable";
+      }
+
+
+      const date =
+        new Date(value);
+
+
+      if (Number.isNaN(date.getTime())) {
+        return String(value);
+      }
+
+
+      return date.toLocaleString(
+        "en-IN",
         {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json",
-
-            "X-Admin-Key":
-              adminKey
-          },
-
-          body: JSON.stringify({
-            order_id: orderId,
-            status: newStatus
-          })
+          dateStyle: "medium",
+          timeStyle: "short"
         }
       );
 
-
-    const data =
-      await response.json();
-
-
-    if (
-      !response.ok ||
-      !data.success
-    ) {
-
-      throw new Error(
-        data.message ||
-        "Could not update status."
-      );
     }
 
 
-    // Update local order
-    const order =
-      allOrders.find(
-        item =>
-          item.order_id === orderId
-      );
+    /* =========================================================
+       HTML ESCAPE
+       ========================================================= */
 
+    function escapeHtml(value) {
 
-    if (order) {
-      order.order_status =
-        newStatus;
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
     }
 
 
-    updateStats();
+    /* =========================================================
+       JAVASCRIPT STRING ESCAPE
+       ========================================================= */
 
-    applyFilters();
+    function escapeJs(value) {
+
+      return String(value)
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '\\"')
+        .replace(/\n/g, "\\n")
+        .replace(/\r/g, "\\r");
+
+    }
 
 
-    if (saveMessage) {
+    /* =========================================================
+       ENTER KEY LOGIN
+       ========================================================= */
 
-      saveMessage.textContent =
-        "✓ Saved";
+    document
+      .getElementById("adminKey")
+      .addEventListener(
+        "keydown",
+        function(event) {
 
-      setTimeout(() => {
+          if (
+            event.key === "Enter"
+          ) {
 
-        if (saveMessage) {
-          saveMessage.textContent =
-            "";
+            login();
+
+          }
+
         }
+      );
 
-      }, 2000);
-    }
-
-
-  } catch (error) {
-
-    console.error(error);
-
-    alert(
-      "Could not update order status."
-    );
-
-    // Restore previous data
-    await loadOrders(false);
-  }
-}
-
-
-/* =========================
-   FORMAT STATUS
-========================= */
-
-function formatStatus(status) {
-
-  if (!status) {
-    return "Unknown";
-  }
-
-
-  return status
-    .charAt(0)
-    .toUpperCase() +
-    status
-      .slice(1)
-      .replace(/_/g, " ");
-}
-
-
-/* =========================
-   FORMAT DATE
-========================= */
-
-function formatDate(date) {
-
-  if (!date) {
-    return "Unknown time";
-  }
-
-
-  try {
-
-    return new Date(
-      date
-    ).toLocaleString();
-
-  } catch {
-
-    return date;
-  }
-}
-
-
-/* =========================
-   ESCAPE HTML
-========================= */
-
-function escapeHTML(value) {
-
-  return String(
-    value ?? ""
-  )
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-}
-
-
-/* =========================
-   ESCAPE JAVASCRIPT
-========================= */
-
-function escapeJS(value) {
-
-  return String(
-    value ?? ""
-  )
-    .replace(
-      /\\/g,
-      "\\\\"
-    )
-    .replace(
-      /'/g,
-      "\\'"
-    )
-    .replace(
-      /"/g,
-      '\\"'
-    );
-}
-
-</script>
+  </script>
 
 </body>
 </html>
