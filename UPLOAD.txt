@@ -1,0 +1,16 @@
+ARADHYA FINAL FILES
+
+Replace these files in the GitHub repository root:
+1. index.html
+2. script.js
+3. style.css (replace the existing one too)
+
+Keep your existing assets/ folder exactly as it is.
+
+IMPORTANT:
+- Do not rename script.js.
+- Do not put script.js inside assets/.
+- Keep index.html, script.js and style.css in the repository root.
+- The HTML now loads script.js?v=20261017 to prevent an old GitHub Pages cache from keeping the previous JavaScript.
+- Product prices are ₹299 for single fragrances and ₹499 for both mix products.
+- Online payment/Razorpay is not enabled.

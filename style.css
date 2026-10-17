@@ -69,7 +69,7 @@ nav button:hover,nav button.active{
   align-items:center;
   justify-content:center;
   text-align:center;
-  background:#080604 url('assets/image-1.png') center/cover no-repeat;
+  background:#080604 url('assets/site-images/image-1.png') center/cover no-repeat;
   box-shadow:0 20px 60px rgba(0,0,0,.5), inset 0 0 70px rgba(0,0,0,.7);
 }
 .page-banner:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.28),rgba(0,0,0,.72))}
@@ -86,7 +86,7 @@ nav button:hover,nav button.active{
   position:relative;
   overflow:hidden;
 }
-.hero:before{content:"";position:absolute;inset:20px 0 40px;border:1px solid rgba(201,150,45,.5);border-radius:26px;background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.72)),url('assets/image-1.png') center/cover no-repeat;box-shadow:0 25px 70px rgba(0,0,0,.55)}
+.hero:before{content:"";position:absolute;inset:20px 0 40px;border:1px solid rgba(201,150,45,.5);border-radius:26px;background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.72)),url('assets/site-images/image-1.png') center/cover no-repeat;box-shadow:0 25px 70px rgba(0,0,0,.55)}
 .hero-content{position:relative;z-index:1;padding:55px 25px}
 .logo{
   width:min(330px,70vw);
@@ -353,7 +353,7 @@ footer{
 /* Premium visual enhancement */
 .page{position:relative;isolation:isolate;overflow:hidden}
 .page:before{content:"";position:absolute;inset:0;z-index:-2;background-image:radial-gradient(circle at 12% 18%,rgba(201,150,45,.10),transparent 26%),radial-gradient(circle at 88% 82%,rgba(201,150,45,.07),transparent 24%)}
-.page:after{content:"";position:absolute;inset:0;z-index:-3;opacity:.18;background:url('assets/image-1.png') center/cover fixed no-repeat;filter:saturate(.75) brightness(.32);mask-image:linear-gradient(to bottom,transparent 0%,#000 14%,#000 86%,transparent 100%)}
+.page:after{content:"";position:absolute;inset:0;z-index:-3;opacity:.18;background:url('assets/site-images/image-1.png') center/cover fixed no-repeat;filter:saturate(.75) brightness(.32);mask-image:linear-gradient(to bottom,transparent 0%,#000 14%,#000 86%,transparent 100%)}
 .page-shell{position:relative}
 .page-banner{min-height:270px}
 .page-banner:before{content:"✦  ॐ  ✦";position:absolute;top:16px;left:50%;transform:translateX(-50%);color:rgba(245,215,122,.62);letter-spacing:18px;font-size:18px;z-index:2}
@@ -374,7 +374,7 @@ footer{
 
 /* Premium Shop layout inspired by the provided Shop reference */
 .shop-shell{max-width:1180px!important;padding-bottom:20px}
-.shop-hero{min-height:315px;margin:-48px -6% 18px;position:relative;overflow:hidden;border-bottom:1px solid #9d7120;background:linear-gradient(90deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.70) 45%,rgba(0,0,0,.32) 100%),url('assets/image-1.png') center/cover no-repeat;display:flex;align-items:center}
+.shop-hero{min-height:315px;margin:-48px -6% 18px;position:relative;overflow:hidden;border-bottom:1px solid #9d7120;background:linear-gradient(90deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.70) 45%,rgba(0,0,0,.32) 100%),url('assets/site-images/image-1.png') center/cover no-repeat;display:flex;align-items:center}
 .shop-hero:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 78% 45%,rgba(211,154,47,.18),transparent 35%);pointer-events:none}
 .shop-hero-content{position:relative;z-index:1;width:min(560px,90%);margin-left:9%;padding-top:8px}
 .shop-hero .eyebrow{font-size:11px;letter-spacing:4px;color:#d9ad4c;font-family:Arial,sans-serif;margin-bottom:12px}
