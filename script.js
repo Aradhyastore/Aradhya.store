@@ -17,64 +17,7 @@ function showPage(id) {
   const map = {home:0,products:1,gallery:2,mission:3,about:4,support:5};
   const navButton = document.querySelectorAll('nav button')[map[id]];
   if (navButton) navButton.classList.add('active');
-  // Navigation intentionally does not force the browser back to the top.
-  document.body.classList.remove('cart-open');
-}
-
-const PRODUCTS = {
-  'white-lily': {id:1,name:'White Lily',price:299,fragrance:'Soft, clean and floral White Lily fragrance.',images:['assets/image-3.png','assets/image-3.png']},
-  'white-oudh': {id:2,name:'White Oudh',price:299,fragrance:'A rich, warm and elegant White Oudh fragrance.',images:['assets/image-3.png','assets/image-3.png']},
-  'mysore-chandan': {id:3,name:'Mysore Chandan',price:299,fragrance:'A classic sandalwood-inspired Mysore Chandan fragrance.',images:['assets/image-3.png','assets/image-3.png']},
-  'lavender': {id:4,name:'Lavender',price:299,fragrance:'A calm, soothing Lavender fragrance for relaxed moments.',images:['assets/image-3.png','assets/image-3.png']},
-  'pineapple': {id:5,name:'Pineapple',price:299,fragrance:'A fresh, bright and fruity Pineapple fragrance.',images:['assets/image-3.png','assets/image-3.png']},
-  'mysore-kewda': {id:6,name:'Mysore Kewda',price:299,fragrance:'A distinctive traditional Mysore Kewda fragrance with a graceful floral character.',images:['assets/image-3.png','assets/image-3.png']},
-  'mix-rose-bela-chandan-kewda': {id:7,name:'Mix – Rose, Bela, Chandan & Kewda',price:499,fragrance:'A blended combination of Rose, Bela, Chandan and Kewda.',images:['assets/image-3.png','assets/image-9.webp','assets/image-3.png']},
-  'mix-white-lily-chandan-white-oudh': {id:8,name:'Mix – White Lily, Chandan, White Oudh, Mysore Kewda & Pineapple',price:499,fragrance:'A blended combination of White Lily, Chandan, White Oudh, Mysore Kewda and Pineapple.',images:['assets/image-3.png','assets/image-8.webp','assets/image-3.png']}
-};
-
-function openProductDetail(slug) {
-  const product = PRODUCTS[slug];
-  if (!product) return;
-  const detail = document.getElementById('productDetailContent');
-  if (!detail) return;
-  const mixed = product.id === 7 || product.id === 8;
-  const images = product.images.map((src,i) => `<img class="product-detail-thumb ${i===0?'active':''}" src="${src}" alt="${escapeHTML(product.name)} image ${i+1}" onclick="selectProductImage('${escapeHTML(src)}',this)">`).join('');
-  detail.innerHTML = `
-    <div class="product-detail-shell">
-      <button type="button" class="btn product-detail-back" onclick="showPage('products')">← Back to Shop</button>
-      <div class="product-detail-top">
-        <div class="product-detail-gallery">
-          <img id="productDetailMainImage" class="product-detail-main-image" src="${product.images[0]}" alt="${escapeHTML(product.name)}">
-          <div class="product-detail-thumbs">${images}</div>
-        </div>
-        <div class="product-detail-info">
-          <div class="eyebrow">ARADHYA • PREMIUM DHOOP CONES</div>
-          <h2>${escapeHTML(product.name)}</h2>
-          <span class="weight-pill">650 g</span>
-          <div class="product-detail-price">₹${product.price.toLocaleString('en-IN')}</div>
-          <div class="detail-fragrance"><strong>Fragrance:</strong> ${escapeHTML(product.fragrance)}</div>
-          <p>Bring a soothing fragrance to your home with Aradhya Premium Dhoop Cones. Designed for everyday पूजा, meditation, relaxation, and creating a pleasant atmosphere, these aromatic cones add a traditional touch to your daily rituals.</p>
-          <h3>Ingredients</h3>
-          <ul><li>Charcoal Powder</li><li>Natural Oils</li><li>Herbal Extracts</li><li>Wood Powder</li><li>Resins &amp; Gums</li></ul>
-          <h3>How to Use</h3>
-          <ol><li>Place one dhoop cone upright on a heat-resistant holder.</li><li>Carefully light the tip.</li><li>Allow the tip to catch fire briefly, then gently extinguish the flame if required by the product instructions.</li><li>Allow the cone to smoulder and release fragrance.</li></ol>
-          <h3>Safety</h3>
-          <ul><li>Do not ingest.</li><li>Avoid direct inhalation of smoke.</li><li>Use in a well-ventilated area.</li><li>Keep away from children and pets.</li><li>Keep away from flammable objects.</li><li>Do not touch hot ash or holder until cooled.</li></ul>
-          ${mixed ? '<p class="detail-fragrance"><strong>Mix fragrance:</strong> This product uses the dedicated mixed-fragrance cone image in the gallery.</p>' : ''}
-          <div class="product-detail-actions">
-            <button type="button" class="btn" onclick="addToCart('${escapeHTML(product.name)}',${product.price},${product.id},this)">🛒 Add to Cart</button>
-          </div>
-        </div>
-      </div>
-    </div>`;
-  showPage('product-detail');
-}
-
-function selectProductImage(src, thumb) {
-  const main = document.getElementById('productDetailMainImage');
-  if (main) main.src = src;
-  document.querySelectorAll('.product-detail-thumb').forEach(t => t.classList.remove('active'));
-  if (thumb) thumb.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
 function addToCart(name, price, productId, button) {
@@ -304,34 +247,4 @@ document.addEventListener('keydown', e => {
     const confirmation = document.getElementById('orderConfirmationLayer');
     if (confirmation) confirmation.remove();
   }
-});
-
-
-function saveCart() {
-  try { localStorage.setItem('aradhyaCart', JSON.stringify(cart)); } catch (_) {}
-}
-function loadCart() {
-  try {
-    const saved = JSON.parse(localStorage.getItem('aradhyaCart') || '[]');
-    if (Array.isArray(saved)) cart = saved.filter(i => i && Number.isInteger(Number(i.id)) && Number(i.id)>=1 && Number(i.id)<=8).map(i => ({id:Number(i.id),name:String(i.name),price:Number(i.price),qty:Math.max(1,Math.min(99,Number(i.qty)||1))}));
-  } catch (_) { cart = []; }
-}
-const _oldRenderCart = renderCart;
-renderCart = function(){ _oldRenderCart(); saveCart(); };
-
-document.addEventListener('DOMContentLoaded', () => {
-  loadCart();
-  renderCart();
-  const home = document.getElementById('home');
-  if (home) showPage('home');
-  document.querySelectorAll('.shop-product-card').forEach(card => {
-    card.style.cursor = 'pointer';
-    card.addEventListener('click', event => {
-      if (event.target.closest('button') || event.target.closest('a')) return;
-      const title = card.querySelector('h4');
-      if (!title) return;
-      const slug = Object.keys(PRODUCTS).find(key => PRODUCTS[key].name === title.textContent.trim());
-      if (slug) openProductDetail(slug);
-    });
-  });
 });
