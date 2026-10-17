@@ -308,7 +308,7 @@ function getProductImages(product) {
   const common = [
     'assets/product/common-boxes.jpg',
     'assets/product/common-puja.jpg',
-    'assets/image-3.png'
+    'assets/product/common-front.png'
   ];
   if (product.type === 'mix4') {
     return [common[0], common[1], 'assets/product/mix-4-cones.jpg', common[2]];
