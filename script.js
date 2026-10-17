@@ -1,804 +1,250 @@
-/* =========================================================
-   ARADHYA WEBSITE - MAIN JAVASCRIPT
-   ========================================================= */
+const ARADHYA_API_BASE = "https://aradhyabackend.www-aradhya-co.workers.dev";
+let cart = [];
+let checkoutSubmitting = false;
 
-const BACKEND_URL =
-  "https://aradhyabackend.www-aradhya-co.workers.dev";
-
-let cart = JSON.parse(localStorage.getItem("aradhyaCart") || "[]");
-
-/* =========================================================
-   PAGE NAVIGATION
-   ========================================================= */
-
-function showPage(pageId, button) {
-  document.querySelectorAll(".page").forEach(function (page) {
-    page.classList.remove("active");
-  });
-
-  const page = document.getElementById(pageId);
-
-  if (page) {
-    page.classList.add("active");
-  }
-
-  document.querySelectorAll("nav button").forEach(function (btn) {
-    btn.classList.remove("active");
-  });
-
-  if (button) {
-    button.classList.add("active");
-  }
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+function adjustShopQty(button, delta) {
+  const row = button.parentElement;
+  const value = row.querySelector('span');
+  const next = Math.max(1, Math.min(99, parseInt(value.textContent || '1', 10) + delta));
+  value.textContent = next;
 }
 
-/* =========================================================
-   PRODUCT DATA
-   ========================================================= */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById(id);
+  if (page) page.classList.add('active');
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  const map = {home:0,products:1,gallery:2,mission:3,about:4,support:5};
+  const navButton = document.querySelectorAll('nav button')[map[id]];
+  if (navButton) navButton.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
 
-const products = {
-  whiteLily: {
-    name: "White Lily",
-    price: 299,
-    fragrance: "White Lily"
-  },
-
-  whiteOudh: {
-    name: "White Oudh",
-    price: 299,
-    fragrance: "White Oudh"
-  },
-
-  mysoreChandan: {
-    name: "Mysore Chandan",
-    price: 299,
-    fragrance: "Mysore Chandan"
-  },
-
-  lavender: {
-    name: "Lavender",
-    price: 299,
-    fragrance: "Lavender"
-  },
-
-  pineapple: {
-    name: "Pineapple",
-    price: 299,
-    fragrance: "Pineapple"
-  },
-
-  mysoreKewda: {
-    name: "Mysore Kewda",
-    price: 299,
-    fragrance: "Mysore Kewda"
-  },
-
-  mixRoseBelaChandanKewda: {
-    name: "Mix – Rose, Bela, Chandan & Kewda",
-    price: 499,
-    fragrance: "Rose, Bela, Chandan & Kewda",
-    mixed: true,
-    image: "assets/products/fourCones.webp"
-  },
-
-  mixWhiteLilyChandanOudhKewdaPineapple: {
-    name:
-      "Mix – White Lily, Chandan, White Oudh, Mysore Kewda & Pineapple",
-    price: 499,
-    fragrance:
-      "White Lily, Chandan, White Oudh, Mysore Kewda & Pineapple",
-    mixed: true,
-    image: "assets/products/fiveCones.webp"
-  }
-};
-
-/* =========================================================
-   PRODUCT DETAIL
-   ========================================================= */
-
-function openProduct(productId) {
-  const product = products[productId];
-
-  if (!product) {
-    console.error("Product not found:", productId);
+function addToCart(name, price, productId, button) {
+  const id = Number(productId);
+  if (!Number.isInteger(id) || id < 1 || id > 8) {
+    showToast('This product is not available for ordering yet.');
     return;
   }
-
-  document.querySelectorAll(".page").forEach(function (page) {
-    page.classList.remove("active");
-  });
-
-  const detail = document.getElementById("product-" + productId);
-
-  if (detail) {
-    detail.classList.add("active");
-  }
-
-  const nameElements = document.querySelectorAll(
-    '[data-product-name="' + productId + '"]'
-  );
-
-  nameElements.forEach(function (element) {
-    element.textContent = product.name;
-  });
-
-  const fragranceElements = document.querySelectorAll(
-    '[data-fragrance="' + productId + '"]'
-  );
-
-  fragranceElements.forEach(function (element) {
-    element.textContent = product.fragrance;
-  });
-
-  /*
-   * Do not jump the page to the top.
-   * Product sections are opened in-place.
-   */
-
-  updateProductPrice(productId);
-}
-
-/* =========================================================
-   PRODUCT PRICE
-   ========================================================= */
-
-function updateProductPrice(productId) {
-  const product = products[productId];
-
-  if (!product) return;
-
-  document
-    .querySelectorAll('[data-price="' + productId + '"]')
-    .forEach(function (element) {
-      element.textContent = "₹" + product.price;
-    });
-}
-
-/* =========================================================
-   ADD TO CART
-   ========================================================= */
-
-function addToCart(productId, quantity) {
-  const product = products[productId];
-
-  if (!product) {
-    alert("Product not found.");
-    return;
-  }
-
-  quantity = parseInt(quantity, 10);
-
-  if (!quantity || quantity < 1) {
-    quantity = 1;
-  }
-
-  const existing = cart.find(function (item) {
-    return item.id === productId;
-  });
-
-  if (existing) {
-    existing.quantity += quantity;
-  } else {
-    cart.push({
-      id: productId,
-      name: product.name,
-      price: product.price,
-      quantity: quantity
-    });
-  }
-
-  saveCart();
+  let selectedQty = 1;
+  const card = button && button.closest('.shop-product-card');
+  const qtyNode = card && card.querySelector('.qty-row span');
+  if (qtyNode) selectedQty = Math.max(1, Math.min(99, parseInt(qtyNode.textContent || '1', 10)));
+  const existing = cart.find(item => item.id === id);
+  if (existing) existing.qty = Math.min(99, existing.qty + selectedQty);
+  else cart.push({id, name, price:Number(price), qty:selectedQty});
+  if (qtyNode) qtyNode.textContent = '1';
   renderCart();
-
-  showCart();
-
-  alert(product.name + " added to cart.");
+  document.getElementById('cartPanel').classList.add('open');
+  showToast(name + ' added to your cart.');
 }
 
-/* =========================================================
-   REMOVE FROM CART
-   ========================================================= */
-
-function removeFromCart(productId) {
-  cart = cart.filter(function (item) {
-    return item.id !== productId;
-  });
-
-  saveCart();
-  renderCart();
-}
-
-/* =========================================================
-   CHANGE CART QUANTITY
-   ========================================================= */
-
-function changeCartQuantity(productId, change) {
-  const item = cart.find(function (product) {
-    return product.id === productId;
-  });
-
+function changeQty(productId, delta) {
+  const item = cart.find(i => i.id === Number(productId));
   if (!item) return;
-
-  item.quantity += change;
-
-  if (item.quantity <= 0) {
-    removeFromCart(productId);
-    return;
-  }
-
-  saveCart();
+  item.qty += delta;
+  if (item.qty <= 0) cart = cart.filter(i => i.id !== Number(productId));
+  else item.qty = Math.min(99, item.qty);
   renderCart();
 }
 
-/* =========================================================
-   SAVE CART
-   ========================================================= */
-
-function saveCart() {
-  localStorage.setItem("aradhyaCart", JSON.stringify(cart));
+function escapeHTML(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 }
-
-/* =========================================================
-   CART TOTAL
-   ========================================================= */
 
 function getCartTotal() {
-  return cart.reduce(function (total, item) {
-    return total + item.price * item.quantity;
-  }, 0);
+  return cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 }
-
-/* =========================================================
-   CART COUNT
-   ========================================================= */
-
-function getCartCount() {
-  return cart.reduce(function (total, item) {
-    return total + item.quantity;
-  }, 0);
-}
-
-/* =========================================================
-   RENDER CART
-   ========================================================= */
 
 function renderCart() {
-  const cartContainer = document.getElementById("cartItems");
-
-  if (!cartContainer) return;
-
-  if (cart.length === 0) {
-    cartContainer.innerHTML =
-      '<div class="cart-empty">Your cart is empty.</div>';
-  } else {
-    cartContainer.innerHTML = cart
-      .map(function (item) {
-        return `
-          <div class="cart-item">
-            <div class="cart-item-info">
-              <strong>${escapeHtml(item.name)}</strong>
-              <span>₹${item.price} × ${item.quantity}</span>
-            </div>
-
-            <div class="cart-item-actions">
-              <button onclick="changeCartQuantity('${item.id}', -1)">−</button>
-              <span>${item.quantity}</span>
-              <button onclick="changeCartQuantity('${item.id}', 1)">+</button>
-              <button onclick="removeFromCart('${item.id}')">×</button>
-            </div>
-          </div>
-        `;
-      })
-      .join("");
+  const count = cart.reduce((sum, item) => sum + item.qty, 0);
+  document.getElementById('cartCount').textContent = count;
+  document.getElementById('cartTotal').textContent = getCartTotal().toLocaleString('en-IN');
+  const box = document.getElementById('cartItems');
+  if (!cart.length) {
+    box.innerHTML = '<div class="cart-empty">Your cart is empty.</div>';
+    return;
   }
-
-  const total = getCartTotal();
-
-  const totalElement = document.getElementById("cartTotal");
-
-  if (totalElement) {
-    totalElement.textContent = "₹" + total;
-  }
-
-  const countElement = document.getElementById("cartCount");
-
-  if (countElement) {
-    countElement.textContent = getCartCount();
-  }
+  box.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <span>${escapeHTML(item.name)}<br><small>₹${item.price.toLocaleString('en-IN')} × ${item.qty}</small></span>
+      <span style="display:flex;align-items:center;gap:5px;flex-shrink:0">
+        <button class="cart-close" type="button" aria-label="Remove one ${escapeHTML(item.name)}" onclick="changeQty(${item.id},-1)">−</button>
+        <span>${item.qty}</span>
+        <button class="cart-close" type="button" aria-label="Add one ${escapeHTML(item.name)}" onclick="changeQty(${item.id},1)">+</button>
+      </span>
+    </div>`).join('');
 }
 
-/* =========================================================
-   SHOW CART
-   ========================================================= */
+function toggleCart() { document.getElementById('cartPanel').classList.toggle('open'); }
+function openModal(src) { document.getElementById('modalImage').src = src; document.getElementById('imageModal').classList.add('open'); }
+function closeModal() { document.getElementById('imageModal').classList.remove('open'); document.getElementById('modalImage').src = ''; }
 
-function showCart() {
-  const cartPanel = document.getElementById("cartPanel");
-
-  if (!cartPanel) return;
-
-  cartPanel.classList.add("open");
+function showToast(message) {
+  let toast = document.getElementById('aradhyaToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'aradhyaToast';
+    toast.style.cssText = 'position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:1200;max-width:calc(100% - 28px);padding:12px 18px;border:1px solid #b88b35;border-radius:12px;background:#100d08;color:#f5d77a;font:14px Arial,sans-serif;box-shadow:0 8px 28px #0009;text-align:center';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  toast.style.display = 'block';
+  clearTimeout(toast._hideTimer);
+  toast._hideTimer = setTimeout(() => { toast.style.display = 'none'; }, 2600);
 }
-
-/* =========================================================
-   HIDE CART
-   ========================================================= */
-
-function hideCart() {
-  const cartPanel = document.getElementById("cartPanel");
-
-  if (!cartPanel) return;
-
-  cartPanel.classList.remove("open");
-}
-
-/* =========================================================
-   CHECKOUT
-   ========================================================= */
 
 function openCheckout() {
-  if (cart.length === 0) {
-    alert("Your cart is empty.");
-    return;
-  }
-
-  hideCart();
-
-  const checkout = document.getElementById("checkoutOverlay");
-
-  if (checkout) {
-    checkout.classList.add("open");
-  }
-
-  renderCheckoutSummary();
+  if (!cart.length) { showToast('Your cart is empty. Add a product first.'); return; }
+  if (document.getElementById('checkoutLayer')) return;
+  document.getElementById('cartPanel').classList.remove('open');
+  const layer = document.createElement('div');
+  layer.className = 'checkout-layer';
+  layer.id = 'checkoutLayer';
+  layer.innerHTML = `
+    <section class="checkout-dialog" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+      <button class="checkout-close-btn" type="button" aria-label="Close checkout" id="checkoutClose">×</button>
+      <div class="eyebrow">ARADHYA • SECURE ORDER REQUEST</div>
+      <h2 id="checkoutTitle">Delivery Details</h2>
+      <p class="checkout-intro">Enter your details to place your Aradhya order. Online payment is not enabled yet.</p>
+      <form id="checkoutForm" class="checkout-form">
+        <label>Full name <input name="name" id="checkoutName" autocomplete="name" maxlength="100" required placeholder="Your full name"></label>
+        <label>Mobile number <input name="phone" id="checkoutPhone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="10" pattern="[6-9][0-9]{9}" required placeholder="10-digit Indian mobile number"></label>
+        <label>Email address (optional) <input name="email" id="checkoutEmail" type="email" autocomplete="email" maxlength="150" placeholder="you@example.com"></label>
+        <label>Full delivery address <textarea name="address" id="checkoutAddress" autocomplete="street-address" maxlength="600" required placeholder="House / street / area / city / state / PIN code"></textarea></label>
+        <div class="checkout-summary" id="checkoutSummary"></div>
+        <div class="checkout-payment-note">Payment: <strong>Cash on Delivery / confirm manually</strong><br>Online payments are intentionally disabled for now. Please wait for the order confirmation screen after submitting.</div>
+        <button class="btn checkout-submit" id="placeOrderBtn" type="submit">PLACE ORDER →</button>
+        <p style="color:#9e8e67;font:11px/1.5 Arial,sans-serif;text-align:center">Your order total is verified by Aradhya's order server before the order is saved.</p>
+      </form>
+    </section>`;
+  document.body.appendChild(layer);
+  layer.querySelector('#checkoutSummary').innerHTML = buildCartSummaryHTML();
+  layer.querySelector('#checkoutClose').addEventListener('click', closeCheckout);
+  layer.addEventListener('click', e => { if (e.target === layer) closeCheckout(); });
+  layer.querySelector('#checkoutForm').addEventListener('submit', submitOrder);
+  document.getElementById('checkoutName').focus();
 }
 
-/* =========================================================
-   CLOSE CHECKOUT
-   ========================================================= */
+function buildCartSummaryHTML() {
+  const lines = cart.map(item => `<div class="checkout-summary-line"><span>${escapeHTML(item.name)} × ${item.qty}</span><span>₹${(item.price * item.qty).toLocaleString('en-IN')}</span></div>`).join('');
+  return `<div style="font:12px Arial,sans-serif;letter-spacing:1.2px;color:#c7a85f;margin-bottom:6px">YOUR ORDER</div>${lines}<div class="checkout-summary-total"><span>Estimated total</span><strong>₹${getCartTotal().toLocaleString('en-IN')}</strong></div>`;
+}
 
 function closeCheckout() {
-  const checkout = document.getElementById("checkoutOverlay");
-
-  if (checkout) {
-    checkout.classList.remove("open");
-  }
+  const layer = document.getElementById('checkoutLayer');
+  if (layer && !checkoutSubmitting) layer.remove();
 }
-
-/* =========================================================
-   CHECKOUT SUMMARY
-   ========================================================= */
-
-function renderCheckoutSummary() {
-  const summary = document.getElementById("checkoutSummary");
-
-  if (!summary) return;
-
-  if (cart.length === 0) {
-    summary.innerHTML = "<p>Your cart is empty.</p>";
-    return;
-  }
-
-  summary.innerHTML = `
-    ${cart
-      .map(function (item) {
-        return `
-          <div class="checkout-item">
-            <span>
-              ${escapeHtml(item.name)}
-              × ${item.quantity}
-            </span>
-
-            <strong>
-              ₹${item.price * item.quantity}
-            </strong>
-          </div>
-        `;
-      })
-      .join("")}
-
-    <div class="checkout-total">
-      <span>Total</span>
-      <strong>₹${getCartTotal()}</strong>
-    </div>
-  `;
-}
-
-/* =========================================================
-   SUBMIT ORDER
-   ========================================================= */
 
 async function submitOrder(event) {
-  if (event) {
-    event.preventDefault();
-  }
-
-  if (cart.length === 0) {
-    alert("Your cart is empty.");
+  event.preventDefault();
+  if (checkoutSubmitting || !cart.length) return;
+  const form = event.currentTarget;
+  if (!form.reportValidity()) return;
+  const name = document.getElementById('checkoutName').value.trim();
+  const phone = document.getElementById('checkoutPhone').value.trim();
+  const email = document.getElementById('checkoutEmail').value.trim();
+  const address = document.getElementById('checkoutAddress').value.trim();
+  if (!/^[6-9][0-9]{9}$/.test(phone)) {
+    document.getElementById('checkoutPhone').setCustomValidity('Enter a valid 10-digit Indian mobile number.');
+    document.getElementById('checkoutPhone').reportValidity();
+    document.getElementById('checkoutPhone').setCustomValidity('');
     return;
   }
-
-  const form = document.getElementById("checkoutForm");
-
-  if (!form) {
-    alert("Checkout form not found.");
-    return;
-  }
-
-  const submitButton = form.querySelector(
-    'button[type="submit"]'
-  );
-
-  if (submitButton) {
-    submitButton.disabled = true;
-    submitButton.textContent = "Placing Order...";
-  }
-
-  const formData = new FormData(form);
-
-  const customer = {
-    name: formData.get("name") || "",
-    phone: formData.get("phone") || "",
-    email: formData.get("email") || "",
-    address: formData.get("address") || "",
-    city: formData.get("city") || "",
-    state: formData.get("state") || "",
-    pincode: formData.get("pincode") || ""
-  };
-
-  if (
-    !customer.name ||
-    !customer.phone ||
-    !customer.address ||
-    !customer.city ||
-    !customer.state ||
-    !customer.pincode
-  ) {
-    alert("Please fill all required details.");
-
-    if (submitButton) {
-      submitButton.disabled = false;
-      submitButton.textContent = "Place Order";
-    }
-
-    return;
-  }
-
-  const orderItems = cart.map(function (item) {
-    return {
-      product_id: item.id,
-      product_name: item.name,
-      quantity: item.quantity,
-      price: item.price,
-      subtotal: item.price * item.quantity
-    };
-  });
-
-  const orderPayload = {
-    customer: customer,
-    items: orderItems,
-    total: getCartTotal()
-  };
-
+  const submittedCart = cart.map(item => ({...item}));
+  const estimatedTotal = submittedCart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const button = document.getElementById('placeOrderBtn');
+  checkoutSubmitting = true;
+  button.disabled = true;
+  button.textContent = 'SUBMITTING ORDER…';
+  const requestController = new AbortController();
+  const requestTimeout = setTimeout(() => requestController.abort(), 20000);
   try {
-    const response = await fetch(
-      BACKEND_URL + "/orders",
-      {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify(orderPayload)
-      }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok || !data.success) {
-      throw new Error(
-        data.message || "Unable to place order."
-      );
+    const response = await fetch(ARADHYA_API_BASE + '/create-order', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json', 'Accept':'application/json'},
+      signal: requestController.signal,
+      body: JSON.stringify({
+        customer: {name, phone, email, address},
+        customer_name: name,
+        customer_phone: phone,
+        customer_email: email,
+        customer_address: address,
+        payment_method: 'cod',
+        currency: 'INR',
+        items: submittedCart.map(item => ({product_id:item.id, id:item.id, quantity:item.qty}))
+      })
+    });
+    let data = {};
+    try { data = await response.json(); } catch (_) { data = {}; }
+    if (!response.ok || data.success === false || data.error) {
+      throw new Error(data.message || data.error || 'We could not save your order. Please check your details and try again.');
     }
-
-    /*
-     * Order successfully created.
-     */
-
-    const orderId =
-      data.order_id ||
-      data.orderId ||
-      data.id ||
-      "";
-
-    localStorage.removeItem("aradhyaCart");
-
+    const order = data.order || data.data || {};
+    const orderId = data.order_id || data.orderId || order.order_id || order.id || data.id || '';
+    if (data.success !== true && !orderId) {
+      throw new Error(data.message || 'The server did not confirm that the order was saved. Please try again.');
+    }
+    const confirmedTotal = Number(data.total ?? data.total_amount ?? order.total ?? order.total_amount);
+    const finalTotal = Number.isFinite(confirmedTotal) && confirmedTotal >= 0 ? confirmedTotal : estimatedTotal;
     cart = [];
-
     renderCart();
-
-    closeCheckout();
-
-    showOrderSuccess(orderId);
-
-    form.reset();
-
+    const layer = document.getElementById('checkoutLayer');
+    if (layer) layer.remove();
+    checkoutSubmitting = false;
+    showOrderConfirmation({orderId, name, phone, address, items:submittedCart, total:finalTotal});
   } catch (error) {
-    console.error("Order submission error:", error);
-
-    alert(
-      "Sorry, your order could not be placed right now.\n\n" +
-      error.message
-    );
+    console.error('Aradhya order submission error:', error);
+    const message = error && error.name === 'AbortError'
+      ? 'The order server took too long to respond. Please check your order status before submitting again.'
+      : (error && error.message ? error.message : 'Unable to connect to the order server. Please try again.');
+    const errorBox = document.getElementById('checkoutError');
+    if (errorBox) errorBox.textContent = message;
+    else {
+      const box = document.createElement('p');
+      box.id = 'checkoutError';
+      box.setAttribute('role','alert');
+      box.style.cssText = 'color:#ffb8a8;font:13px/1.5 Arial,sans-serif;margin-top:8px';
+      box.textContent = message;
+      const formEl = document.getElementById('checkoutForm');
+      if (formEl) formEl.insertBefore(box, formEl.querySelector('.checkout-submit'));
+    }
   } finally {
-    if (submitButton) {
-      submitButton.disabled = false;
-      submitButton.textContent = "Place Order";
-    }
+    clearTimeout(requestTimeout);
+    checkoutSubmitting = false;
+    const currentButton = document.getElementById('placeOrderBtn');
+    if (currentButton) { currentButton.disabled = false; currentButton.textContent = 'PLACE ORDER →'; }
   }
 }
 
-/* =========================================================
-   ORDER SUCCESS
-   ========================================================= */
-
-function showOrderSuccess(orderId) {
-  const message = orderId
-    ? "Your order has been placed successfully!\n\nOrder ID: " +
-      orderId
-    : "Your order has been placed successfully!";
-
-  alert(message);
-
-  const successSection =
-    document.getElementById("orderSuccess");
-
-  if (successSection) {
-    successSection.classList.add("show");
-
-    const idElement =
-      document.getElementById("successOrderId");
-
-    if (idElement) {
-      idElement.textContent = orderId || "Confirmed";
-    }
-  }
+function showOrderConfirmation(order) {
+  const layer = document.createElement('div');
+  layer.className = 'checkout-layer';
+  layer.id = 'orderConfirmationLayer';
+  const reference = order.orderId ? escapeHTML(order.orderId) : 'Order received';
+  const lines = order.items.map(item => `<div class="checkout-summary-line"><span>${escapeHTML(item.name)} × ${item.qty}</span><span>₹${(item.price * item.qty).toLocaleString('en-IN')}</span></div>`).join('');
+  layer.innerHTML = `
+    <section class="checkout-dialog order-success" role="dialog" aria-modal="true" aria-labelledby="orderSuccessTitle">
+      <div class="order-success-mark">✓</div>
+      <div class="eyebrow">ARADHYA • ORDER REQUEST RECEIVED</div>
+      <h2 id="orderSuccessTitle">Thank you, ${escapeHTML(order.name)}.</h2>
+      <p class="checkout-intro">Your order request has been saved. Keep your order reference for any follow-up with Aradhya.</p>
+      <div class="order-reference">${reference}</div>
+      <div class="order-success-items">${lines}<div class="checkout-summary-total"><span>Order total</span><strong>₹${Number(order.total).toLocaleString('en-IN')}</strong></div></div>
+      <p class="checkout-payment-note" style="text-align:left">Payment method: Cash on Delivery / manual confirmation.<br>We may contact you on ${escapeHTML(order.phone)} to confirm delivery details. Online payment has not been taken.</p>
+      <button class="btn" type="button" id="confirmationDone" style="width:100%;margin-top:18px">CONTINUE SHOPPING</button>
+    </section>`;
+  document.body.appendChild(layer);
+  layer.querySelector('#confirmationDone').addEventListener('click', () => layer.remove());
+  layer.addEventListener('click', e => { if (e.target === layer) layer.remove(); });
 }
 
-/* =========================================================
-   ESCAPE HTML
-   ========================================================= */
-
-function escapeHtml(value) {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
-/* =========================================================
-   PRODUCT IMAGE SLIDER
-   ========================================================= */
-
-function changeProductImage(sliderId, direction) {
-  const slider =
-    document.getElementById(sliderId);
-
-  if (!slider) return;
-
-  const images =
-    slider.querySelectorAll("img");
-
-  if (!images.length) return;
-
-  let current =
-    parseInt(
-      slider.dataset.current || "0",
-      10
-    );
-
-  images[current].classList.remove("active");
-
-  current += direction;
-
-  if (current < 0) {
-    current = images.length - 1;
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeModal();
+    document.getElementById('cartPanel').classList.remove('open');
+    closeCheckout();
+    const confirmation = document.getElementById('orderConfirmationLayer');
+    if (confirmation) confirmation.remove();
   }
-
-  if (current >= images.length) {
-    current = 0;
-  }
-
-  images[current].classList.add("active");
-
-  slider.dataset.current = current;
-}
-
-/* =========================================================
-   TOUCH / SWIPE SUPPORT
-   ========================================================= */
-
-function enableSwipe(slider) {
-  if (!slider) return;
-
-  let startX = 0;
-  let endX = 0;
-
-  slider.addEventListener(
-    "touchstart",
-    function (event) {
-      startX = event.changedTouches[0].screenX;
-    },
-    { passive: true }
-  );
-
-  slider.addEventListener(
-    "touchend",
-    function (event) {
-      endX = event.changedTouches[0].screenX;
-
-      const difference = endX - startX;
-
-      if (Math.abs(difference) < 40) {
-        return;
-      }
-
-      if (difference < 0) {
-        changeProductImage(
-          slider.id,
-          1
-        );
-      } else {
-        changeProductImage(
-          slider.id,
-          -1
-        );
-      }
-    },
-    { passive: true }
-  );
-}
-
-/* =========================================================
-   MODAL CLOSE ON OUTSIDE CLICK
-   ========================================================= */
-
-document.addEventListener(
-  "click",
-  function (event) {
-    const checkout =
-      document.getElementById("checkoutOverlay");
-
-    if (
-      checkout &&
-      event.target === checkout
-    ) {
-      closeCheckout();
-    }
-  }
-);
-
-/* =========================================================
-   ESC KEY
-   ========================================================= */
-
-document.addEventListener(
-  "keydown",
-  function (event) {
-    if (event.key === "Escape") {
-      closeCheckout();
-      hideCart();
-    }
-  }
-);
-
-/* =========================================================
-   INITIALIZATION
-   ========================================================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
-    renderCart();
-
-    document
-      .querySelectorAll(
-        ".product-slider"
-      )
-      .forEach(function (slider) {
-        enableSwipe(slider);
-      });
-
-    /*
-     * Checkout form
-     */
-
-    const checkoutForm =
-      document.getElementById(
-        "checkoutForm"
-      );
-
-    if (checkoutForm) {
-      checkoutForm.addEventListener(
-        "submit",
-        submitOrder
-      );
-    }
-
-    /*
-     * Close cart button
-     */
-
-    const closeCartButton =
-      document.getElementById(
-        "closeCart"
-      );
-
-    if (closeCartButton) {
-      closeCartButton.addEventListener(
-        "click",
-        hideCart
-      );
-    }
-
-    /*
-     * Open cart button
-     */
-
-    const cartButton =
-      document.getElementById(
-        "cartButton"
-      );
-
-    if (cartButton) {
-      cartButton.addEventListener(
-        "click",
-        showCart
-      );
-    }
-
-    /*
-     * Checkout button
-     */
-
-    const checkoutButton =
-      document.getElementById(
-        "checkoutButton"
-      );
-
-    if (checkoutButton) {
-      checkoutButton.addEventListener(
-        "click",
-        openCheckout
-      );
-    }
-
-    /*
-     * Close checkout button
-     */
-
-    const closeCheckoutButton =
-      document.getElementById(
-        "closeCheckout"
-      );
-
-    if (closeCheckoutButton) {
-      closeCheckoutButton.addEventListener(
-        "click",
-        closeCheckout
-      );
-    }
-
-    /*
-     * Make sure cart is displayed correctly
-     */
-
-    renderCart();
-  }
-);
+});
