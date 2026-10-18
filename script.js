@@ -797,8 +797,8 @@ function showOrderConfirmation(order) {
     .querySelector('#whatsappOrderConfirm')
     .addEventListener('click', () => {
 
-      const whatsappNumber =
-        '917992148373';
+   const whatsappNumber =
+  '918957966963';
 
       const productLines =
         order.items.map(item =>
