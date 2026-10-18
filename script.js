@@ -317,14 +317,19 @@ function getProductImages(product) {
   const common = [
     'assets/product/common-boxes.jpg',
     'assets/product/common-puja.jpg',
-    'assets/product/common-front.png'
+    'assets/product/common-front.png',
+    'assets/product/flavour-common.jpg',
+    'assets/product/image-3.png'
   ];
+
   if (product.type === 'mix4') {
     return [common[0], common[1], 'assets/product/mix-4-cones.jpg', common[2]];
   }
+
   if (product.type === 'mix5') {
     return [common[0], common[1], 'assets/product/mix-5-cones.jpg', common[2]];
   }
+
   return common;
 }
 
